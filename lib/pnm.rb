@@ -6,6 +6,7 @@ require_relative 'pnm/version'
 require_relative 'pnm/image'
 require_relative 'pnm/parser'
 require_relative 'pnm/converter'
+require_relative 'pnm/exceptions'
 
 
 # PNM is a pure Ruby library for creating, reading,
