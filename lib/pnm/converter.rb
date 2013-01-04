@@ -108,9 +108,8 @@ module PNM
         Integer(value)
       end
     rescue ::ArgumentError => e
-      if e.message.start_with?('invalid value')
-        value = e.message[/\"(.*?)\"/][1..-2]
-        raise PNM::DataError, "invalid pixel value - `#{value}'"
+      if e.message.start_with?('invalid value for Integer')
+        raise PNM::DataError, "invalid pixel value: Integer expected"
       else
         raise
       end
