@@ -32,12 +32,8 @@ Read an image from a file:
 Installation
 ------------
 
-You can either
-
-- use `gem install pnm`,
-
-- clone or download the repository and use `rake build`
-  and `[sudo] gem install pnm` to install PNM.
+Clone or download the repository and use `rake build`
+and `[sudo] gem install pnm` to install PNM.
 
 Requirements
 ------------
