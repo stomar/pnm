@@ -40,13 +40,18 @@ describe PNM::Image do
     image.pixels.must_equal [[[0,0,0], [3,3,3], [6,6,6]], [[3,3,3], [6,6,6], [9,9,9]]]
   end
 
-  it 'can be written to an ASCII encoded file' do
+  it 'can write a bilevel image to an ASCII encoded file' do
     @bilevel.write(@bilevel_path, :ascii)
-    @grayscale.write(@grayscale_path, :ascii)
-    @color.write(@color_path, :ascii)
-
     File.delete(@bilevel_path)
+  end
+
+  it 'can write a grayscale image to an ASCII encoded file' do
+    @grayscale.write(@grayscale_path, :ascii)
     File.delete(@grayscale_path)
+  end
+
+  it 'can write a color image to an ASCII encoded file' do
+    @color.write(@color_path, :ascii)
     File.delete(@color_path)
   end
 
