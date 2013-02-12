@@ -178,9 +178,11 @@ module PNM
     end
 
     def to_binary
-      raise NotImplementedError  if type == :pbm
-
-      data_string = pixels.flatten.map {|pixel| pixel.chr }.join('')
+      if type == :pbm
+        raise NotImplementedError
+      else
+        data_string = pixels.flatten.map {|pixel| pixel.chr }.join('')
+      end
 
       header(:binary) << data_string
     end
