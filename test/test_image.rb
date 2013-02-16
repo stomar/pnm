@@ -12,6 +12,7 @@ describe PNM::Image do
   before do
     @srcpath = File.dirname(__FILE__)
     @bilevel_path = File.expand_path("#{@srcpath}/temp.pbm")
+    @bilevel_2_path = File.expand_path("#{@srcpath}/temp.pbm")
     @grayscale_path = File.expand_path("#{@srcpath}/temp.pgm")
     @color_path = File.expand_path("#{@srcpath}/temp.ppm")
 
@@ -22,6 +23,14 @@ describe PNM::Image do
               [0,0,1,0,0],
               [0,0,0,0,0]]
     @bilevel = PNM::Image.new(:pbm, pixels)
+
+    pixels = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+              [0,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0],
+              [0,0,1,0,0,1,0,0,1,0,1,0,1,0,1,0],
+              [0,0,1,0,0,1,0,0,1,0,1,0,1,0,1,0],
+              [0,0,1,0,0,1,1,1,1,0,1,0,1,0,1,0],
+              [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
+    @bilevel_2 = PNM::Image.new(:pbm, pixels)
 
     pixels = [[  0, 50,100,150],
               [ 50,100,150,200],
@@ -43,6 +52,18 @@ describe PNM::Image do
   it 'can write a bilevel image to an ASCII encoded file' do
     @bilevel.write(@bilevel_path, :ascii)
     File.read(@bilevel_path).must_equal File.read("#{@srcpath}/bilevel_ascii.pbm")
+    File.delete(@bilevel_path)
+  end
+
+  it 'can write a bilevel image (width 5) to a binary encoded file' do
+    @bilevel.write(@bilevel_path, :binary)
+    File.read(@bilevel_path).must_equal File.read("#{@srcpath}/bilevel_binary.pbm")
+    File.delete(@bilevel_path)
+  end
+
+  it 'can write a bilevel image (width 16) to a binary encoded file' do
+    @bilevel_2.write(@bilevel_path, :binary)
+    File.read(@bilevel_path).must_equal File.read("#{@srcpath}/bilevel_2_binary.pbm")
     File.delete(@bilevel_path)
   end
 

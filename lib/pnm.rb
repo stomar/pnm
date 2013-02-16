@@ -179,7 +179,15 @@ module PNM
 
     def to_binary
       if type == :pbm
-        raise NotImplementedError
+        if width % 8 == 0
+          padding = []
+        else
+          padding = Array.new(8 - width % 8, 0)
+        end
+        padded_rows = pixels.map {|row| row + padding }
+        byte_rows = padded_rows.map {|row| row.join.scan(/.{8}/) }
+
+        data_string = byte_rows.flatten.map {|byte| byte.to_i(2).chr }.join
       else
         data_string = pixels.flatten.map {|pixel| pixel.chr }.join('')
       end
