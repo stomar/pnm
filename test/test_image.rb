@@ -52,9 +52,21 @@ describe PNM::Image do
     File.delete(@grayscale_path)
   end
 
+  it 'can write a grayscale image to a binary encoded file' do
+    @grayscale.write(@grayscale_path, :binary)
+    File.read(@grayscale_path).must_equal File.read("#{@srcpath}/grayscale_binary.pgm")
+    File.delete(@grayscale_path)
+  end
+
   it 'can write a color image to an ASCII encoded file' do
     @color.write(@color_path, :ascii)
     File.read(@color_path).must_equal File.read("#{@srcpath}/color_ascii.ppm")
+    File.delete(@color_path)
+  end
+
+  it 'can write a color image to a binary encoded file' do
+    @color.write(@color_path, :binary)
+    File.read(@color_path).must_equal File.read("#{@srcpath}/color_binary.ppm")
     File.delete(@color_path)
   end
 
