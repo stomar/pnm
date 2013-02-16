@@ -10,10 +10,10 @@ require 'pnm'
 describe PNM::Image do
 
   before do
-    srcpath = File.dirname(__FILE__)
-    @bilevel_path = File.expand_path("#{srcpath}/temp.pbm")
-    @grayscale_path = File.expand_path("#{srcpath}/temp.pgm")
-    @color_path = File.expand_path("#{srcpath}/temp.ppm")
+    @srcpath = File.dirname(__FILE__)
+    @bilevel_path = File.expand_path("#{@srcpath}/temp.pbm")
+    @grayscale_path = File.expand_path("#{@srcpath}/temp.pgm")
+    @color_path = File.expand_path("#{@srcpath}/temp.ppm")
 
     pixels = [[0,0,0,0,0],
               [0,1,1,1,0],
@@ -42,16 +42,19 @@ describe PNM::Image do
 
   it 'can write a bilevel image to an ASCII encoded file' do
     @bilevel.write(@bilevel_path, :ascii)
+    File.read(@bilevel_path).must_equal File.read("#{@srcpath}/bilevel_ascii.pbm")
     File.delete(@bilevel_path)
   end
 
   it 'can write a grayscale image to an ASCII encoded file' do
     @grayscale.write(@grayscale_path, :ascii)
+    File.read(@grayscale_path).must_equal File.read("#{@srcpath}/grayscale_ascii.pgm")
     File.delete(@grayscale_path)
   end
 
   it 'can write a color image to an ASCII encoded file' do
     @color.write(@color_path, :ascii)
+    File.read(@color_path).must_equal File.read("#{@srcpath}/color_ascii.ppm")
     File.delete(@color_path)
   end
 
