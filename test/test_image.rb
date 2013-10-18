@@ -4,7 +4,7 @@
 
 require 'minitest/spec'
 require 'minitest/autorun'
-require 'pnm'
+require 'pnm/image'
 
 
 describe PNM::Image do

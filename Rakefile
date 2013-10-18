@@ -4,7 +4,7 @@
 
 require 'rake/testtask'
 
-require './lib/pnm'
+require_relative 'lib/pnm'
 
 LIBNAME  = PNM::LIBNAME
 HOMEPAGE = PNM::HOMEPAGE
