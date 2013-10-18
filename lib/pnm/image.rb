@@ -36,9 +36,7 @@ module PNM
       "#{type.to_s.upcase} #{width}x#{height} #{type_string}"
     end
 
-    def to_s
-      "#<#{self.class}:0x#{object_id.to_s(16)} #{info}>"
-    end
+    alias :to_s :info
 
     private
 
