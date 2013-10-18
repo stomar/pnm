@@ -40,7 +40,7 @@ Requirements
 
 - No additional Ruby gems or native libraries are needed.
 
-- PNM has been tested with Ruby 1.8.7 and Ruby 1.9.3
+- PNM has been tested with Ruby 1.9.3 and Ruby 2.0.0
   on a Linux machine and on Windows.
 
 Documentation
