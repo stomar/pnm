@@ -6,10 +6,6 @@ require 'rake/testtask'
 
 require_relative 'lib/pnm'
 
-LIBNAME  = PNM::LIBNAME
-HOMEPAGE = PNM::HOMEPAGE
-TAGLINE  = PNM::TAGLINE
-
 
 def gemspec_file
   'pnm.gemspec'
