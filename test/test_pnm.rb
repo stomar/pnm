@@ -1,4 +1,4 @@
-# test_read.rb: Unit tests for the PNM library.
+# test_pnm.rb: Unit tests for the PNM library.
 #
 # Copyright (C) 2013 Marcus Stollsteimer
 
