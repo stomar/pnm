@@ -4,6 +4,7 @@
 
 require_relative 'pnm/version'
 require_relative 'pnm/image'
+require_relative 'pnm/parser'
 
 
 # PNM is a pure Ruby library for creating, reading,
@@ -79,16 +80,16 @@ module PNM
   #
   # Returns a PNM::Image object.
   def self.read(file)
-    content = nil
+    raw_data = nil
     if file.kind_of?(String)
-      File.open(file, 'rb') {|f| content = f.read }
+      File.open(file, 'rb') {|f| raw_data = f.read }
     else
-      content = file.read
+      raw_data = file.read
     end
 
-    magic_string = content[0..1]
+    content = Parser.parse(raw_data)
 
-    case magic_string
+    case content[:magic_number]
     when 'P1', 'P3', 'P4', 'P5', 'P6'
       raise NotImplementedError
     when 'P2'
@@ -96,8 +97,8 @@ module PNM
       #encoding = :ascii
     end
 
-    # _, _, _ = magic, width, height
-    _, _, _, maxgray, data = content.split(/[ \t\r\n]+/, 5)
+    maxgray = content[:maxgray]
+    data = content[:data]
 
     pixels = data.split("\n").map do |row|
       row.split(/ +/).map {|value| value.to_i }
