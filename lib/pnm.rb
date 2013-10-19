@@ -76,7 +76,7 @@ module PNM
 
   # Reads an image file.
   #
-  # So far only ASCII encoded PGM files without comments can be handled.
+  # So far only ASCII encoded image files can be handled.
   #
   # Returns a PNM::Image object.
   def self.read(file)
@@ -90,21 +90,33 @@ module PNM
     content = Parser.parse(raw_data)
 
     case content[:magic_number]
-    when 'P1', 'P3', 'P4', 'P5', 'P6'
-      raise NotImplementedError
+    when 'P1'
+      type = :pbm
     when 'P2'
       type = :pgm
-      #encoding = :ascii
+    when 'P3'
+      type = :ppm
+    when 'P4'
+      type = :pbm
+      raise NotImplementedError
+    when 'P5'
+      type = :pgm
+      raise NotImplementedError
+    when 'P6'
+      type = :ppm
+      raise NotImplementedError
     end
 
-    maxgray = content[:maxgray]
+    maxgray = content[:maxgray].to_i
     data = content[:data]
 
     pixels = data.split("\n").map do |row|
       row.split(/ +/).map {|value| value.to_i }
     end
 
-    Image.new(type, pixels, {:maxgray => maxgray.to_i})
+    pixels.map! {|row| row.each_slice(3).to_a }  if type == :ppm
+
+    Image.new(type, pixels, {:maxgray => maxgray})
   end
 
   def self.magic_number  # :nodoc:
