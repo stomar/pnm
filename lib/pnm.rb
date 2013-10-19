@@ -19,7 +19,8 @@ require_relative 'pnm/image'
 #
 #     require 'pnm'
 #
-#     pixels = [[0, 1, 2], [1, 2, 3]]
+#     pixels = [[0, 1, 2],
+#               [1, 2, 3]]
 #     image = PNM::Image.new(:pgm, pixels, {:maxgray => 3})
 #
 # Write an image to a file:
@@ -61,21 +62,22 @@ require_relative 'pnm/image'
 #
 module PNM
 
-  LIBNAME  = 'pnm'
-  HOMEPAGE = 'https://github.com/stomar/pnm'
-  TAGLINE  = 'create/read/write PNM image files (PBM, PGM, PPM)'
+  LIBNAME  = 'pnm'                                                # :nodoc:
+  HOMEPAGE = 'https://github.com/stomar/pnm'                      # :nodoc:
+  TAGLINE  = 'create/read/write PNM image files (PBM, PGM, PPM)'  # :nodoc:
 
-  COPYRIGHT = <<-copyright.gsub(/^ +/, '')
+  COPYRIGHT = <<-copyright.gsub(/^ +/, '')                        # :nodoc:
     Copyright (C) 2012-2013 Marcus Stollsteimer.
     License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
     This is free software: you are free to change and redistribute it.
     There is NO WARRANTY, to the extent permitted by law.
   copyright
 
-  # Read an image file.
+  # Reads an image file.
   #
-  # At the moment, only ASCII encoded PGM files without comments
-  # can be handled.
+  # So far only ASCII encoded PGM files without comments can be handled.
+  #
+  # Returns a PNM::Image object.
   def self.read(file)
     content = nil
     if file.kind_of?(String)

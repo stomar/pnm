@@ -3,9 +3,30 @@ module PNM
   # Class for +PBM+, +PGM+, and +PPM+ images. See PNM module for examples.
   class Image
 
-    attr_reader :type, :width, :height, :maxgray, :pixels
+    # The type of the image (+:pbm+, +:pgm+, or +:ppm+).
+    attr_reader :type
 
-    # Create an image from an array of gray or RGB values.
+    # The width of the image in pixels.
+    attr_reader :width
+
+    # The height of the image in pixels.
+    attr_reader :height
+
+    # The maximum gray or color value.
+    # For PGM and PPM, +maxgray+ must be less or equal 255 (default value).
+    attr_reader :maxgray
+
+    # The pixel data, given as two-dimensional array of:
+    #
+    # * for PBM: values of 0 or 1,
+    # * for PGM: values between 0 and +maxgray+,
+    # * for PPM: an array of 3 values between 0 and +maxgray+,
+    #   corresponding to red, green, and blue (RGB).
+    #
+    # A value of 0 means that the color is turned off.
+    attr_reader :pixels
+
+    # Creates an image from a two-dimensional array of gray or RGB values.
     def initialize(type, pixels, options = {})
       @type    = type
       @width   = pixels.first.size
@@ -18,6 +39,10 @@ module PNM
       end
     end
 
+    # Writes the image to a file, using the specified encoding.
+    # Valid encodings are +:binary+ (default) and +:ascii+.
+    #
+    # Returns the number of bytes written.
     def write(file, encoding = :binary)
       content = if encoding == :ascii
                   to_ascii
@@ -32,6 +57,7 @@ module PNM
       end
     end
 
+    # Returns a string with a short image format description.
     def info
       "#{type.to_s.upcase} #{width}x#{height} #{type_string}"
     end
