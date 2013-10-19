@@ -12,7 +12,7 @@ module PNM
     # The height of the image in pixels.
     attr_reader :height
 
-    # The maximum gray or color value.
+    # The maximum gray or color value. For PBM, +maxgray+ is always set to 1.
     # For PGM and PPM, +maxgray+ must be less or equal 255 (default value).
     attr_reader :maxgray
 
@@ -33,6 +33,8 @@ module PNM
       @height  = pixels.size
       @maxgray = options[:maxgray] || 255
       @pixels  = pixels
+
+      @maxgray = 1  if type == :pbm
 
       if type == :ppm && !pixels.first.first.kind_of?(Array)
         @pixels = pixels.map {|row| row.map {|pixel| gray_to_rgb(pixel) } }
