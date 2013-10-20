@@ -77,8 +77,6 @@ module PNM
 
   # Reads an image file.
   #
-  # So far only ASCII encoded image files can be handled.
-  #
   # Returns a PNM::Image object.
   def self.read(file)
     raw_data = nil
@@ -93,23 +91,32 @@ module PNM
     case content[:magic_number]
     when 'P1'
       type = :pbm
+      encoding = :ascii
     when 'P2'
       type = :pgm
+      encoding = :ascii
     when 'P3'
       type = :ppm
+      encoding = :ascii
     when 'P4'
       type = :pbm
-      raise NotImplementedError
+      encoding = :binary
     when 'P5'
       type = :pgm
-      raise NotImplementedError
+      encoding = :binary
     when 'P6'
       type = :ppm
-      raise NotImplementedError
+      encoding = :binary
     end
 
+    width   = content[:width].to_i
+    height  = content[:height].to_i
     maxgray = content[:maxgray].to_i
-    pixels = Converter.ascii2array(type, content[:data])
+    pixels = if encoding == :ascii
+               Converter.ascii2array(type, content[:data])
+             else
+               Converter.binary2array(type, width, height, content[:data])
+             end
 
     Image.new(type, pixels, {:maxgray => maxgray})
   end
