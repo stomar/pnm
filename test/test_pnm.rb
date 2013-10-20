@@ -19,6 +19,7 @@ describe PNM do
 
     image.info.must_match %r{^PBM 5x6 Bilevel}
     image.maxgray.must_equal 1
+    image.comment.must_equal 'Bilevel'
     image.pixels.must_equal [[0,0,0,0,0],
                              [0,1,1,1,0],
                              [0,0,1,0,0],
@@ -33,6 +34,7 @@ describe PNM do
 
     image.info.must_match %r{^PGM 4x3 Grayscale}
     image.maxgray.must_equal 250
+    image.comment.must_equal "Grayscale\n(with multiline comment)"
     image.pixels.must_equal [[  0, 50,100,150],
                              [ 50,100,150,200],
                              [100,150,200,250]]
@@ -55,6 +57,7 @@ describe PNM do
 
     image.info.must_match %r{^PBM 5x6 Bilevel}
     image.maxgray.must_equal 1
+    image.comment.must_equal 'Bilevel'
     image.pixels.must_equal [[0,0,0,0,0],
                              [0,1,1,1,0],
                              [0,0,1,0,0],
@@ -69,6 +72,7 @@ describe PNM do
 
     image.info.must_match %r{^PGM 4x3 Grayscale}
     image.maxgray.must_equal 250
+    image.comment.must_equal "Grayscale\n(with multiline comment)"
     image.pixels.must_equal [[  0, 50,100,150],
                              [ 50,100,150,200],
                              [100,150,200,250]]

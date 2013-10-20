@@ -22,7 +22,8 @@ describe PNM::Image do
               [0,0,1,0,0],
               [0,0,1,0,0],
               [0,0,0,0,0]]
-    @bilevel = PNM::Image.new(:pbm, pixels)
+    comment = 'Bilevel'
+    @bilevel = PNM::Image.new(:pbm, pixels, {:comment => comment})
 
     pixels = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
               [0,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0],
@@ -35,7 +36,8 @@ describe PNM::Image do
     pixels = [[  0, 50,100,150],
               [ 50,100,150,200],
               [100,150,200,250]]
-    @grayscale = PNM::Image.new(:pgm, pixels, {:maxgray => 250})
+    comment = "Grayscale\n(with multiline comment)"
+    @grayscale = PNM::Image.new(:pgm, pixels, {:maxgray => 250, :comment => comment})
 
     pixels = [[[0,6,0], [1,5,1], [2,4,2], [3,3,4], [4,2,6]],
               [[1,5,2], [2,4,2], [3,3,2], [4,2,2], [5,1,2]],

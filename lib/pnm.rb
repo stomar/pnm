@@ -23,7 +23,7 @@ require_relative 'pnm/converter'
 #
 #     pixels = [[0, 1, 2],
 #               [1, 2, 3]]
-#     image = PNM::Image.new(:pgm, pixels, {:maxgray => 3})
+#     image = PNM::Image.new(:pgm, pixels, {:maxgray => 3, :comment => 'Image'})
 #
 # Write an image to a file:
 #
@@ -33,6 +33,7 @@ require_relative 'pnm/converter'
 #
 #     image = PNM.read('test.pgm')
 #     image.info     # => "PGM 3x2 Grayscale"
+#     image.comment  # => "Image"
 #     image.maxgray  # => 3
 #     image.pixels   # => [[0, 1, 2], [1, 2, 3]]
 #
@@ -118,7 +119,10 @@ module PNM
                Converter.binary2array(type, width, height, content[:data])
              end
 
-    Image.new(type, pixels, {:maxgray => maxgray})
+    options = {:maxgray => maxgray}
+    options[:comment] = content[:comments].join("\n")  if content[:comments]
+
+    Image.new(type, pixels, options)
   end
 
   def self.magic_number  # :nodoc:

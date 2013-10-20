@@ -26,12 +26,16 @@ module PNM
     # A value of 0 means that the color is turned off.
     attr_reader :pixels
 
+    # An optional multiline comment.
+    attr_reader :comment
+
     # Creates an image from a two-dimensional array of gray or RGB values.
     def initialize(type, pixels, options = {})
       @type    = type
       @width   = pixels.first.size
       @height  = pixels.size
       @maxgray = options[:maxgray] || 255
+      @comment = (options[:comment] || '').chomp
       @pixels  = pixels
 
       @maxgray = 1  if type == :pbm
@@ -80,7 +84,11 @@ module PNM
     end
 
     def header(encoding)
-      header =  "#{PNM.magic_number[type][encoding]}\n#{width} #{height}\n"
+      header =  "#{PNM.magic_number[type][encoding]}\n"
+      if comment
+        comment.split("\n").each {|line| header << "# #{line}\n" }
+      end
+      header << "#{width} #{height}\n"
       header << "#{maxgray}\n"  unless type == :pbm
 
       header
