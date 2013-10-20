@@ -87,25 +87,13 @@ module PNM
     end
 
     def to_ascii
-      data_string = pixels.map {|row| row.flatten.join(' ') }.join("\n")
+      data_string = Converter.array2ascii(pixels)
 
-      header(:ascii) << data_string << "\n"
+      header(:ascii) << data_string
     end
 
     def to_binary
-      if type == :pbm
-        if width % 8 == 0
-          padding = []
-        else
-          padding = Array.new(8 - width % 8, 0)
-        end
-        padded_rows = pixels.map {|row| row + padding }
-        byte_rows = padded_rows.map {|row| row.join.scan(/.{8}/) }
-
-        data_string = byte_rows.flatten.map {|byte| byte.to_i(2).chr }.join
-      else
-        data_string = pixels.flatten.map {|pixel| pixel.chr }.join('')
-      end
+      data_string = Converter.array2binary(type, pixels)
 
       header(:binary) << data_string
     end

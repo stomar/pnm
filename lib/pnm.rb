@@ -5,6 +5,7 @@
 require_relative 'pnm/version'
 require_relative 'pnm/image'
 require_relative 'pnm/parser'
+require_relative 'pnm/converter'
 
 
 # PNM is a pure Ruby library for creating, reading,
@@ -108,13 +109,7 @@ module PNM
     end
 
     maxgray = content[:maxgray].to_i
-    data = content[:data]
-
-    pixels = data.split("\n").map do |row|
-      row.split(/ +/).map {|value| value.to_i }
-    end
-
-    pixels.map! {|row| row.each_slice(3).to_a }  if type == :ppm
+    pixels = Converter.ascii2array(type, content[:data])
 
     Image.new(type, pixels, {:maxgray => maxgray})
   end
