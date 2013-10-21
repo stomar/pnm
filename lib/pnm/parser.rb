@@ -5,16 +5,16 @@ module PNM
 
     # Parses PNM image data.
     #
-    # +content+ - A string containing the image file content.
+    # +content+:: A string containing the image file content.
     #
     # Returns a hash containing the parsed data as strings:
     #
-    # * +:magic_number+
-    # * +:maxgray+ (only for PGM and PPM)
-    # * +:width+
-    # * +:height+
-    # * +:data+
-    # * +:comments+ (only if present): an array of comment strings
+    # * +:magic_number+,
+    # * +:maxgray+ (only for PGM and PPM),
+    # * +:width+,
+    # * +:height+,
+    # * +:data+,
+    # * +:comments+ (only if present): an array of comment strings.
     def self.parse(content)
       content = content.dup
 

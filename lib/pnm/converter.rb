@@ -5,10 +5,10 @@ module PNM
 
     # Converts from ASCII format to an array of pixel values.
     #
-    # +type+ - +:pbm+, +:pgm+, or +:ppm+.
-    # +data+ - A string containing the raw pixel data in ASCII format.
+    # +type+:: +:pbm+, +:pgm+, or +:ppm+.
+    # +data+:: A string containing the raw pixel data in ASCII format.
     #
-    # Returns a two-dimensional array of gray or RGB values.
+    # Returns a two-dimensional array of bilevel, gray, or RGB values.
     def self.ascii2array(type, data)
       pixels = data.dup.split("\n").map do |row|
         row.split(/ +/).map {|value| value.to_i }
@@ -21,11 +21,11 @@ module PNM
 
     # Converts from binary format to an array of pixel values.
     #
-    # +type+  - +:pbm+, +:pgm+, or +:ppm+.
-    # +width+, +height+ - The image dimensions in pixels.
-    # +data+  - A string containing the raw pixel data in binary format.
+    # +type+::            +:pbm+, +:pgm+, or +:ppm+.
+    # +width+, +height+:: The image dimensions in pixels.
+    # +data+::            A string containing the raw pixel data in binary format.
     #
-    # Returns a two-dimensional array of gray or RGB values.
+    # Returns a two-dimensional array of bilevel, gray, or RGB values.
     def self.binary2array(type, width, height, data)
       bytes_per_row = case type
                       when :pbm
@@ -57,7 +57,7 @@ module PNM
 
     # Converts a two-dimensional array of pixel values to an ASCII format string.
     #
-    # +data+  - A two-dimensional array of gray or RGB values.
+    # +data+:: A two-dimensional array of bilevel, gray, or RGB values.
     #
     # Returns a string containing the pixel data in ASCII format.
     def self.array2ascii(data)
@@ -68,8 +68,8 @@ module PNM
 
     # Converts a two-dimensional array of pixel values to a binary format string.
     #
-    # +type+  - +:pbm+, +:pgm+, or +:ppm+.
-    # +data+  - A two-dimensional array of gray or RGB values.
+    # +type+:: +:pbm+, +:pgm+, or +:ppm+.
+    # +data+:: A two-dimensional array of bilevel, gray, or RGB values.
     #
     # Returns a string containing the pixel data in binary format.
     def self.array2binary(type, data)

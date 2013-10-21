@@ -3,7 +3,7 @@ module PNM
   # Class for +PBM+, +PGM+, and +PPM+ images. See PNM module for examples.
   class Image
 
-    # The type of the image (+:pbm+, +:pgm+, or +:ppm+).
+    # The type of the image. See ::new for details.
     attr_reader :type
 
     # The width of the image in pixels.
@@ -12,24 +12,38 @@ module PNM
     # The height of the image in pixels.
     attr_reader :height
 
-    # The maximum gray or color value. For PBM, +maxgray+ is always set to 1.
-    # For PGM and PPM, +maxgray+ must be less or equal 255 (default value).
+    # The maximum gray or color value. See ::new for details.
     attr_reader :maxgray
 
-    # The pixel data, given as two-dimensional array of:
-    #
-    # * for PBM: values of 0 or 1,
-    # * for PGM: values between 0 and +maxgray+,
-    # * for PPM: an array of 3 values between 0 and +maxgray+,
-    #   corresponding to red, green, and blue (RGB).
-    #
-    # A value of 0 means that the color is turned off.
+    # The pixel data, given as a two-dimensional array.
+    # See ::new for details.
     attr_reader :pixels
 
-    # An optional multiline comment.
+    # An optional multiline comment string.
     attr_reader :comment
 
-    # Creates an image from a two-dimensional array of gray or RGB values.
+    # Creates an image from a two-dimensional array of bilevel,
+    # gray, or RGB values.
+    #
+    # +type+::    The type of the image (+:pbm+, +:pgm+, or +:ppm+).
+    # +pixels+::  The pixel data, given as a two-dimensional array of
+    #
+    #             * for PBM: bilevel values (0 or 1),
+    #             * for PGM: gray values between 0 and +maxgray+,
+    #             * for PPM: an array of 3 values between 0 and +maxgray+,
+    #               corresponding to red, green, and blue (RGB).
+    #
+    #             PPM also accepts an array of gray values.
+    #
+    #             A value of 0 means that the color is turned off.
+    #
+    # Optional settings that can be specified in the +options+ hash:
+    #
+    # +maxgray+:: The maximum gray or color value.
+    #             For PGM and PPM, +maxgray+ must be less or equal 255
+    #             (the default value). For PBM, this setting is ignored
+    #             and +maxgray+ is always set to 1.
+    # +comment+:: A multiline comment string (default: empty string).
     def initialize(type, pixels, options = {})
       @type    = type
       @width   = pixels.first.size
@@ -72,7 +86,7 @@ module PNM
 
     private
 
-    def type_string
+    def type_string  # :nodoc:
       case type
       when :pbm
         'Bilevel'
@@ -83,7 +97,7 @@ module PNM
       end
     end
 
-    def header(encoding)
+    def header(encoding)  # :nodoc:
       header =  "#{PNM.magic_number[type][encoding]}\n"
       if comment
         comment.split("\n").each {|line| header << "# #{line}\n" }
@@ -94,19 +108,19 @@ module PNM
       header
     end
 
-    def to_ascii
+    def to_ascii  # :nodoc:
       data_string = Converter.array2ascii(pixels)
 
       header(:ascii) << data_string
     end
 
-    def to_binary
+    def to_binary  # :nodoc:
       data_string = Converter.array2binary(type, pixels)
 
       header(:binary) << data_string
     end
 
-    def gray_to_rgb(gray_value)
+    def gray_to_rgb(gray_value)  # :nodoc:
       Array.new(3, gray_value)
     end
   end

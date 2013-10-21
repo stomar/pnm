@@ -15,8 +15,9 @@ Create an image from an array of gray values:
 
     require 'pnm'
 
-    pixels = [[0, 1, 2], [1, 2, 3]]
-    image = PNM::Image.new(:pgm, pixels, {:maxgray => 3})
+    pixels = [[0, 1, 2],
+              [1, 2, 3]]
+    image = PNM::Image.new(:pgm, pixels, {:maxgray => 3, :comment => 'Image'})
 
 Write an image to a file:
 
@@ -26,6 +27,7 @@ Read an image from a file:
 
     image = PNM.read('test.pgm')
     image.info     # => "PGM 3x2 Grayscale"
+    image.comment  # => "Image"
     image.maxgray  # => 3
     image.pixels   # => [[0, 1, 2], [1, 2, 3]]
 
