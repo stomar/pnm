@@ -10,11 +10,8 @@ require 'pnm/image'
 describe PNM::Image do
 
   before do
-    @srcpath = File.dirname(__FILE__)
-    @bilevel_path = File.expand_path("#{@srcpath}/temp.pbm")
-    @bilevel_2_path = File.expand_path("#{@srcpath}/temp.pbm")
-    @grayscale_path = File.expand_path("#{@srcpath}/temp.pgm")
-    @color_path = File.expand_path("#{@srcpath}/temp.ppm")
+    @srcpath   = File.dirname(__FILE__)
+    @temp_path = File.expand_path("#{@srcpath}/temp.pnm")
 
     pixels = [[0,0,0,0,0],
               [0,1,1,1,0],
@@ -52,45 +49,45 @@ describe PNM::Image do
   end
 
   it 'can write a bilevel image to an ASCII encoded file' do
-    @bilevel.write(@bilevel_path, :ascii)
-    File.read(@bilevel_path).must_equal File.read("#{@srcpath}/bilevel_ascii.pbm")
-    File.delete(@bilevel_path)
+    @bilevel.write(@temp_path, :ascii)
+    File.binread(@temp_path).must_equal File.binread("#{@srcpath}/bilevel_ascii.pbm")
+    File.delete(@temp_path)
   end
 
   it 'can write a bilevel image (width 5) to a binary encoded file' do
-    @bilevel.write(@bilevel_path, :binary)
-    File.read(@bilevel_path).must_equal File.read("#{@srcpath}/bilevel_binary.pbm")
-    File.delete(@bilevel_path)
+    @bilevel.write(@temp_path, :binary)
+    File.binread(@temp_path).must_equal File.binread("#{@srcpath}/bilevel_binary.pbm")
+    File.delete(@temp_path)
   end
 
   it 'can write a bilevel image (width 16) to a binary encoded file' do
-    @bilevel_2.write(@bilevel_path, :binary)
-    File.read(@bilevel_path).must_equal File.read("#{@srcpath}/bilevel_2_binary.pbm")
-    File.delete(@bilevel_path)
+    @bilevel_2.write(@temp_path, :binary)
+    File.binread(@temp_path).must_equal File.binread("#{@srcpath}/bilevel_2_binary.pbm")
+    File.delete(@temp_path)
   end
 
   it 'can write a grayscale image to an ASCII encoded file' do
-    @grayscale.write(@grayscale_path, :ascii)
-    File.read(@grayscale_path).must_equal File.read("#{@srcpath}/grayscale_ascii.pgm")
-    File.delete(@grayscale_path)
+    @grayscale.write(@temp_path, :ascii)
+    File.binread(@temp_path).must_equal File.binread("#{@srcpath}/grayscale_ascii.pgm")
+    File.delete(@temp_path)
   end
 
   it 'can write a grayscale image to a binary encoded file' do
-    @grayscale.write(@grayscale_path, :binary)
-    File.read(@grayscale_path).must_equal File.read("#{@srcpath}/grayscale_binary.pgm")
-    File.delete(@grayscale_path)
+    @grayscale.write(@temp_path, :binary)
+    File.binread(@temp_path).must_equal File.binread("#{@srcpath}/grayscale_binary.pgm")
+    File.delete(@temp_path)
   end
 
   it 'can write a color image to an ASCII encoded file' do
-    @color.write(@color_path, :ascii)
-    File.read(@color_path).must_equal File.read("#{@srcpath}/color_ascii.ppm")
-    File.delete(@color_path)
+    @color.write(@temp_path, :ascii)
+    File.binread(@temp_path).must_equal File.binread("#{@srcpath}/color_ascii.ppm")
+    File.delete(@temp_path)
   end
 
   it 'can write a color image to a binary encoded file' do
-    @color.write(@color_path, :binary)
-    File.read(@color_path).must_equal File.read("#{@srcpath}/color_binary.ppm")
-    File.delete(@color_path)
+    @color.write(@temp_path, :binary)
+    File.binread(@temp_path).must_equal File.binread("#{@srcpath}/color_binary.ppm")
+    File.delete(@temp_path)
   end
 
   it 'can return image information' do
