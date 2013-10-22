@@ -59,7 +59,8 @@ module PNM
       end
     end
 
-    # Writes the image to a file, using the specified encoding.
+    # Writes the image to +file+ (a filename or an IO object),
+    # using the specified encoding.
     # Valid encodings are +:binary+ (default) and +:ascii+.
     #
     # Returns the number of bytes written.

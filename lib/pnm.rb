@@ -76,7 +76,7 @@ module PNM
     There is NO WARRANTY, to the extent permitted by law.
   copyright
 
-  # Reads an image file.
+  # Reads an image from +file+ (a filename or an IO object).
   #
   # Returns a PNM::Image object.
   def self.read(file)
