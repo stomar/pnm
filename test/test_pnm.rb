@@ -88,4 +88,18 @@ describe PNM do
                              [[1,5,2], [2,4,2], [3,3,2], [4,2,2], [5,1,2]],
                              [[2,4,6], [3,3,4], [4,2,2], [5,1,1], [6,0,0]]]
   end
+
+  it 'can read binary data containing CRLF' do
+    file = File.expand_path("#{@srcpath}/grayscale_binary_crlf.pgm")
+
+    image = PNM.read(file)
+    image.pixels.must_equal [[65,66], [13,10], [65,66]]
+  end
+
+  it 'can read binary data containing CRLF from an I/O stream' do
+    file = File.expand_path("#{@srcpath}/grayscale_binary_crlf.pgm")
+
+    image = File.open(file, 'r') {|f| PNM.read(f) }
+    image.pixels.must_equal [[65,66], [13,10], [65,66]]
+  end
 end

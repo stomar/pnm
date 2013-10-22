@@ -82,8 +82,9 @@ module PNM
   def self.read(file)
     raw_data = nil
     if file.kind_of?(String)
-      File.open(file, 'rb') {|f| raw_data = f.read }
+      raw_data = File.binread(file)
     else
+      file.binmode
       raw_data = file.read
     end
 

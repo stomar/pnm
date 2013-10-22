@@ -36,6 +36,9 @@ describe PNM::Image do
     comment = "Grayscale\n(with multiline comment)"
     @grayscale = PNM::Image.new(:pgm, pixels, {:maxgray => 250, :comment => comment})
 
+    pixels = [[65,66], [13,10], [65,66]]
+    @grayscale_crlf = PNM::Image.new(:pgm, pixels)
+
     pixels = [[[0,6,0], [1,5,1], [2,4,2], [3,3,4], [4,2,6]],
               [[1,5,2], [2,4,2], [3,3,2], [4,2,2], [5,1,2]],
               [[2,4,6], [3,3,4], [4,2,2], [5,1,1], [6,0,0]]]
@@ -94,5 +97,17 @@ describe PNM::Image do
     @bilevel.info.must_equal 'PBM 5x6 Bilevel'
     @grayscale.info.must_equal 'PGM 4x3 Grayscale'
     @color.info.must_equal 'PPM 5x3 Color'
+  end
+
+  it 'can write binary data containing CRLF' do
+    @grayscale_crlf.write(@temp_path, :binary)
+    File.binread(@temp_path).must_equal File.binread("#{@srcpath}/grayscale_binary_crlf.pgm")
+    File.delete(@temp_path)
+  end
+
+  it 'can write binary data containing CRLF from an I/O stream' do
+    File.open(@temp_path, 'w') {|f| @grayscale_crlf.write(f, :binary) }
+    File.binread(@temp_path).must_equal File.binread("#{@srcpath}/grayscale_binary_crlf.pgm")
+    File.delete(@temp_path)
   end
 end

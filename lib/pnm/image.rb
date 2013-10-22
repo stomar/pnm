@@ -71,8 +71,9 @@ module PNM
                 end
 
       if file.kind_of?(String)
-        File.open(file, 'wb') {|f| f.write content }
+        File.binwrite(file, content)
       else
+        file.binmode
         file.write content
       end
     end
