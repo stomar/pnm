@@ -11,25 +11,45 @@ and writing of `PNM` image files (Portable AnyMap):
 Examples
 --------
 
-Create an image from an array of gray values:
+Create a PGM grayscale image from a two-dimensional array of gray values:
 
     require 'pnm'
 
-    pixels = [[0, 1, 2],
-              [1, 2, 3]]
-    image = PNM::Image.new(:pgm, pixels, {:maxgray => 3, :comment => 'Image'})
+    # pixel data
+    pixels = [[ 0, 10, 20],
+              [10, 20, 30]]
+
+    # optional settings
+    options = {:maxgray => 30, :comment => 'Test Image'}
+
+    # create the image object
+    image = PNM::Image.new(:pgm, pixels, options)
+
+    # retrieve some image properties
+    image.info    # => "PGM 3x2 Grayscale"
+    image.width   # => 3
+    image.height  # => 2
+
+See PNM::Image.new for a more detailed description of pixel data formats
+and available options.
 
 Write an image to a file:
 
     image.write('test.pgm')
 
-Read an image from a file:
+    # use ASCII or "plain" format (default is binary)
+    image.write('test.pgm', :ascii)
+
+    # write to an I/O stream
+    File.open('test.pgm', 'w') {|f| image.write(f) }
+
+Read an image from a file (returns a PNM::Image object):
 
     image = PNM.read('test.pgm')
-    image.info     # => "PGM 3x2 Grayscale"
-    image.comment  # => "Image"
-    image.maxgray  # => 3
-    image.pixels   # => [[0, 1, 2], [1, 2, 3]]
+    image.comment  # => "Test Image"
+    image.maxgray  # => 30
+    image.pixels   # => [[0, 10, 20], [10, 20, 30]]
+
 
 Installation
 ------------
@@ -43,7 +63,7 @@ Requirements
 - No additional Ruby gems or native libraries are needed.
 
 - PNM has been tested with Ruby 1.9.3 and Ruby 2.0.0
-  on a Linux machine and on Windows.
+  on Linux and on Windows.
 
 Documentation
 -------------
