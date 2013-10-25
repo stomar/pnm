@@ -9,7 +9,6 @@ Gem::Specification.new do |s|
   s.name              = 'pnm'
   s.version           = version
   s.date              = date
-  s.rubyforge_project = 'pnm'
 
   s.description = 'PNM is a pure Ruby library for creating, reading, ' +
                   'and writing of PNM image files (Portable AnyMap): ' +
@@ -24,11 +23,8 @@ Gem::Specification.new do |s|
 
   s.license = 'GPL-3'
 
-  # s.requirements = ''
-
-  # s.executables = []
-  # s.bindir = 'bin'
   s.require_path = 'lib'
+
   s.test_files = Dir.glob('test/**/test_*.rb')
 
   s.rdoc_options = ['--charset=UTF-8']
