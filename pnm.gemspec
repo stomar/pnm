@@ -23,11 +23,13 @@ Gem::Specification.new do |s|
 
   s.license = 'GPL-3'
 
+  s.required_ruby_version = '>=1.9.3'
+
+  s.add_development_dependency('rake')
+
   s.require_path = 'lib'
 
   s.test_files = Dir.glob('test/**/test_*.rb')
-
-  s.rdoc_options = ['--charset=UTF-8']
 
   s.files = %w{
       README.md
@@ -36,5 +38,5 @@ Gem::Specification.new do |s|
     } +
     Dir.glob('{benchmark,lib,test}/**/*')
 
-  s.add_development_dependency('rake')
+  s.rdoc_options = ['--charset=UTF-8']
 end
