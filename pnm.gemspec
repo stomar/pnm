@@ -38,7 +38,7 @@ Gem::Specification.new do |s|
       Rakefile
       pnm.gemspec
     } +
-    Dir.glob('{lib,test}/**/*')
+    Dir.glob('{benchmark,lib,test}/**/*')
 
   s.add_development_dependency('rake')
 end

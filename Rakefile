@@ -22,6 +22,12 @@ Rake::TestTask.new do |t|
 end
 
 
+desc 'Run benchmarks'
+task :benchmark do
+  Dir['benchmark/**/bm_*.rb'].each {|f| require_relative f }
+end
+
+
 desc 'Build gem'
 task :build do
   sh "gem build #{gemspec_file}"
