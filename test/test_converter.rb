@@ -162,4 +162,22 @@ describe PNM::Converter do
 
     @converter.array2binary(:ppm, data).must_equal expected
   end
+
+  it 'can calculate correct byte widths for a PBM image' do
+    @converter.byte_width(:pbm,  0).must_equal 0
+    @converter.byte_width(:pbm,  1).must_equal 1
+    @converter.byte_width(:pbm,  7).must_equal 1
+    @converter.byte_width(:pbm,  8).must_equal 1
+    @converter.byte_width(:pbm,  9).must_equal 2
+    @converter.byte_width(:pbm, 64).must_equal 8
+    @converter.byte_width(:pbm, 65).must_equal 9
+  end
+
+  it 'can calculate correct byte widths for a PGM image' do
+    @converter.byte_width(:pgm, 13).must_equal 13
+  end
+
+  it 'can calculate correct byte widths for a PPM image' do
+    @converter.byte_width(:ppm, 13).must_equal 39
+  end
 end
