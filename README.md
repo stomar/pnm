@@ -2,7 +2,7 @@ PNM - A Ruby library for PNM image files (PBM, PGM, PPM)
 ========================================================
 
 PNM is a pure [Ruby][Ruby] library for creating, reading,
-and writing of `PNM` image files (Portable AnyMap):
+and writing of `PNM` image files (Portable Anymap):
 
 - `PBM` (Portable Bitmap),
 - `PGM` (Portable Graymap), and
@@ -54,8 +54,12 @@ Read an image from a file (returns a PNM::Image object):
 Installation
 ------------
 
-Clone or download the repository and use `rake build`
-and `[sudo] gem install pnm` to install PNM.
+To install PNM, you can either
+
+- use `gem install pnm`, or
+
+- clone or download the repository and use
+  `rake build` and `[sudo] gem install pnm`.
 
 Requirements
 ------------

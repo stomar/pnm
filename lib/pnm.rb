@@ -9,7 +9,7 @@ require_relative 'pnm/converter'
 
 
 # PNM is a pure Ruby library for creating, reading,
-# and writing of +PNM+ image files (Portable AnyMap):
+# and writing of +PNM+ image files (Portable Anymap):
 #
 # - +PBM+ (Portable Bitmap),
 # - +PGM+ (Portable Graymap), and

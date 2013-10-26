@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.date              = date
 
   s.description = 'PNM is a pure Ruby library for creating, reading, ' +
-                  'and writing of PNM image files (Portable AnyMap): ' +
+                  'and writing of PNM image files (Portable Anymap): ' +
                   'PBM (Portable Bitmap), ' +
                   'PGM (Portable Graymap), and ' +
                   'PPM (Portable Pixmap).'
