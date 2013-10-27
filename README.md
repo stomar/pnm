@@ -13,50 +13,55 @@ Examples
 
 Create a PGM grayscale image from a two-dimensional array of gray values:
 
-    require 'pnm'
+``` ruby
+require 'pnm'
 
-    # pixel data
-    pixels = [[ 0, 10, 20],
-              [10, 20, 30]]
+# pixel data
+pixels = [[ 0, 10, 20],
+          [10, 20, 30]]
 
-    # optional settings
-    options = {:maxgray => 30, :comment => 'Test Image'}
+# optional settings
+options = {:maxgray => 30, :comment => 'Test Image'}
 
-    # create the image object
-    image = PNM::Image.new(:pgm, pixels, options)
+# create the image object
+image = PNM::Image.new(:pgm, pixels, options)
 
-    # retrieve some image properties
-    image.info    # => "PGM 3x2 Grayscale"
-    image.width   # => 3
-    image.height  # => 2
+# retrieve some image properties
+image.info    # => "PGM 3x2 Grayscale"
+image.width   # => 3
+image.height  # => 2
+```
 
 See PNM::Image.new for a more detailed description of pixel data formats
 and available options.
 
 Write an image to a file:
 
-    image.write('test.pgm')
+``` ruby
+image.write('test.pgm')
 
-    # use ASCII or "plain" format (default is binary)
-    image.write('test.pgm', :ascii)
+# use ASCII or "plain" format (default is binary)
+image.write('test.pgm', :ascii)
 
-    # write to an I/O stream
-    File.open('test.pgm', 'w') {|f| image.write(f) }
+# write to an I/O stream
+File.open('test.pgm', 'w') {|f| image.write(f) }
+```
 
 Read an image from a file (returns a PNM::Image object):
 
-    image = PNM.read('test.pgm')
-    image.comment  # => "Test Image"
-    image.maxgray  # => 30
-    image.pixels   # => [[0, 10, 20], [10, 20, 30]]
-
+``` ruby
+image = PNM.read('test.pgm')
+image.comment  # => "Test Image"
+image.maxgray  # => 30
+image.pixels   # => [[0, 10, 20], [10, 20, 30]]
+```
 
 Installation
 ------------
 
 To install PNM, you can either
 
-- use `gem install pnm`, or
+- use `gem install pnm` to install from RubyGems.org,
 
 - clone or download the repository and use
   `rake build` and `[sudo] gem install pnm`.
