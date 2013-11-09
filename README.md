@@ -71,8 +71,12 @@ Requirements
 
 - No additional Ruby gems or native libraries are needed.
 
-- PNM has been tested with Ruby 1.9.3 and Ruby 2.0.0
-  on Linux and on Windows.
+- PNM has been tested with
+
+  - Ruby 2.0.0 on Linux and on Windows,
+  - Ruby 1.9.3,
+  - JRuby 1.7.6,
+  - Rubinius 2.1.1.
 
 Documentation
 -------------
