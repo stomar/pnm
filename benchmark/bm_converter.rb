@@ -5,7 +5,6 @@
 
 require 'benchmark'
 require_relative '../lib/pnm'
-require_relative '../lib/pnm/converter'
 
 class ConverterBenchmark
 
