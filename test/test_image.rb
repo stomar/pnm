@@ -45,6 +45,24 @@ describe PNM::Image do
     @color = PNM::Image.new(:ppm, pixels, {:maxgray => 6})
   end
 
+  it 'sets maxgray to 1 for bilevel images' do
+    image = PNM::Image.new(:pbm, [[0,1,0], [1,0,1]])
+    image.type.must_equal :pbm
+    image.maxgray.must_equal 1
+  end
+
+  it 'sets maxgray by default to 255 for grayscale images' do
+    image = PNM::Image.new(:pgm, [[0,10,20], [10,20,30]])
+    image.type.must_equal :pgm
+    image.maxgray.must_equal 255
+  end
+
+  it 'sets maxgray by default to 255 for color images' do
+    image = PNM::Image.new(:ppm, [[[0,0,0], [10,10,10]], [[10,10,10], [20,20,20]]])
+    image.type.must_equal :ppm
+    image.maxgray.must_equal 255
+  end
+
   it 'can create a color image from gray values' do
     image = PNM::Image.new(:ppm, [[0,3,6], [3,6,9]])
     image.info.must_match %r{^PPM 3x2 Color}
