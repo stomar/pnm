@@ -29,7 +29,7 @@ require_relative 'pnm/converter'
 #     options = {:maxgray => 30, :comment => 'Test Image'}
 #
 #     # create the image object
-#     image = PNM::Image.new(:pgm, pixels, options)
+#     image = PNM::Image.new(pixels, options)
 #
 #     # retrieve some image properties
 #     image.info    # => "PGM 3x2 Grayscale"
@@ -55,6 +55,11 @@ require_relative 'pnm/converter'
 #     image.comment  # => "Test Image"
 #     image.maxgray  # => 30
 #     image.pixels   # => [[0, 10, 20], [10, 20, 30]]
+#
+# Force an image type:
+#
+#     image = PNM::Image.new([[0, 1],[1, 0]], :type => :ppm)
+#     image.info  # => "PPM 2x2 Color"
 #
 # == See also
 #
@@ -139,10 +144,10 @@ module PNM
                Converter.binary2array(type, width, height, content[:data])
              end
 
-    options = {:maxgray => maxgray}
+    options = {:type => type, :maxgray => maxgray}
     options[:comment] = content[:comments].join("\n")  if content[:comments]
 
-    Image.new(type, pixels, options)
+    Image.new(pixels, options)
   end
 
   def self.magic_number  # :nodoc:

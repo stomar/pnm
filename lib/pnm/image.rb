@@ -12,7 +12,8 @@ module PNM
     # The height of the image in pixels.
     attr_reader :height
 
-    # The maximum gray or color value. See ::new for details.
+    # The maximum gray or color value (for PBM always set to 1).
+    # See ::new for details.
     attr_reader :maxgray
 
     # The pixel data, given as a two-dimensional array.
@@ -25,7 +26,6 @@ module PNM
     # Creates an image from a two-dimensional array of bilevel,
     # gray, or RGB values.
     #
-    # +type+::    The type of the image (+:pbm+, +:pgm+, or +:ppm+).
     # +pixels+::  The pixel data, given as a two-dimensional array of
     #
     #             * for PBM: bilevel values (0 or 1),
@@ -33,26 +33,37 @@ module PNM
     #             * for PPM: an array of 3 values between 0 and +maxgray+,
     #               corresponding to red, green, and blue (RGB).
     #
-    #             PPM also accepts an array of gray values.
+    #             PPM also accepts an array of bilevel or gray values.
     #
     #             A value of 0 means that the color is turned off.
     #
     # Optional settings that can be specified in the +options+ hash:
     #
+    # +type+::    The type of the image (+:pbm+, +:pgm+, or +:ppm+).
+    #             By default, the type is guessed from the provided
+    #             pixel data, unless this option is used.
     # +maxgray+:: The maximum gray or color value.
     #             For PGM and PPM, +maxgray+ must be less or equal 255
-    #             (the default value). For PBM, this setting is ignored
-    #             and +maxgray+ is always set to 1.
+    #             (the default value).
+    #             For PBM pixel data, setting +maxgray+ implies a conversion
+    #             to +:pgm+. If +type+ is explicitly set to +:pbm+,
+    #             the +maxgray+ setting is disregarded.
     # +comment+:: A multiline comment string (default: empty string).
-    def initialize(type, pixels, options = {})
-      @type    = type
+    def initialize(pixels, options = {})
+      @type    = options[:type]
       @width   = pixels.first.size
       @height  = pixels.size
-      @maxgray = options[:maxgray] || 255
+      @maxgray = options[:maxgray]
       @comment = (options[:comment] || '').chomp
       @pixels  = pixels
 
-      @maxgray = 1  if type == :pbm
+      @type ||= detect_type(@pixels, @maxgray)
+
+      if @type == :pbm
+        @maxgray = 1
+      else
+        @maxgray ||= 255
+      end
 
       if type == :ppm && !pixels.first.first.kind_of?(Array)
         @pixels = pixels.map {|row| row.map {|pixel| gray_to_rgb(pixel) } }
@@ -96,6 +107,16 @@ module PNM
         'Grayscale'
       when :ppm
         'Color'
+      end
+    end
+
+    def detect_type(pixels, maxgray)  # :nodoc:
+      if pixels.first.first.kind_of?(Array)
+        :ppm
+      elsif pixels.flatten.max <= 1
+        maxgray ? :pgm : :pbm
+      else
+        :pgm
       end
     end
 

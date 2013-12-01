@@ -24,7 +24,7 @@ pixels = [[ 0, 10, 20],
 options = {:maxgray => 30, :comment => 'Test Image'}
 
 # create the image object
-image = PNM::Image.new(:pgm, pixels, options)
+image = PNM::Image.new(pixels, options)
 
 # retrieve some image properties
 image.info    # => "PGM 3x2 Grayscale"
@@ -54,6 +54,13 @@ image = PNM.read('test.pgm')
 image.comment  # => "Test Image"
 image.maxgray  # => 30
 image.pixels   # => [[0, 10, 20], [10, 20, 30]]
+```
+
+Force an image type:
+
+``` ruby
+image = PNM::Image.new([[0, 1],[1, 0]], :type => :ppm)
+image.info  # => "PPM 2x2 Color"
 ```
 
 Installation

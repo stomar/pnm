@@ -20,7 +20,7 @@ describe PNM::Image do
               [0,0,1,0,0],
               [0,0,0,0,0]]
     comment = 'Bilevel'
-    @bilevel = PNM::Image.new(:pbm, pixels, {:comment => comment})
+    @bilevel = PNM::Image.new(pixels, {:comment => comment})
 
     pixels = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
               [0,1,1,1,0,1,1,1,1,0,1,1,1,1,1,0],
@@ -28,43 +28,77 @@ describe PNM::Image do
               [0,0,1,0,0,1,0,0,1,0,1,0,1,0,1,0],
               [0,0,1,0,0,1,1,1,1,0,1,0,1,0,1,0],
               [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]
-    @bilevel_2 = PNM::Image.new(:pbm, pixels)
+    @bilevel_2 = PNM::Image.new(pixels)
 
     pixels = [[  0, 50,100,150],
               [ 50,100,150,200],
               [100,150,200,250]]
     comment = "Grayscale\n(with multiline comment)"
-    @grayscale = PNM::Image.new(:pgm, pixels, {:maxgray => 250, :comment => comment})
+    @grayscale = PNM::Image.new(pixels, {:maxgray => 250, :comment => comment})
 
     pixels = [[65,66], [13,10], [65,66]]
-    @grayscale_crlf = PNM::Image.new(:pgm, pixels)
+    @grayscale_crlf = PNM::Image.new(pixels)
 
     pixels = [[[0,6,0], [1,5,1], [2,4,2], [3,3,4], [4,2,6]],
               [[1,5,2], [2,4,2], [3,3,2], [4,2,2], [5,1,2]],
               [[2,4,6], [3,3,4], [4,2,2], [5,1,1], [6,0,0]]]
-    @color = PNM::Image.new(:ppm, pixels, {:maxgray => 6})
+    @color = PNM::Image.new(pixels, {:maxgray => 6})
   end
 
   it 'sets maxgray to 1 for bilevel images' do
-    image = PNM::Image.new(:pbm, [[0,1,0], [1,0,1]])
+    image = PNM::Image.new([[0,1,0], [1,0,1]])
     image.type.must_equal :pbm
     image.maxgray.must_equal 1
   end
 
   it 'sets maxgray by default to 255 for grayscale images' do
-    image = PNM::Image.new(:pgm, [[0,10,20], [10,20,30]])
+    image = PNM::Image.new([[0,10,20], [10,20,30]])
     image.type.must_equal :pgm
     image.maxgray.must_equal 255
   end
 
   it 'sets maxgray by default to 255 for color images' do
-    image = PNM::Image.new(:ppm, [[[0,0,0], [10,10,10]], [[10,10,10], [20,20,20]]])
+    image = PNM::Image.new([[[0,0,0], [10,10,10]], [[10,10,10], [20,20,20]]])
     image.type.must_equal :ppm
     image.maxgray.must_equal 255
   end
 
+  it 'ignores maxgray for bilevel images and sets it to 1' do
+    image = PNM::Image.new([[0,1,0], [1,0,1]], {:type => :pbm, :maxgray => 255})
+    image.type.must_equal :pbm
+    image.maxgray.must_equal 1
+  end
+
+  it 'can create a grayscale image from bilevel values (using type)' do
+    image = PNM::Image.new([[0,1,0], [1,0,1]], {:type => :pgm})
+    image.type.must_equal :pgm
+    image.pixels.must_equal [[0,1,0], [1,0,1]]
+    image.maxgray.must_equal 255
+  end
+
+  it 'can create a grayscale image from bilevel values (using maxgray)' do
+    image = PNM::Image.new([[0,1,0], [1,0,1]], {:maxgray => 1})
+    image.type.must_equal :pgm
+    image.pixels.must_equal [[0,1,0], [1,0,1]]
+    image.maxgray.must_equal 1
+  end
+
+  it 'can create a color image from bilevel values' do
+    image = PNM::Image.new([[0,1,0], [1,0,1]], {:type => :ppm})
+    image.info.must_match %r{^PPM 3x2 Color}
+    image.pixels.must_equal [[[0,0,0], [1,1,1], [0,0,0]], [[1,1,1], [0,0,0], [1,1,1]]]
+    image.maxgray.must_equal 255
+  end
+
+  it 'can create a color image from bilevel values with a given maxgray' do
+    image = PNM::Image.new([[0,1,0], [1,0,1]], {:type => :ppm, :maxgray => 2})
+    image.info.must_match %r{^PPM 3x2 Color}
+    image.pixels.must_equal [[[0,0,0], [1,1,1], [0,0,0]], [[1,1,1], [0,0,0], [1,1,1]]]
+    image.maxgray.must_equal 2
+  end
+
   it 'can create a color image from gray values' do
-    image = PNM::Image.new(:ppm, [[0,3,6], [3,6,9]])
+    image = PNM::Image.new([[0,3,6], [3,6,9]], {:type => :ppm})
     image.info.must_match %r{^PPM 3x2 Color}
     image.pixels.must_equal [[[0,0,0], [3,3,3], [6,6,6]], [[3,3,3], [6,6,6], [9,9,9]]]
   end
