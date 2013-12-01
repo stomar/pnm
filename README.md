@@ -82,8 +82,8 @@ Requirements
 
   - Ruby 2.0.0 on Linux and on Windows,
   - Ruby 1.9.3,
-  - JRuby 1.7.6,
-  - Rubinius 2.1.1.
+  - JRuby 1.7.8,
+  - Rubinius 2.2.1.
 
 Documentation
 -------------
