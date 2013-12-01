@@ -105,7 +105,7 @@ describe PNM::Image do
     File.delete(@temp_path)
   end
 
-  it 'can write binary data containing CRLF from an I/O stream' do
+  it 'can write binary data containing CRLF to an I/O stream' do
     File.open(@temp_path, 'w') {|f| @grayscale_crlf.write(f, :binary) }
     File.binread(@temp_path).must_equal File.binread("#{@srcpath}/grayscale_binary_crlf.pgm")
     File.delete(@temp_path)
