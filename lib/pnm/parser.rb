@@ -23,9 +23,9 @@ module PNM
       comments = []
 
       until magic_number
-        token = get_next_token!(content)
+        token = next_token!(content)
 
-        if token[0] == '#'
+        if token.start_with?('#')
           comments << token.gsub(/# */, '')
         else
           magic_number = token
@@ -36,8 +36,9 @@ module PNM
 
       while tokens.size < token_number[magic_number]
         content.gsub!(/\A[ \t\r\n]+/, '')
-        token = get_next_token!(content)
-        if token[0] == '#'
+        token = next_token!(content)
+
+        if token.start_with?('#')
           comments << token.gsub(/# */, '')
         else
           tokens << token
@@ -69,13 +70,15 @@ module PNM
       }
     end
 
-    def self.get_next_token!(content)  # :nodoc:
-      if content[0] == '#'
-        token, rest = content.split("\n", 2)
-      else
-        token, rest = content.split(/[ \t\r\n]|(?=#)/, 2)
-      end
-      content.clear << rest
+    def self.next_token!(content)  # :nodoc:
+      delimiter = if content.start_with?('#')
+                    "\n"
+                  else
+                    %r{[ \t\r\n]|(?=#)}
+                  end
+
+      token, rest = content.split(delimiter, 2)
+      content.replace(rest)
 
       token
     end

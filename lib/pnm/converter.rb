@@ -42,7 +42,7 @@ module PNM
     def self.binary2array(type, width, height, data)
       bytes_per_row = byte_width(type, width)
 
-      if data.size == bytes_per_row * height + 1 && data[-1] =~ /[ \n\t\r]/
+      if data.size == bytes_per_row * height + 1 && data[-1] =~ /[ \t\r\n]/
         data.slice!(-1)
       end
 
