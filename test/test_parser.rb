@@ -97,11 +97,11 @@ describe PNM::Parser do
   it 'can parse comments' do
     content =<<-EOF.chomp.gsub(/^ */, '')
       # Comment 1
-      P1   # Comment 2
-      6
-      #Comment 3
+      P1  # Comment 2
+      6# Comment 3
+      #Comment 4
       #
-      \r \t# Comment 5
+      \r \t# Comment 6
       2
       0 1 0 0 1 1
       0 0 0 1 1 1
@@ -110,7 +110,7 @@ describe PNM::Parser do
       :magic_number => 'P1',
       :width        => '6',
       :height       => '2',
-      :comments     => ['Comment 1', 'Comment 2', 'Comment 3', '', 'Comment 5'],
+      :comments     => ['Comment 1', 'Comment 2', 'Comment 3', 'Comment 4', '', 'Comment 6'],
       :data         => "0 1 0 0 1 1\n0 0 0 1 1 1"
     }
 
