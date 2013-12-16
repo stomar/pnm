@@ -52,7 +52,7 @@ class ConverterBenchmark
     Benchmark.bm(18) do |bm|
       bm.report("#{type_string} / ascii2array") {
         @repetitions.times do
-          PNM::Converter.ascii2array(type, ascii)
+          PNM::Converter.ascii2array(type, width, height, ascii)
         end
       }
 

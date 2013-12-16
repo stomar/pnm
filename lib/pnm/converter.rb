@@ -19,15 +19,19 @@ module PNM
     # Converts from ASCII format to an array of pixel values.
     #
     # +type+:: +:pbm+, +:pgm+, or +:ppm+.
+    # +width+, +height+:: The image dimensions in pixels.
     # +data+:: A string containing the raw pixel data in ASCII format.
     #
     # Returns a two-dimensional array of bilevel, gray, or RGB values.
-    def self.ascii2array(type, data)
-      pixels = data.split("\n").map do |row|
-        row.split(/ +/).map {|value| value.to_i }
-      end
+    def self.ascii2array(type, width, height, data)
+      values = data.gsub(/\A[ \t\r\n]+/, '').split(/[ \t\r\n]+/).map {|value| value.to_i }
 
-      pixels.map! {|row| row.each_slice(3).to_a }  if type == :ppm
+      case type
+      when :pbm, :pgm
+        pixels = values.each_slice(width).to_a
+      when :ppm
+        pixels = values.each_slice(3 * width).map {|row| row.each_slice(3).to_a }
+      end
 
       pixels
     end

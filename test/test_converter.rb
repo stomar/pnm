@@ -49,24 +49,39 @@ describe PNM::Converter do
   end
 
   it 'can convert from ASCII encoded PBM data' do
+    width    = @pbm[:width]
+    height   = @pbm[:height]
     data     = @pbm[:ascii]
     expected = @pbm[:array]
 
-    @converter.ascii2array(:pbm, data).must_equal expected
+    @converter.ascii2array(:pbm, width, height, data).must_equal expected
   end
 
   it 'can convert from ASCII encoded PGM data' do
+    width    = @pgm[:width]
+    height   = @pgm[:height]
     data     = @pgm[:ascii]
     expected = @pgm[:array]
 
-    @converter.ascii2array(:pgm, data).must_equal expected
+    @converter.ascii2array(:pgm, width, height, data).must_equal expected
   end
 
   it 'can convert from ASCII encoded PPM data' do
+    width    = @ppm[:width]
+    height   = @ppm[:height]
     data     = @ppm[:ascii]
     expected = @ppm[:array]
 
-    @converter.ascii2array(:ppm, data).must_equal expected
+    @converter.ascii2array(:ppm, width, height, data).must_equal expected
+  end
+
+  it 'accepts ASCII encoded PGM data with arbitrary whitespace' do
+    width    = 4
+    height   = 3
+    data     = "  \n 10 90\t170\r250\n90 \t170   250 \t\r\n\t 10\n\n\n170\n250\n10\n90\n"
+    expected = [[10, 90, 170, 250], [90, 170, 250, 10], [170, 250, 10, 90]]
+
+    @converter.ascii2array(:pgm, width, height, data).must_equal expected
   end
 
   it 'can convert from binary encoded PBM data (width 6)' do
