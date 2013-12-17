@@ -55,7 +55,7 @@ module PNM
       @height  = pixels.size
       @maxgray = options[:maxgray]
       @comment = (options[:comment] || '').chomp
-      @pixels  = pixels
+      @pixels  = pixels.dup
 
       @type ||= detect_type(@pixels, @maxgray)
 
@@ -66,7 +66,7 @@ module PNM
       end
 
       if type == :ppm && !pixels.first.first.kind_of?(Array)
-        @pixels = pixels.map {|row| row.map {|pixel| gray_to_rgb(pixel) } }
+        @pixels.map! {|row| row.map {|pixel| gray_to_rgb(pixel) } }
       end
     end
 

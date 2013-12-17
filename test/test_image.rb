@@ -103,6 +103,12 @@ describe PNM::Image do
     image.pixels.must_equal [[[0,0,0], [3,3,3], [6,6,6]], [[3,3,3], [6,6,6], [9,9,9]]]
   end
 
+  it 'does not modify the input data for color images created from gray values' do
+    data = [[0,3,6], [3,6,9]]
+    PNM::Image.new(data, {:type => :ppm})
+    data.must_equal [[0,3,6], [3,6,9]]
+  end
+
   it 'can write a bilevel image to an ASCII encoded file' do
     @bilevel.write(@temp_path, :ascii)
     File.binread(@temp_path).must_equal File.binread("#{@srcpath}/bilevel_ascii.pbm")
