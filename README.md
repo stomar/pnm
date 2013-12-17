@@ -82,7 +82,7 @@ Requirements
 
   - Ruby 2.0.0 on Linux and on Windows,
   - Ruby 1.9.3,
-  - JRuby 1.7.8,
+  - JRuby 1.7.9,
   - Rubinius 2.2.1.
 
 Documentation
