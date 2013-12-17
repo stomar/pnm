@@ -28,12 +28,12 @@ module PNM
 
       case type
       when :pbm, :pgm
-        pixels = values.each_slice(width).to_a
+        pixel_matrix = values.each_slice(width).to_a
       when :ppm
-        pixels = values.each_slice(3 * width).map {|row| row.each_slice(3).to_a }
+        pixel_matrix = values.each_slice(3 * width).map {|row| row.each_slice(3).to_a }
       end
 
-      pixels
+      pixel_matrix
     end
 
     # Converts from binary format to an array of pixel values.
@@ -56,15 +56,15 @@ module PNM
 
       case type
       when :pbm
-        pixels = data.scan(/.{#{bytes_per_row}}/m)
-        pixels.map! {|row| row.unpack('B*').first[0, width].each_char.map {|char| char.to_i }  }
+        rows = data.scan(/.{#{bytes_per_row}}/m)
+        pixel_matrix = rows.map {|row| row.unpack('B*').first[0, width].each_char.map {|char| char.to_i } }
       when :pgm
-        pixels = data.each_byte.each_slice(bytes_per_row).to_a
+        pixel_matrix = data.each_byte.each_slice(bytes_per_row).to_a
       when :ppm
-        pixels = data.each_byte.each_slice(bytes_per_row).map {|row| row.each_slice(3).to_a }
+        pixel_matrix = data.each_byte.each_slice(bytes_per_row).map {|row| row.each_slice(3).to_a }
       end
 
-      pixels
+      pixel_matrix
     end
 
     # Converts a two-dimensional array of pixel values to an ASCII format string.
@@ -75,12 +75,12 @@ module PNM
     def self.array2ascii(data)
       case data.first.first
       when Array
-        output = data.map {|row| row.flatten.join(' ') }.join("\n")
+        data_string = data.map {|row| row.flatten.join(' ') }.join("\n")
       else
-        output = data.map {|row| row.join(' ') }.join("\n")
+        data_string = data.map {|row| row.join(' ') }.join("\n")
       end
 
-      output << "\n"
+      data_string << "\n"
     end
 
     # Converts a two-dimensional array of pixel values to a binary format string.
