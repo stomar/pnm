@@ -21,8 +21,8 @@ describe PNM::Parser do
     EOF
     expected = {
       :magic_number => 'P1',
-      :width        => '6',
-      :height       => '2',
+      :width        => 6,
+      :height       => 2,
       :data         => "0 1 0 0 1 1\n0 0 0 1 1 1"
     }
 
@@ -37,9 +37,9 @@ describe PNM::Parser do
     EOF
     expected = {
       :magic_number => 'P2',
-      :width        => '4',
-      :height       => '2',
-      :maxgray      => '100',
+      :width        => 4,
+      :height       => 2,
+      :maxgray      => 100,
       :data         => "10 20 30 40\n50 60 70 80"
     }
 
@@ -50,8 +50,8 @@ describe PNM::Parser do
     content = 'P4 8 2 ' << ['05AF'].pack('H*')
     expected = {
       :magic_number => 'P4',
-      :width        => '8',
-      :height       => '2',
+      :width        => 8,
+      :height       => 2,
       :data         => ['05AF'].pack('H*')
     }
 
@@ -70,8 +70,8 @@ describe PNM::Parser do
     content = "P1  \n\t 3 \r \n2 0 1 0 0 1 1"
     expected = {
       :magic_number => 'P1',
-      :width        => '3',
-      :height       => '2',
+      :width        => 3,
+      :height       => 2,
       :data         => '0 1 0 0 1 1'
     }
 
@@ -108,8 +108,8 @@ describe PNM::Parser do
     EOF
     expected = {
       :magic_number => 'P1',
-      :width        => '6',
-      :height       => '2',
+      :width        => 6,
+      :height       => 2,
       :comments     => ['Comment 1', 'Comment 2', 'Comment 3', 'Comment 4', '', 'Comment 6'],
       :data         => "0 1 0 0 1 1\n0 0 0 1 1 1"
     }

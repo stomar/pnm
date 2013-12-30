@@ -7,13 +7,13 @@ module PNM
     #
     # +content+:: A string containing the image file content.
     #
-    # Returns a hash containing the parsed data as strings:
+    # Returns a hash containing the parsed data:
     #
-    # * +:magic_number+,
+    # * +:magic_number+ (<tt>"P1"</tt>, ..., <tt>"P6"</tt>),
     # * +:maxgray+ (only for PGM and PPM),
     # * +:width+,
     # * +:height+,
-    # * +:data+,
+    # * +:data+ (as string),
     # * +:comments+ (only if present): an array of comment strings.
     def self.parse(content)
       content = content.dup
@@ -49,12 +49,12 @@ module PNM
 
       result = {
         :magic_number => magic_number,
-        :width        => width,
-        :height       => height,
+        :width        => width.to_i,
+        :height       => height.to_i,
         :data         => content
       }
-      result[:maxgray]  = maxgray   if maxgray
-      result[:comments] = comments  unless comments.empty?
+      result[:maxgray]  = maxgray.to_i  if maxgray
+      result[:comments] = comments      unless comments.empty?
 
       result
     end

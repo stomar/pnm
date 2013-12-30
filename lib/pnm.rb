@@ -135,9 +135,9 @@ module PNM
       encoding = :binary
     end
 
-    width   = content[:width].to_i
-    height  = content[:height].to_i
-    maxgray = content[:maxgray].to_i
+    width   = content[:width]
+    height  = content[:height]
+    maxgray = content[:maxgray]
     pixels = if encoding == :ascii
                Converter.ascii2array(type, width, height, content[:data])
              else
