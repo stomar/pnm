@@ -1,6 +1,6 @@
 # test_pnm.rb: Unit tests for the PNM library.
 #
-# Copyright (C) 2013 Marcus Stollsteimer
+# Copyright (C) 2013-2014 Marcus Stollsteimer
 
 require 'minitest/spec'
 require 'minitest/autorun'
