@@ -51,19 +51,30 @@ module PNM
     # +comment+:: A multiline comment string (default: empty string).
     def initialize(pixels, options = {})
       @type    = options[:type]
-      @width   = pixels.first.size
-      @height  = pixels.size
       @maxgray = options[:maxgray]
-      @comment = (options[:comment] || '').chomp
+      @comment = options[:comment] || ''
       @pixels  = pixels.dup
 
+      assert_valid_type     if @type
+      assert_valid_maxgray  if @maxgray
+      assert_valid_comment
+      assert_valid_array
+
+      @width   = pixels.first.size
+      @height  = pixels.size
+      @comment.chomp!
+
       @type ||= detect_type(@pixels, @maxgray)
+
+      assert_matching_type_and_data
 
       if @type == :pbm
         @maxgray = 1
       else
         @maxgray ||= 255
       end
+
+      assert_valid_pixel_values
 
       if type == :ppm && !pixels.first.first.kind_of?(Array)
         @pixels.map! {|row| row.map {|pixel| gray_to_rgb(pixel) } }
@@ -117,6 +128,73 @@ module PNM
         maxgray ? :pgm : :pbm
       else
         :pgm
+      end
+    end
+
+    def assert_valid_array  # :nodoc:
+      msg = "invalid pixel data: Array expected"
+      raise PNM::ArgumentError, msg  unless Array === pixels
+
+      msg = "invalid pixel array"
+      raise PNM::DataError, msg  unless Array === pixels.first
+
+      width = pixels.first.size
+
+      pixels.each do |row|
+        raise PNM::DataError, msg  unless Array === row && row.size == width
+
+        if Array === row.first  # color image
+          row.each {|pixel| assert_valid_color_pixel(pixel) }
+        else
+          row.each {|pixel| assert_valid_pixel(pixel) }
+        end
+      end
+    end
+
+    def assert_valid_pixel(pixel)  # :nodoc:
+      msg = "invalid pixel value: Fixnum expected - %s"
+      raise PNM::DataError, msg % pixel.inspect  unless Fixnum === pixel
+    end
+
+    def assert_valid_color_pixel(pixel)  # :nodoc:
+      msg = "invalid pixel value: array of 3 Fixnums expected - %s"
+
+      raise PNM::DataError, msg % pixel.inspect  unless pixel.size == 3
+      raise PNM::DataError, msg % pixel.inspect  unless pixel.map {|val| val.class } == [Fixnum, Fixnum, Fixnum]
+    end
+
+    def assert_valid_type  # :nodoc:
+      unless [:pbm, :pgm, :ppm].include?(type)
+        msg = "invalid image type - %s"
+        raise PNM::ArgumentError, msg % type.inspect
+      end
+    end
+
+    def assert_matching_type_and_data  # :nodoc:
+      if Array === pixels.first.first && [:pbm, :pgm].include?(type)
+        msg = "specified type does not match data - %s"
+        raise PNM::DataError, msg % type.inspect
+      end
+    end
+
+    def assert_valid_maxgray  # :nodoc:
+      unless Fixnum === maxgray && maxgray > 0 && maxgray <= 255
+        raise PNM::ArgumentError, "invalid maxgray value - #{maxgray.inspect}"
+      end
+    end
+
+    def assert_valid_comment  # :nodoc:
+      unless String === comment
+        raise PNM::ArgumentError, "invalid comment value - #{comment.inspect}"
+      end
+    end
+
+    def assert_valid_pixel_values  # :nodoc:
+      unless pixels.flatten.max <= maxgray
+        raise PNM::DataError, "invalid data: value(s) greater than maxgray"
+      end
+      unless pixels.flatten.min >= 0
+        raise PNM::DataError, "invalid data: value(s) less than zero"
       end
     end
 

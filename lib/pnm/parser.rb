@@ -32,7 +32,7 @@ module PNM
         end
       end
 
-      raise "Unknown magic number"  unless token_number[magic_number]
+      assert_valid_magic_number(magic_number)
 
       while tokens.size < token_number[magic_number]
         content.gsub!(/\A[ \t\r\n]+/, '')
@@ -47,14 +47,26 @@ module PNM
 
       width, height, maxgray = tokens
 
+      assert_integer(width,   "width")
+      assert_integer(height,  "height")
+      assert_integer(maxgray, "maxgray")  if maxgray
+
+      width   = width.to_i
+      height  = height.to_i
+      maxgray = maxgray.to_i  if maxgray
+
+      assert_value(width,   "width")   {|x| x > 0 }
+      assert_value(height,  "height")  {|x| x > 0 }
+      assert_value(maxgray, "maxgray") {|x| x > 0 && x <= 255 }  if maxgray
+
       result = {
         :magic_number => magic_number,
-        :width        => width.to_i,
-        :height       => height.to_i,
+        :width        => width,
+        :height       => height,
         :data         => content
       }
-      result[:maxgray]  = maxgray.to_i  if maxgray
-      result[:comments] = comments      unless comments.empty?
+      result[:maxgray]  = maxgray   if maxgray
+      result[:comments] = comments  unless comments.empty?
 
       result
     end
@@ -78,9 +90,32 @@ module PNM
                   end
 
       token, rest = content.split(delimiter, 2)
+      raise PNM::ParserError, 'not enough tokens in file'  unless rest
+
       content.replace(rest)
 
       token
+    end
+
+    def self.assert_valid_magic_number(magic_number)  # :nodoc:
+      unless %w{P1 P2 P3 P4 P5 P6}.include?(magic_number)
+        msg = "unknown magic number - `#{magic_number}'"
+        raise PNM::ParserError, msg
+      end
+    end
+
+    def self.assert_integer(value_string, value_name)  # :nodoc:
+      unless /\A[0-9]+\Z/ === value_string
+        msg = "#{value_name} must be an integer - `#{value_string}'"
+        raise PNM::ParserError, msg
+      end
+    end
+
+    def self.assert_value(value, name)  # :nodoc:
+      unless yield(value)
+        msg = "invalid #{name} value - `#{value}'"
+        raise PNM::ParserError, msg
+      end
     end
   end
 end

@@ -107,9 +107,11 @@ module PNM
   def self.read(file)
     if file.kind_of?(String)
       raw_data = File.binread(file)
-    else
+    elsif file.respond_to?(:binmode)
       file.binmode
       raw_data = file.read
+    else
+      raise PNM::ArgumentError, "wrong argument type"
     end
 
     content = Parser.parse(raw_data)

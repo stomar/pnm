@@ -24,7 +24,20 @@ module PNM
     #
     # Returns a two-dimensional array of bilevel, gray, or RGB values.
     def self.ascii2array(type, width, height, data)
-      values = data.gsub(/\A[ \t\r\n]+/, '').split(/[ \t\r\n]+/).map {|value| value.to_i }
+      values_per_row = type == :ppm ? 3 * width : width
+
+      begin
+        values = data.gsub(/\A[ \t\r\n]+/, '').split(/[ \t\r\n]+/).map {|value| Integer(value) }
+      rescue ::ArgumentError => e
+        if e.message.start_with?('invalid value')
+          value = e.message[/\"(.*?)\"/][1..-2]
+          raise PNM::DataError, "invalid pixel value - `#{value}'"
+        else
+          raise
+        end
+      end
+
+      assert_data_size(values.size, values_per_row * height)
 
       case type
       when :pbm, :pgm
@@ -50,9 +63,7 @@ module PNM
         data.slice!(-1)
       end
 
-      if data.size != bytes_per_row * height
-        raise 'data size does not match expected size'
-      end
+      assert_data_size(data.size, bytes_per_row * height)
 
       case type
       when :pbm
@@ -100,6 +111,12 @@ module PNM
       end
 
       data_string
+    end
+
+    def self.assert_data_size(actual, expected)  # :nodoc:
+      unless actual == expected
+        raise PNM::DataSizeError, 'data size does not match expected size'
+      end
     end
   end
 end
