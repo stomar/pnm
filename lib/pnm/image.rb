@@ -48,21 +48,21 @@ module PNM
     #             For PBM pixel data, setting +maxgray+ implies a conversion
     #             to +:pgm+. If +type+ is explicitly set to +:pbm+,
     #             the +maxgray+ setting is disregarded.
-    # +comment+:: A multiline comment string (default: empty string).
+    # +comment+:: A multiline comment string (or +nil+).
     def initialize(pixels, options = {})
       @type    = options[:type]
       @maxgray = options[:maxgray]
-      @comment = options[:comment] || ''
+      @comment = options[:comment]
       @pixels  = pixels.dup
 
       assert_valid_type     if @type
       assert_valid_maxgray  if @maxgray
-      assert_valid_comment
+      assert_valid_comment  if @comment
       assert_valid_array
 
       @width   = pixels.first.size
       @height  = pixels.size
-      @comment.chomp!
+      @comment.chomp!  if @comment
 
       @type ||= detect_type(@pixels, @maxgray)
 
