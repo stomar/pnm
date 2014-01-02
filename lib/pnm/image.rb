@@ -62,7 +62,6 @@ module PNM
 
       @width   = pixels.first.size
       @height  = pixels.size
-      @comment.chomp!  if @comment
 
       @type ||= detect_type(@pixels, @maxgray)
 
@@ -200,13 +199,21 @@ module PNM
 
     def header(encoding)  # :nodoc:
       header =  "#{PNM.magic_number[type][encoding]}\n"
-      if comment
-        comment.split("\n").each {|line| header << "# #{line}\n" }
+      comment_lines.each do |line|
+        header << (line.empty? ? "#\n" : "# #{line}\n")
       end
       header << "#{width} #{height}\n"
       header << "#{maxgray}\n"  unless type == :pbm
 
       header
+    end
+
+    def comment_lines  # :nodoc:
+      return []    unless comment
+      return ['']  if comment.empty?
+
+      keep_trailing_null_fields = -1  # magic value for split limit
+      comment.split(/\n/, keep_trailing_null_fields)
     end
 
     def to_ascii  # :nodoc:

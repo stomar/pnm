@@ -168,4 +168,18 @@ describe PNM::Image do
     File.binread(@temp_path).must_equal File.binread("#{@srcpath}/grayscale_binary_crlf.pgm")
     File.delete(@temp_path)
   end
+
+  it 'can write zero-length comments' do
+    comment = ''
+    PNM::Image.new([[0,0]], :comment => comment).write(@temp_path, :ascii)
+    File.binread(@temp_path).must_equal "P1\n#\n2 1\n0 0\n"
+    File.delete(@temp_path)
+  end
+
+  it 'can write comments with trailing zero-length line' do
+    comment = "An empty line:\n"
+    PNM::Image.new([[0,0]], :comment => comment).write(@temp_path, :ascii)
+    File.binread(@temp_path).must_equal "P1\n# An empty line:\n#\n2 1\n0 0\n"
+    File.delete(@temp_path)
+  end
 end
