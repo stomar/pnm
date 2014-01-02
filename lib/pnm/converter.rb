@@ -5,7 +5,7 @@ module PNM
 
     # Returns the number of bytes needed for one row of pixels
     # (in binary encoding).
-    def self.byte_width(type, width)
+    def self.byte_width(type, width)  # :nodoc:
       case type
       when :pbm
         (width - 1) / 8 + 1
