@@ -123,10 +123,10 @@ module PNM
     def detect_type(pixels, maxgray)  # :nodoc:
       if pixels.first.first.kind_of?(Array)
         :ppm
-      elsif pixels.flatten.max <= 1
-        maxgray ? :pgm : :pbm
-      else
+      elsif maxgray || pixels.flatten.max > 1
         :pgm
+      else
+        :pbm
       end
     end
 
@@ -152,28 +152,32 @@ module PNM
     end
 
     def assert_valid_pixel(pixel)  # :nodoc:
-      msg = "invalid pixel value: Fixnum expected - %s"
-      raise PNM::DataError, msg % pixel.inspect  unless Fixnum === pixel
+      unless Fixnum === pixel
+        msg = "invalid pixel value: Fixnum expected - #{pixel.inspect}"
+        raise PNM::DataError, msg
+      end
     end
 
     def assert_valid_color_pixel(pixel)  # :nodoc:
-      msg = "invalid pixel value: array of 3 Fixnums expected - %s"
+      unless Array === pixel && pixel.map(&:class) == [Fixnum, Fixnum, Fixnum]
+        msg =  "invalid pixel value: "
+        msg << "Array of 3 Fixnums expected - #{pixel.inspect}"
 
-      raise PNM::DataError, msg % pixel.inspect  unless Array === pixel
-      raise PNM::DataError, msg % pixel.inspect  unless pixel.map(&:class) == [Fixnum, Fixnum, Fixnum]
+        raise PNM::DataError, msg
+      end
     end
 
     def assert_valid_type  # :nodoc:
       unless [:pbm, :pgm, :ppm].include?(type)
-        msg = "invalid image type - %s"
-        raise PNM::ArgumentError, msg % type.inspect
+        msg = "invalid image type - #{type.inspect}"
+        raise PNM::ArgumentError, msg
       end
     end
 
     def assert_matching_type_and_data  # :nodoc:
       if Array === pixels.first.first && [:pbm, :pgm].include?(type)
-        msg = "specified type does not match data - %s"
-        raise PNM::DataError, msg % type.inspect
+        msg = "specified type does not match data - #{type.inspect}"
+        raise PNM::DataError, msg
       end
     end
 
