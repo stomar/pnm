@@ -26,17 +26,7 @@ module PNM
     def self.ascii2array(type, width, height, data)
       values_per_row = type == :ppm ? 3 * width : width
 
-      begin
-        values = data.gsub(/\A[ \t\r\n]+/, '').split(/[ \t\r\n]+/).map {|value| Integer(value) }
-      rescue ::ArgumentError => e
-        if e.message.start_with?('invalid value')
-          value = e.message[/\"(.*?)\"/][1..-2]
-          raise PNM::DataError, "invalid pixel value - `#{value}'"
-        else
-          raise
-        end
-      end
-
+      values = convert_to_integers(data)
       assert_data_size(values.size, values_per_row * height)
 
       case type
@@ -111,6 +101,19 @@ module PNM
       end
 
       data_string
+    end
+
+    def self.convert_to_integers(data)  # :nodoc:
+      data.gsub(/\A[ \t\r\n]+/, '').split(/[ \t\r\n]+/).map do |value|
+        Integer(value)
+      end
+    rescue ::ArgumentError => e
+      if e.message.start_with?('invalid value')
+        value = e.message[/\"(.*?)\"/][1..-2]
+        raise PNM::DataError, "invalid pixel value - `#{value}'"
+      else
+        raise
+      end
     end
 
     def self.assert_data_size(actual, expected)  # :nodoc:
