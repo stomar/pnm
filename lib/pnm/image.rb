@@ -138,11 +138,12 @@ module PNM
       raise PNM::DataError, msg  unless Array === pixels.first
 
       width = pixels.first.size
+      is_color = (Array === pixels.first.first)
 
       pixels.each do |row|
         raise PNM::DataError, msg  unless Array === row && row.size == width
 
-        if Array === row.first  # color image
+        if is_color
           row.each {|pixel| assert_valid_color_pixel(pixel) }
         else
           row.each {|pixel| assert_valid_pixel(pixel) }
@@ -158,8 +159,8 @@ module PNM
     def assert_valid_color_pixel(pixel)  # :nodoc:
       msg = "invalid pixel value: array of 3 Fixnums expected - %s"
 
-      raise PNM::DataError, msg % pixel.inspect  unless pixel.size == 3
-      raise PNM::DataError, msg % pixel.inspect  unless pixel.map {|val| val.class } == [Fixnum, Fixnum, Fixnum]
+      raise PNM::DataError, msg % pixel.inspect  unless Array === pixel
+      raise PNM::DataError, msg % pixel.inspect  unless pixel.map(&:class) == [Fixnum, Fixnum, Fixnum]
     end
 
     def assert_valid_type  # :nodoc:

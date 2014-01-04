@@ -85,6 +85,16 @@ describe 'PNM::Image.new' do
     lambda { PNM::Image.new(data) }.must_raise PNM::DataError
   end
 
+  it 'raises an exception for invalid array dimensions (#5)' do
+    data = [[[0,0,0], [0,0,0]], [0 ,0]]
+    lambda { PNM::Image.new(data) }.must_raise PNM::DataError
+  end
+
+  it 'raises an exception for invalid array dimensions (#6)' do
+    data = [[[0,0,0], 0], [0 ,0]]
+    lambda { PNM::Image.new(data) }.must_raise PNM::DataError
+  end
+
   it 'raises an exception for invalid PBM data (> 1)' do
     data = [[0, 0], [2, 0]]
     lambda { PNM::Image.new(data, :type => :pbm) }.must_raise PNM::DataError
