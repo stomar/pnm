@@ -1,6 +1,11 @@
 module PNM
 
-  # Class for +PBM+, +PGM+, and +PPM+ images. See PNM module for examples.
+  # Class for +PBM+, +PGM+, and +PPM+ images.
+  #
+  # Images can be created from pixel values, see ::new,
+  # or read from a file or I/O stream, see PNM.read.
+  #
+  # See PNM module for examples.
   class Image
 
     # The type of the image. See ::new for details.
@@ -20,11 +25,13 @@ module PNM
     # See ::new for details.
     attr_reader :pixels
 
-    # An optional multiline comment string.
+    # An optional multiline comment string (or +nil+).
     attr_reader :comment
 
     # Creates an image from a two-dimensional array of bilevel,
     # gray, or RGB values.
+    # The image type is guessed from the provided pixel data,
+    # unless it is explicitly set with the +type+ option.
     #
     # +pixels+::  The pixel data, given as a two-dimensional array of
     #
@@ -33,22 +40,21 @@ module PNM
     #             * for PPM: an array of 3 values between 0 and +maxgray+,
     #               corresponding to red, green, and blue (RGB).
     #
-    #             PPM also accepts an array of bilevel or gray values.
-    #
     #             A value of 0 means that the color is turned off.
     #
     # Optional settings that can be specified in the +options+ hash:
     #
     # +type+::    The type of the image (+:pbm+, +:pgm+, or +:ppm+).
-    #             By default, the type is guessed from the provided
-    #             pixel data, unless this option is used.
+    #             By explicitly setting +type+, PGM images can be
+    #             created from bilevel pixel data, and PPM images can be
+    #             created from bilevel or gray pixel data.
     # +maxgray+:: The maximum gray or color value.
     #             For PGM and PPM, +maxgray+ must be less or equal 255
     #             (the default value).
     #             For PBM pixel data, setting +maxgray+ implies a conversion
     #             to +:pgm+. If +type+ is explicitly set to +:pbm+,
     #             the +maxgray+ setting is disregarded.
-    # +comment+:: A multiline comment string (or +nil+).
+    # +comment+:: A multiline comment string.
     def initialize(pixels, options = {})
       @type    = options[:type]
       @maxgray = options[:maxgray]
