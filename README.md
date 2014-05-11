@@ -86,10 +86,10 @@ Requirements
 
 - PNM has been tested with
 
-  - Ruby 2.1.1,
+  - Ruby 2.1.2,
   - Ruby 2.0.0 on Linux and on Windows,
   - Ruby 1.9.3,
-  - JRuby 1.7.11,
+  - JRuby 1.7.12,
   - Rubinius 2.2.6.
 
 Documentation
