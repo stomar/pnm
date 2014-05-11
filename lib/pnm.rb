@@ -16,6 +16,12 @@ require_relative 'pnm/exceptions'
 # - +PGM+ (Portable Graymap), and
 # - +PPM+ (Portable Pixmap).
 #
+# It is a portable and lightweight utility for exporting or importing
+# of raw pixel data to or from an image file format that can be processed
+# by most image manipulation programs.
+#
+# PNM comes without any dependencies on other gems or native libraries.
+#
 # == Examples
 #
 # Create a PGM grayscale image from a two-dimensional array of gray values:
