@@ -43,6 +43,10 @@ require_relative 'pnm/exceptions'
 #     image.width   # => 3
 #     image.height  # => 2
 #
+# Note that for PBM bilevel images a pixel value of 0 signifies white
+# (and 1 signifies black), whereas for PGM and PPM images a value of 0
+# signifies black.
+#
 # See PNM::Image.new for a more detailed description of pixel data formats
 # and available options.
 #

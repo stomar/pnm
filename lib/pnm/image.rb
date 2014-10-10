@@ -35,12 +35,11 @@ module PNM
     #
     # +pixels+::  The pixel data, given as a two-dimensional array of
     #
-    #             * for PBM: bilevel values (0 or 1),
-    #             * for PGM: gray values between 0 and +maxgray+,
+    #             * for PBM: bilevel values of 0 (white) or 1 (black),
+    #             * for PGM: gray values between 0 (black) and +maxgray+ (white),
     #             * for PPM: an array of 3 values between 0 and +maxgray+,
-    #               corresponding to red, green, and blue (RGB).
-    #
-    #             A value of 0 means that the color is turned off.
+    #               corresponding to red, green, and blue (RGB);
+    #               a value of 0 means that the color is turned off.
     #
     # Optional settings that can be specified in the +options+ hash:
     #
