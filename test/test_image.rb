@@ -63,7 +63,13 @@ describe PNM::Image do
     image.maxgray.must_equal 255
   end
 
-  it 'ignores maxgray for bilevel images and sets it to 1' do
+  it 'accepts setting of maxgray to 1 for bilevel images' do
+    image = PNM::Image.new([[0,1,0], [1,0,1]], {:maxgray => 1})
+    image.type.must_equal :pbm
+    image.maxgray.must_equal 1
+  end
+
+  it 'ignores invalid maxgray for bilevel images and sets it to 1' do
     image = PNM::Image.new([[0,1,0], [1,0,1]], {:type => :pbm, :maxgray => 255})
     image.type.must_equal :pbm
     image.maxgray.must_equal 1
@@ -77,10 +83,10 @@ describe PNM::Image do
   end
 
   it 'can create a grayscale image from bilevel values (using maxgray)' do
-    image = PNM::Image.new([[0,1,0], [1,0,1]], {:maxgray => 1})
+    image = PNM::Image.new([[0,1,0], [1,0,1]], {:maxgray => 2})
     image.type.must_equal :pgm
     image.pixels.must_equal [[0,1,0], [1,0,1]]
-    image.maxgray.must_equal 1
+    image.maxgray.must_equal 2
   end
 
   it 'can create a color image from bilevel values' do

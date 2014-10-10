@@ -51,8 +51,9 @@ module PNM
     # +maxgray+:: The maximum gray or color value.
     #             For PGM and PPM, +maxgray+ must be less or equal 255
     #             (the default value).
-    #             For PBM pixel data, setting +maxgray+ implies a conversion
-    #             to +:pgm+. If +type+ is explicitly set to +:pbm+,
+    #             For bilevel pixel data, setting +maxgray+ to a value
+    #             greater than 1 implies a type of +:pgm+.
+    #             When +type+ is explicitly set to +:pbm+,
     #             the +maxgray+ setting is disregarded.
     # +comment+:: A multiline comment string.
     def initialize(pixels, options = {})
@@ -129,7 +130,7 @@ module PNM
     def detect_type(pixels, maxgray)  # :nodoc:
       if pixels.first.first.kind_of?(Array)
         :ppm
-      elsif maxgray || pixels.flatten.max > 1
+      elsif (maxgray && maxgray > 1) || pixels.flatten.max > 1
         :pgm
       else
         :pbm
