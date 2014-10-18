@@ -104,7 +104,9 @@ module PNM
     end
 
     def self.convert_to_integers(data)  # :nodoc:
-      data.gsub(/\A[ \t\r\n]+/, '').split(/[ \t\r\n]+/).map do |value|
+      values_as_string = data.gsub(/\A[ \t\r\n]+/, '').split(/[ \t\r\n]+/)
+
+      values_as_string.map do |value|
         Integer(value)
       end
     rescue ::ArgumentError => e
