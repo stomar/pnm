@@ -2,7 +2,6 @@
 #
 # Copyright (C) 2013-2014 Marcus Stollsteimer
 
-require 'minitest/spec'
 require 'minitest/autorun'
 require 'pnm'
 
