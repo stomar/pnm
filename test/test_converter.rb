@@ -74,6 +74,15 @@ describe PNM::Converter do
     @converter.ascii2array(:ppm, width, height, data).must_equal expected
   end
 
+  it 'accepts ASCII encoded PBM data with omitted whitespace' do
+    width    = 4
+    height   = 3
+    data     = "  010100\n000110"
+    expected = [[0, 1, 0, 1], [0, 0, 0, 0], [0, 1, 1, 0]]
+
+    @converter.ascii2array(:pbm, width, height, data).must_equal expected
+  end
+
   it 'accepts ASCII encoded PGM data with arbitrary whitespace' do
     width    = 4
     height   = 3

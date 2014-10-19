@@ -26,7 +26,7 @@ module PNM
     def self.ascii2array(type, width, height, data)
       values_per_row = type == :ppm ? 3 * width : width
 
-      values = convert_to_integers(data)
+      values = convert_to_integers(data, type)
       assert_data_size(values.size, values_per_row * height)
 
       case type
@@ -103,8 +103,12 @@ module PNM
       data_string
     end
 
-    def self.convert_to_integers(data)  # :nodoc:
-      values_as_string = data.gsub(/\A[ \t\r\n]+/, '').split(/[ \t\r\n]+/)
+    def self.convert_to_integers(data, type)  # :nodoc:
+      if type == :pbm
+        values_as_string = data.gsub(/[ \t\r\n]+/, '').split('')
+      else
+        values_as_string = data.gsub(/\A[ \t\r\n]+/, '').split(/[ \t\r\n]+/)
+      end
 
       values_as_string.map do |value|
         Integer(value)
