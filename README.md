@@ -34,6 +34,7 @@ image = PNM::Image.new(pixels, options)
 
 # retrieve some image properties
 image.info    # => "PGM 3x2 Grayscale"
+image.type    # => :pgm
 image.width   # => 3
 image.height  # => 2
 ```
