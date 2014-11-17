@@ -113,6 +113,15 @@ module PNM
 
     alias :to_s :info
 
+    # Returns a string representation for debugging.
+    def inspect
+      if type == :pbm
+        "#<%s:0x%x %s>" % [self.class.name, object_id, info]
+      else
+        "#<%s:0x%x %s, maxgray=%d>" % [self.class.name, object_id, info, maxgray]
+      end
+    end
+
     private
 
     def type_string  # :nodoc:

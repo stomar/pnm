@@ -162,6 +162,12 @@ describe PNM::Image do
     @color.info.must_equal 'PPM 5x3 Color'
   end
 
+  it 'can return meaningful debugging information' do
+    @bilevel.inspect.must_match   %r{^#<PNM::Image:0x\h+ PBM 5x6 Bilevel>$}
+    @grayscale.inspect.must_match %r{^#<PNM::Image:0x\h+ PGM 4x3 Grayscale, maxgray=250>$}
+    @color.inspect.must_match     %r{^#<PNM::Image:0x\h+ PPM 5x3 Color, maxgray=6>$}
+  end
+
   it 'can write binary data containing CRLF' do
     @grayscale_crlf.write(@temp_path, :binary)
     File.binread(@temp_path).must_equal File.binread("#{@srcpath}/grayscale_binary_crlf.pgm")
