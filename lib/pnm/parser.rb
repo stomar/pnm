@@ -1,7 +1,7 @@
 module PNM
 
   # Parser for PNM image files. Only for internal usage.
-  class Parser
+  class Parser  # :nodoc:
 
     # Parses PNM image data.
     #
@@ -71,7 +71,7 @@ module PNM
       result
     end
 
-    def self.token_number  # :nodoc:
+    def self.token_number
       {
         'P1' => 2,
         'P2' => 3,
@@ -82,7 +82,7 @@ module PNM
       }
     end
 
-    def self.next_token!(content)  # :nodoc:
+    def self.next_token!(content)
       delimiter = if content.start_with?('#')
                     "\n"
                   else
@@ -97,21 +97,21 @@ module PNM
       token
     end
 
-    def self.assert_valid_magic_number(magic_number)  # :nodoc:
+    def self.assert_valid_magic_number(magic_number)
       unless %w{P1 P2 P3 P4 P5 P6}.include?(magic_number)
         msg = "unknown magic number - `#{magic_number}'"
         raise PNM::ParserError, msg
       end
     end
 
-    def self.assert_integer(value_string, value_name)  # :nodoc:
+    def self.assert_integer(value_string, value_name)
       unless /\A[0-9]+\Z/ === value_string
         msg = "#{value_name} must be an integer - `#{value_string}'"
         raise PNM::ParserError, msg
       end
     end
 
-    def self.assert_value(value, name)  # :nodoc:
+    def self.assert_value(value, name)
       unless yield(value)
         msg = "invalid #{name} value - `#{value}'"
         raise PNM::ParserError, msg

@@ -1,11 +1,11 @@
 module PNM
 
   # Converter for pixel data. Only for internal usage.
-  class Converter
+  class Converter  # :nodoc:
 
     # Returns the number of bytes needed for one row of pixels
     # (in binary encoding).
-    def self.byte_width(type, width)  # :nodoc:
+    def self.byte_width(type, width)
       case type
       when :pbm
         (width - 1) / 8 + 1
@@ -103,7 +103,7 @@ module PNM
       data_string
     end
 
-    def self.convert_to_integers(data, type)  # :nodoc:
+    def self.convert_to_integers(data, type)
       if type == :pbm
         values_as_string = data.gsub(/[ \t\r\n]+/, '').split('')
       else
@@ -121,7 +121,7 @@ module PNM
       end
     end
 
-    def self.assert_data_size(actual, expected)  # :nodoc:
+    def self.assert_data_size(actual, expected)
       unless actual == expected
         raise PNM::DataSizeError, 'data size does not match expected size'
       end
