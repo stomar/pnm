@@ -35,6 +35,7 @@ Gem::Specification.new do |s|
       README.md
       Rakefile
       pnm.gemspec
+      .yardopts
     } +
     Dir.glob('{benchmark,lib,test}/**/*')
 
