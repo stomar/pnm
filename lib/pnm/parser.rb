@@ -1,5 +1,6 @@
 module PNM
 
+  # @private
   # Parser for PNM image files. Only for internal usage.
   class Parser  # :nodoc:
 

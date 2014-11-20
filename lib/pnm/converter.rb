@@ -1,5 +1,6 @@
 module PNM
 
+  # @private
   # Converter for pixel data. Only for internal usage.
   class Converter  # :nodoc:
 

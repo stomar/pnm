@@ -163,6 +163,7 @@ module PNM
     Image.new(pixels, options)
   end
 
+  # @private
   def self.magic_number  # :nodoc:
     {
       :pbm => {:ascii => 'P1', :binary => 'P4'},
