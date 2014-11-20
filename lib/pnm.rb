@@ -101,11 +101,11 @@ require_relative 'pnm/exceptions'
 #
 module PNM
 
-  LIBNAME  = 'pnm'                                                # :nodoc:
-  HOMEPAGE = 'https://github.com/stomar/pnm'                      # :nodoc:
-  TAGLINE  = 'create/read/write PNM image files (PBM, PGM, PPM)'  # :nodoc:
+  LIBNAME  = 'pnm'
+  HOMEPAGE = 'https://github.com/stomar/pnm'
+  TAGLINE  = 'create/read/write PNM image files (PBM, PGM, PPM)'
 
-  COPYRIGHT = <<-copyright.gsub(/^ +/, '')                        # :nodoc:
+  COPYRIGHT = <<-copyright.gsub(/^ +/, '')
     Copyright (C) 2013-2014 Marcus Stollsteimer.
     License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
     This is free software: you are free to change and redistribute it.
