@@ -84,21 +84,6 @@ require_relative 'pnm/exceptions'
 #
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 #
-#--
-#
-# == PNM magic numbers
-#
-#  Magic Number  Type              Encoding
-#  ------------  ----------------  -------
-#  P1            Portable bitmap   ASCII
-#  P2            Portable graymap  ASCII
-#  P3            Portable pixmap   ASCII
-#  P4            Portable bitmap   Binary
-#  P5            Portable graymap  Binary
-#  P6            Portable pixmap   Binary
-#
-#++
-#
 module PNM
 
   LIBNAME  = 'pnm'
