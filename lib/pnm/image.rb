@@ -124,7 +124,7 @@ module PNM
 
     private
 
-    def type_string
+    def type_string  # :nodoc:
       case type
       when :pbm
         'Bilevel'
@@ -135,7 +135,7 @@ module PNM
       end
     end
 
-    def detect_type(pixels, maxgray)
+    def detect_type(pixels, maxgray)  # :nodoc:
       if pixels.first.first.kind_of?(Array)
         :ppm
       elsif (maxgray && maxgray > 1) || pixels.flatten.max > 1
@@ -145,7 +145,7 @@ module PNM
       end
     end
 
-    def assert_valid_array
+    def assert_valid_array  # :nodoc:
       msg = "invalid pixel data: Array expected"
       raise PNM::ArgumentError, msg  unless Array === pixels
 
@@ -166,14 +166,14 @@ module PNM
       end
     end
 
-    def assert_valid_pixel(pixel)
+    def assert_valid_pixel(pixel)  # :nodoc:
       unless Fixnum === pixel
         msg = "invalid pixel value: Fixnum expected - #{pixel.inspect}"
         raise PNM::DataError, msg
       end
     end
 
-    def assert_valid_color_pixel(pixel)
+    def assert_valid_color_pixel(pixel)  # :nodoc:
       unless Array === pixel && pixel.map(&:class) == [Fixnum, Fixnum, Fixnum]
         msg =  "invalid pixel value: "
         msg << "Array of 3 Fixnums expected - #{pixel.inspect}"
@@ -182,33 +182,33 @@ module PNM
       end
     end
 
-    def assert_valid_type
+    def assert_valid_type  # :nodoc:
       unless [:pbm, :pgm, :ppm].include?(type)
         msg = "invalid image type - #{type.inspect}"
         raise PNM::ArgumentError, msg
       end
     end
 
-    def assert_matching_type_and_data
+    def assert_matching_type_and_data  # :nodoc:
       if Array === pixels.first.first && [:pbm, :pgm].include?(type)
         msg = "specified type does not match data - #{type.inspect}"
         raise PNM::DataError, msg
       end
     end
 
-    def assert_valid_maxgray
+    def assert_valid_maxgray  # :nodoc:
       unless Fixnum === maxgray && maxgray > 0 && maxgray <= 255
         raise PNM::ArgumentError, "invalid maxgray value - #{maxgray.inspect}"
       end
     end
 
-    def assert_valid_comment
+    def assert_valid_comment  # :nodoc:
       unless String === comment
         raise PNM::ArgumentError, "invalid comment value - #{comment.inspect}"
       end
     end
 
-    def assert_valid_pixel_values
+    def assert_valid_pixel_values  # :nodoc:
       unless pixels.flatten.max <= maxgray
         raise PNM::DataError, "invalid data: value(s) greater than maxgray"
       end
@@ -217,7 +217,7 @@ module PNM
       end
     end
 
-    def header(encoding)
+    def header(encoding)  # :nodoc:
       header =  "#{PNM.magic_number[type][encoding]}\n"
       comment_lines.each do |line|
         header << (line.empty? ? "#\n" : "# #{line}\n")
@@ -228,7 +228,7 @@ module PNM
       header
     end
 
-    def comment_lines
+    def comment_lines  # :nodoc:
       return []    unless comment
       return ['']  if comment.empty?
 
@@ -236,19 +236,19 @@ module PNM
       comment.split(/\n/, keep_trailing_null_fields)
     end
 
-    def to_ascii
+    def to_ascii  # :nodoc:
       data_string = Converter.array2ascii(pixels)
 
       header(:ascii) << data_string
     end
 
-    def to_binary
+    def to_binary  # :nodoc:
       data_string = Converter.array2binary(type, pixels)
 
       header(:binary) << data_string
     end
 
-    def gray_to_rgb(gray_value)
+    def gray_to_rgb(gray_value)  # :nodoc:
       Array.new(3, gray_value)
     end
   end
