@@ -81,6 +81,11 @@ describe PNM::Image do
     image.maxgray.must_equal 255
   end
 
+  it 'also accepts types given as string instead of symbol' do
+    image = PNM::Image.new([[0,1,0], [1,0,1]], {:type => "pgm"})
+    image.type.must_equal :pgm
+  end
+
   it 'can create a grayscale image from bilevel values (using maxgray)' do
     image = PNM::Image.new([[0,1,0], [1,0,1]], {:maxgray => 2})
     image.type.must_equal :pgm

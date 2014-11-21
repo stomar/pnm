@@ -14,9 +14,9 @@ describe 'PNM::Image.new' do
     lambda { PNM::Image.new(data) }.must_raise PNM::ArgumentError
   end
 
-  it 'raises an exception for invalid type (String)' do
+  it 'raises an exception for invalid type' do
     data = [[0, 0], [0, 0]]
-    lambda { PNM::Image.new(data, :type => 'pbm') }.must_raise PNM::ArgumentError
+    lambda { PNM::Image.new(data, :type => :abc) }.must_raise PNM::ArgumentError
   end
 
   it 'raises an exception for invalid maxgray (String)' do

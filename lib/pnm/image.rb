@@ -47,6 +47,8 @@ module PNM
     #             By explicitly setting +type+, PGM images can be
     #             created from bilevel pixel data, and PPM images can be
     #             created from bilevel or gray pixel data.
+    #             String values (<tt>"pbm"</tt>, <tt>"pgm"</tt>,
+    #             or <tt>"ppm"</tt>) are also accepted.
     # +maxgray+:: The maximum gray or color value.
     #             For PGM and PPM, +maxgray+ must be less or equal 255
     #             (the default value).
@@ -60,6 +62,8 @@ module PNM
       @maxgray = options[:maxgray]
       @comment = options[:comment]
       @pixels  = pixels.dup
+
+      @type = @type.to_sym  if @type && String === @type
 
       assert_valid_type     if @type
       assert_valid_maxgray  if @maxgray
