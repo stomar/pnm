@@ -7,111 +7,111 @@ require 'stringio'
 require 'pnm'
 
 
-describe 'PNM::Image.create' do
+describe 'PNM.create' do
 
   it 'raises an exception for invalid data type (String)' do
     data = '0'
-    lambda { PNM::Image.create(data) }.must_raise PNM::ArgumentError
+    lambda { PNM.create(data) }.must_raise PNM::ArgumentError
   end
 
   it 'raises an exception for invalid type' do
     data = [[0, 0], [0, 0]]
-    lambda { PNM::Image.create(data, :type => :abc) }.must_raise PNM::ArgumentError
+    lambda { PNM.create(data, :type => :abc) }.must_raise PNM::ArgumentError
   end
 
   it 'raises an exception for invalid maxgray (String)' do
     data = [[0, 0], [0, 0]]
-    lambda { PNM::Image.create(data, :maxgray => '255') }.must_raise PNM::ArgumentError
+    lambda { PNM.create(data, :maxgray => '255') }.must_raise PNM::ArgumentError
   end
 
   it 'raises an exception for invalid maxgray (> 255)' do
     data = [[0, 0], [0, 0]]
-    lambda { PNM::Image.create(data, :maxgray => 256) }.must_raise PNM::ArgumentError
+    lambda { PNM.create(data, :maxgray => 256) }.must_raise PNM::ArgumentError
   end
 
   it 'raises an exception for invalid maxgray (0)' do
     data = [[0, 0], [0, 0]]
-    lambda { PNM::Image.create(data, :maxgray => 0) }.must_raise PNM::ArgumentError
+    lambda { PNM.create(data, :maxgray => 0) }.must_raise PNM::ArgumentError
   end
 
   it 'raises an exception for invalid comment (Fixnum)' do
     data = [[0, 0], [0, 0]]
-    lambda { PNM::Image.create(data, :comment => 1) }.must_raise PNM::ArgumentError
+    lambda { PNM.create(data, :comment => 1) }.must_raise PNM::ArgumentError
   end
 
   it 'raises an exception for image type and data mismatch (PBM)' do
     data = [[[0,0,0], [0,0,0]], [[0,0,0], [0,0,0]]]
-    lambda { PNM::Image.create(data, :type => :pbm) }.must_raise PNM::DataError
+    lambda { PNM.create(data, :type => :pbm) }.must_raise PNM::DataError
   end
 
   it 'raises an exception for image type and data mismatch (PGM)' do
     data = [[[0,0,0], [0,0,0]], [[0,0,0], [0,0,0]]]
-    lambda { PNM::Image.create(data, :type => :pgm) }.must_raise PNM::DataError
+    lambda { PNM.create(data, :type => :pgm) }.must_raise PNM::DataError
   end
 
   it 'raises an exception for non-integer pixel value (String)' do
     data = [[0, 0], ['X', 0]]
-    lambda { PNM::Image.create(data) }.must_raise PNM::DataError
+    lambda { PNM.create(data) }.must_raise PNM::DataError
   end
 
   it 'raises an exception for non-integer pixel value (Float)' do
     data = [[0, 0], [0.5, 0]]
-    lambda { PNM::Image.create(data) }.must_raise PNM::DataError
+    lambda { PNM.create(data) }.must_raise PNM::DataError
   end
 
   it 'raises an exception for rows of different size' do
     data = [[0, 0], [0, 0, 0]]
-    lambda { PNM::Image.create(data) }.must_raise PNM::DataError
+    lambda { PNM.create(data) }.must_raise PNM::DataError
   end
 
   it 'raises an exception for invalid array dimensions (#1)' do
     data = [0, 0, 0]
-    lambda { PNM::Image.create(data) }.must_raise PNM::DataError
+    lambda { PNM.create(data) }.must_raise PNM::DataError
   end
 
   it 'raises an exception for invalid array dimensions (#2)' do
     data = [[0, 0], 0, 0]
-    lambda { PNM::Image.create(data) }.must_raise PNM::DataError
+    lambda { PNM.create(data) }.must_raise PNM::DataError
   end
 
   it 'raises an exception for invalid array dimensions (#3)' do
     data = [[0, 0], [0, [0, 0]]]
-    lambda { PNM::Image.create(data) }.must_raise PNM::DataError
+    lambda { PNM.create(data) }.must_raise PNM::DataError
   end
 
   it 'raises an exception for invalid array dimensions (#4)' do
     data = [[[0,0], [0,0]], [[0,0], [0,0]]]
-    lambda { PNM::Image.create(data) }.must_raise PNM::DataError
+    lambda { PNM.create(data) }.must_raise PNM::DataError
   end
 
   it 'raises an exception for invalid array dimensions (#5)' do
     data = [[[0,0,0], [0,0,0]], [0 ,0]]
-    lambda { PNM::Image.create(data) }.must_raise PNM::DataError
+    lambda { PNM.create(data) }.must_raise PNM::DataError
   end
 
   it 'raises an exception for invalid array dimensions (#6)' do
     data = [[[0,0,0], 0], [0 ,0]]
-    lambda { PNM::Image.create(data) }.must_raise PNM::DataError
+    lambda { PNM.create(data) }.must_raise PNM::DataError
   end
 
   it 'raises an exception for invalid PBM data (> 1)' do
     data = [[0, 0], [2, 0]]
-    lambda { PNM::Image.create(data, :type => :pbm) }.must_raise PNM::DataError
+    lambda { PNM.create(data, :type => :pbm) }.must_raise PNM::DataError
   end
 
   it 'raises an exception for invalid PBM data (< 0)' do
     data = [[0, 0], [-1, 0]]
-    lambda { PNM::Image.create(data, :type => :pbm) }.must_raise PNM::DataError
+    lambda { PNM.create(data, :type => :pbm) }.must_raise PNM::DataError
   end
 
   it 'raises an exception for invalid PGM data (> 255)' do
     data = [[0, 0], [1, 500]]
-    lambda { PNM::Image.create(data, :type => :pgm) }.must_raise PNM::DataError
+    lambda { PNM.create(data, :type => :pgm) }.must_raise PNM::DataError
   end
 
   it 'raises an exception for invalid PGM data (> maxgray)' do
     data = [[0, 0], [1, 200]]
-    lambda { PNM::Image.create(data, :maxgray => 100) }.must_raise PNM::DataError
+    lambda { PNM.create(data, :maxgray => 100) }.must_raise PNM::DataError
   end
 end
 

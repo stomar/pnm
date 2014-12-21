@@ -30,7 +30,7 @@ pixels = [[ 0, 10, 20],
 options = {:maxgray => 30, :comment => 'Test Image'}
 
 # create the image object
-image = PNM::Image.create(pixels, options)
+image = PNM.create(pixels, options)
 
 # retrieve some image properties
 image.info    # => "PGM 3x2 Grayscale"
@@ -43,7 +43,7 @@ Note that for PBM bilevel images a pixel value of 0 signifies white
 (and 1 signifies black), whereas for PGM and PPM images a value of 0
 signifies black.
 
-See PNM::Image.create for a more detailed description of pixel data formats
+See PNM.create for a more detailed description of pixel data formats
 and available options.
 
 Write an image to a file:
@@ -70,7 +70,7 @@ image.pixels   # => [[0, 10, 20], [10, 20, 30]]
 Force an image type:
 
 ``` ruby
-image = PNM::Image.create([[0, 1],[1, 0]], :type => :ppm)
+image = PNM.create([[0, 1],[1, 0]], :type => :ppm)
 image.info  # => "PPM 2x2 Color"
 ```
 
