@@ -2,7 +2,7 @@ module PNM
 
   # Class for +PBM+, +PGM+, and +PPM+ images.
   #
-  # Images can be created from pixel values, see ::create,
+  # Images can be created from pixel values, see PNM.create,
   # or read from a file or I/O stream, see PNM.read.
   #
   # See PNM module for examples.
@@ -10,7 +10,7 @@ module PNM
 
     private_class_method :new
 
-    # The type of the image. See ::create for details.
+    # The type of the image. See PNM.create for details.
     attr_reader :type
 
     # The width of the image in pixels.
@@ -20,11 +20,11 @@ module PNM
     attr_reader :height
 
     # The maximum gray or color value (for PBM always set to 1).
-    # See ::create for details.
+    # See PNM.create for details.
     attr_reader :maxgray
 
     # The pixel data, given as a two-dimensional array.
-    # See ::create for details.
+    # See PNM.create for details.
     attr_reader :pixels
 
     # An optional multiline comment string (or +nil+).
@@ -32,33 +32,10 @@ module PNM
 
     # Creates an image from a two-dimensional array of bilevel,
     # gray, or RGB values.
-    # The image type is guessed from the provided pixel data,
-    # unless it is explicitly set with the +type+ option.
     #
-    # +pixels+::  The pixel data, given as a two-dimensional array of
-    #
-    #             * for PBM: bilevel values of 0 (white) or 1 (black),
-    #             * for PGM: gray values between 0 (black) and +maxgray+ (white),
-    #             * for PPM: an array of 3 values between 0 and +maxgray+,
-    #               corresponding to red, green, and blue (RGB);
-    #               a value of 0 means that the color is turned off.
-    #
-    # Optional settings that can be specified in the +options+ hash:
-    #
-    # +type+::    The type of the image (+:pbm+, +:pgm+, or +:ppm+).
-    #             By explicitly setting +type+, PGM images can be
-    #             created from bilevel pixel data, and PPM images can be
-    #             created from bilevel or gray pixel data.
-    #             String values (<tt>"pbm"</tt>, <tt>"pgm"</tt>,
-    #             or <tt>"ppm"</tt>) are also accepted.
-    # +maxgray+:: The maximum gray or color value.
-    #             For PGM and PPM, +maxgray+ must be less or equal 255
-    #             (the default value).
-    #             For bilevel pixel data, setting +maxgray+ to a value
-    #             greater than 1 implies a type of +:pgm+.
-    #             When +type+ is explicitly set to +:pbm+,
-    #             the +maxgray+ setting is disregarded.
-    # +comment+:: A multiline comment string.
+    # This method should be called as PNM.create.
+    # See there for a description of pixel data formats
+    # and available options.
     def self.create(pixels, options = {})
       new(pixels, options)
     end
