@@ -3,7 +3,7 @@
 # Copyright (C) 2013-2014 Marcus Stollsteimer
 
 require 'minitest/autorun'
-require 'pnm/image'
+require 'pnm'
 
 
 describe PNM::Image do
