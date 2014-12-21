@@ -2,13 +2,15 @@ module PNM
 
   # Class for +PBM+, +PGM+, and +PPM+ images.
   #
-  # Images can be created from pixel values, see ::new,
+  # Images can be created from pixel values, see ::create,
   # or read from a file or I/O stream, see PNM.read.
   #
   # See PNM module for examples.
   class Image
 
-    # The type of the image. See ::new for details.
+    private_class_method :new
+
+    # The type of the image. See ::create for details.
     attr_reader :type
 
     # The width of the image in pixels.
@@ -18,11 +20,11 @@ module PNM
     attr_reader :height
 
     # The maximum gray or color value (for PBM always set to 1).
-    # See ::new for details.
+    # See ::create for details.
     attr_reader :maxgray
 
     # The pixel data, given as a two-dimensional array.
-    # See ::new for details.
+    # See ::create for details.
     attr_reader :pixels
 
     # An optional multiline comment string (or +nil+).
@@ -57,7 +59,12 @@ module PNM
     #             When +type+ is explicitly set to +:pbm+,
     #             the +maxgray+ setting is disregarded.
     # +comment+:: A multiline comment string.
-    def initialize(pixels, options = {})
+    def self.create(pixels, options = {})
+      new(pixels, options)
+    end
+
+    # @private
+    def initialize(pixels, options = {})  # :nodoc:
       @type    = options[:type]
       @maxgray = options[:maxgray]
       @comment = options[:comment]

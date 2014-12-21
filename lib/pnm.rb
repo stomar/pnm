@@ -36,7 +36,7 @@ require_relative 'pnm/exceptions'
 #     options = {:maxgray => 30, :comment => 'Test Image'}
 #
 #     # create the image object
-#     image = PNM::Image.new(pixels, options)
+#     image = PNM::Image.create(pixels, options)
 #
 #     # retrieve some image properties
 #     image.info    # => "PGM 3x2 Grayscale"
@@ -48,7 +48,7 @@ require_relative 'pnm/exceptions'
 # (and 1 signifies black), whereas for PGM and PPM images a value of 0
 # signifies black.
 #
-# See PNM::Image.new for a more detailed description of pixel data formats
+# See PNM::Image.create for a more detailed description of pixel data formats
 # and available options.
 #
 # Write an image to a file:
@@ -70,7 +70,7 @@ require_relative 'pnm/exceptions'
 #
 # Force an image type:
 #
-#     image = PNM::Image.new([[0, 1],[1, 0]], :type => :ppm)
+#     image = PNM::Image.create([[0, 1],[1, 0]], :type => :ppm)
 #     image.info  # => "PPM 2x2 Color"
 #
 # == See also
@@ -145,7 +145,7 @@ module PNM
     options = {:type => type, :maxgray => maxgray}
     options[:comment] = content[:comments].join("\n")  if content[:comments]
 
-    Image.new(pixels, options)
+    Image.create(pixels, options)
   end
 
   # @private
