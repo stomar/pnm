@@ -8,8 +8,6 @@ module PNM
   # See PNM module for examples.
   class Image
 
-    private_class_method :new
-
     # The type of the image. See PNM.create for details.
     attr_reader :type
 
@@ -46,6 +44,8 @@ module PNM
 
       new(type, pixels, options[:maxgray], options[:comment])
     end
+
+    private_class_method :new
 
     # @private
     #
@@ -110,40 +110,6 @@ module PNM
 
     private
 
-    def type_string  # :nodoc:
-      case type
-      when :pbm
-        'Bilevel'
-      when :pgm
-        'Grayscale'
-      when :ppm
-        'Color'
-      end
-    end
-
-    def self.sanitize_and_assert_valid_type(type)  # :nodoc:
-      return  unless type
-
-      type = type.to_sym  if type.kind_of?(String)
-
-      unless [:pbm, :pgm, :ppm].include?(type)
-        msg = "invalid image type - #{type.inspect}"
-        raise PNM::ArgumentError, msg
-      end
-
-      type
-    end
-
-    def self.detect_type(pixels, maxgray)  # :nodoc:
-      if pixels.first.first.kind_of?(Array)
-        :ppm
-      elsif (maxgray && maxgray > 1) || pixels.flatten.max > 1
-        :pgm
-      else
-        :pbm
-      end
-    end
-
     def self.assert_valid_array(pixels)  # :nodoc:
       assert_array_dimensions(pixels)
       assert_pixel_types(pixels)
@@ -187,13 +153,6 @@ module PNM
       end
     end
 
-    def assert_matching_type_and_data  # :nodoc:
-      if Array === pixels.first.first && [:pbm, :pgm].include?(type)
-        msg = "specified type does not match data - #{type.inspect}"
-        raise PNM::DataError, msg
-      end
-    end
-
     def self.assert_valid_maxgray(maxgray)  # :nodoc:
       return  unless maxgray
 
@@ -210,12 +169,53 @@ module PNM
       end
     end
 
+    def self.sanitize_and_assert_valid_type(type)  # :nodoc:
+      return  unless type
+
+      type = type.to_sym  if type.kind_of?(String)
+
+      unless [:pbm, :pgm, :ppm].include?(type)
+        msg = "invalid image type - #{type.inspect}"
+        raise PNM::ArgumentError, msg
+      end
+
+      type
+    end
+
+    def self.detect_type(pixels, maxgray)  # :nodoc:
+      if pixels.first.first.kind_of?(Array)
+        :ppm
+      elsif (maxgray && maxgray > 1) || pixels.flatten.max > 1
+        :pgm
+      else
+        :pbm
+      end
+    end
+
+    def assert_matching_type_and_data  # :nodoc:
+      if Array === pixels.first.first && [:pbm, :pgm].include?(type)
+        msg = "specified type does not match data - #{type.inspect}"
+        raise PNM::DataError, msg
+      end
+    end
+
     def assert_valid_pixel_values  # :nodoc:
       unless pixels.flatten.max <= maxgray
         raise PNM::DataError, "invalid data: value(s) greater than maxgray"
       end
       unless pixels.flatten.min >= 0
         raise PNM::DataError, "invalid data: value(s) less than zero"
+      end
+    end
+
+    def type_string  # :nodoc:
+      case type
+      when :pbm
+        'Bilevel'
+      when :pgm
+        'Grayscale'
+      when :ppm
+        'Color'
       end
     end
 
