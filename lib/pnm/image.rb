@@ -37,23 +37,26 @@ module PNM
     # See there for a description of pixel data formats
     # and available options.
     def self.create(pixels, options = {})
-      new(pixels, options)
-    end
-
-    # @private
-    def initialize(pixels, options = {})  # :nodoc:
       assert_valid_array(pixels)
       assert_valid_maxgray(options[:maxgray])
       assert_valid_comment(options[:comment])
 
-      @type = sanitize_and_assert_valid_type(options[:type])
-      @type ||= detect_type(pixels, options[:maxgray])
+      type = sanitize_and_assert_valid_type(options[:type])
+      type ||= detect_type(pixels, options[:maxgray])
 
+      new(type, pixels, options[:maxgray], options[:comment])
+    end
+
+    # @private
+    #
+    # Invoked by ::create after basic input validations.
+    def initialize(type, pixels, maxgray, comment)  # :nodoc:
+      @type    = type
       @pixels  = pixels.dup
       @width   = pixels.first.size
       @height  = pixels.size
-      @maxgray = options[:maxgray]
-      @comment = options[:comment]
+      @maxgray = maxgray
+      @comment = comment
 
       if @type == :pbm
         @maxgray = 1
@@ -118,7 +121,7 @@ module PNM
       end
     end
 
-    def sanitize_and_assert_valid_type(type)  # :nodoc:
+    def self.sanitize_and_assert_valid_type(type)  # :nodoc:
       return  unless type
 
       type = type.to_sym  if type.kind_of?(String)
@@ -131,7 +134,7 @@ module PNM
       type
     end
 
-    def detect_type(pixels, maxgray)  # :nodoc:
+    def self.detect_type(pixels, maxgray)  # :nodoc:
       if pixels.first.first.kind_of?(Array)
         :ppm
       elsif (maxgray && maxgray > 1) || pixels.flatten.max > 1
@@ -141,12 +144,12 @@ module PNM
       end
     end
 
-    def assert_valid_array(pixels)  # :nodoc:
+    def self.assert_valid_array(pixels)  # :nodoc:
       assert_array_dimensions(pixels)
       assert_pixel_types(pixels)
     end
 
-    def assert_array_dimensions(pixels)  # :nodoc:
+    def self.assert_array_dimensions(pixels)  # :nodoc:
       msg = "invalid pixel data: Array expected"
       raise PNM::ArgumentError, msg  unless Array === pixels
 
@@ -157,7 +160,7 @@ module PNM
       raise PNM::DataError, msg  unless pixels.map(&:size).uniq == [width]
     end
 
-    def assert_pixel_types(pixels)  # :nodoc:
+    def self.assert_pixel_types(pixels)  # :nodoc:
       pixel_values = pixels.flatten(1)
       is_color = (Array === pixel_values.first)
 
@@ -168,14 +171,14 @@ module PNM
       end
     end
 
-    def assert_valid_pixel(pixel)  # :nodoc:
+    def self.assert_valid_pixel(pixel)  # :nodoc:
       unless Fixnum === pixel
         msg = "invalid pixel value: Fixnum expected - #{pixel.inspect}"
         raise PNM::DataError, msg
       end
     end
 
-    def assert_valid_color_pixel(pixel)  # :nodoc:
+    def self.assert_valid_color_pixel(pixel)  # :nodoc:
       unless Array === pixel && pixel.map(&:class) == [Fixnum, Fixnum, Fixnum]
         msg =  "invalid pixel value: "
         msg << "Array of 3 Fixnums expected - #{pixel.inspect}"
@@ -191,7 +194,7 @@ module PNM
       end
     end
 
-    def assert_valid_maxgray(maxgray)  # :nodoc:
+    def self.assert_valid_maxgray(maxgray)  # :nodoc:
       return  unless maxgray
 
       unless Fixnum === maxgray && maxgray > 0 && maxgray <= 255
@@ -199,7 +202,7 @@ module PNM
       end
     end
 
-    def assert_valid_comment(comment)  # :nodoc:
+    def self.assert_valid_comment(comment)  # :nodoc:
       return  unless comment
 
       unless String === comment
