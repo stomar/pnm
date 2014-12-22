@@ -143,24 +143,20 @@ module PNM
       raise PNM::ArgumentError, msg  unless Array === pixels
 
       msg = "invalid pixel array"
-      raise PNM::DataError, msg  unless Array === pixels.first
 
+      raise PNM::DataError, msg  unless pixels.map(&:class).uniq == [Array]
       width = pixels.first.size
-
-      pixels.each do |row|
-        raise PNM::DataError, msg  unless Array === row && row.size == width
-      end
+      raise PNM::DataError, msg  unless pixels.map(&:size).uniq == [width]
     end
 
     def assert_pixel_types  # :nodoc:
-      is_color = (Array === pixels.first.first)
+      pixel_values = pixels.flatten(1)
+      is_color = (Array === pixel_values.first)
 
-      pixels.each do |row|
-        if is_color
-          row.each {|pixel| assert_valid_color_pixel(pixel) }
-        else
-          row.each {|pixel| assert_valid_pixel(pixel) }
-        end
+      if is_color
+        pixel_values.each {|pixel| assert_valid_color_pixel(pixel) }
+      else
+        pixel_values.each {|pixel| assert_valid_pixel(pixel) }
       end
     end
 
