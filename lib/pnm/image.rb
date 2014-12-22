@@ -42,24 +42,20 @@ module PNM
 
     # @private
     def initialize(pixels, options = {})  # :nodoc:
-      @type    = options[:type]
-      @maxgray = options[:maxgray]
-      @comment = options[:comment]
-      @pixels  = pixels.dup
+      assert_valid_array(pixels)
+      assert_valid_maxgray(options[:maxgray])
+      assert_valid_comment(options[:comment])
 
+      @type = options[:type]
       @type = @type.to_sym  if @type && String === @type
-
       assert_valid_type     if @type
-      assert_valid_maxgray  if @maxgray
-      assert_valid_comment  if @comment
-      assert_valid_array
+      @type ||= detect_type(pixels, options[:maxgray])
 
+      @pixels  = pixels.dup
       @width   = pixels.first.size
       @height  = pixels.size
-
-      @type ||= detect_type(@pixels, @maxgray)
-
-      assert_matching_type_and_data
+      @maxgray = options[:maxgray]
+      @comment = options[:comment]
 
       if @type == :pbm
         @maxgray = 1
@@ -68,6 +64,7 @@ module PNM
       end
 
       assert_valid_pixel_values
+      assert_matching_type_and_data
 
       if type == :ppm && !pixels.first.first.kind_of?(Array)
         @pixels.map! {|row| row.map {|pixel| gray_to_rgb(pixel) } }
@@ -133,12 +130,12 @@ module PNM
       end
     end
 
-    def assert_valid_array  # :nodoc:
-      assert_array_dimensions
-      assert_pixel_types
+    def assert_valid_array(pixels)  # :nodoc:
+      assert_array_dimensions(pixels)
+      assert_pixel_types(pixels)
     end
 
-    def assert_array_dimensions  # :nodoc:
+    def assert_array_dimensions(pixels)  # :nodoc:
       msg = "invalid pixel data: Array expected"
       raise PNM::ArgumentError, msg  unless Array === pixels
 
@@ -149,7 +146,7 @@ module PNM
       raise PNM::DataError, msg  unless pixels.map(&:size).uniq == [width]
     end
 
-    def assert_pixel_types  # :nodoc:
+    def assert_pixel_types(pixels)  # :nodoc:
       pixel_values = pixels.flatten(1)
       is_color = (Array === pixel_values.first)
 
@@ -190,13 +187,17 @@ module PNM
       end
     end
 
-    def assert_valid_maxgray  # :nodoc:
+    def assert_valid_maxgray(maxgray)  # :nodoc:
+      return  unless maxgray
+
       unless Fixnum === maxgray && maxgray > 0 && maxgray <= 255
         raise PNM::ArgumentError, "invalid maxgray value - #{maxgray.inspect}"
       end
     end
 
-    def assert_valid_comment  # :nodoc:
+    def assert_valid_comment(comment)  # :nodoc:
+      return  unless comment
+
       unless String === comment
         raise PNM::ArgumentError, "invalid comment value - #{comment.inspect}"
       end
