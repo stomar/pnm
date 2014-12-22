@@ -134,6 +134,11 @@ module PNM
     end
 
     def assert_valid_array  # :nodoc:
+      assert_array_dimensions
+      assert_pixel_types
+    end
+
+    def assert_array_dimensions  # :nodoc:
       msg = "invalid pixel data: Array expected"
       raise PNM::ArgumentError, msg  unless Array === pixels
 
@@ -141,11 +146,16 @@ module PNM
       raise PNM::DataError, msg  unless Array === pixels.first
 
       width = pixels.first.size
-      is_color = (Array === pixels.first.first)
 
       pixels.each do |row|
         raise PNM::DataError, msg  unless Array === row && row.size == width
+      end
+    end
 
+    def assert_pixel_types  # :nodoc:
+      is_color = (Array === pixels.first.first)
+
+      pixels.each do |row|
         if is_color
           row.each {|pixel| assert_valid_color_pixel(pixel) }
         else
