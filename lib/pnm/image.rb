@@ -42,7 +42,14 @@ module PNM
       type = sanitize_and_assert_valid_type(options[:type])
       type ||= detect_type(pixels, options[:maxgray])
 
-      new(type, pixels, options[:maxgray], options[:comment])
+      # except for type detection, the maxgray option must be ignored for PBM
+      if type == :pbm
+        maxgray = nil
+      else
+        maxgray = options[:maxgray]
+      end
+
+      new(type, pixels, maxgray, options[:comment])
     end
 
     private_class_method :new
@@ -55,14 +62,8 @@ module PNM
       @pixels  = pixels.dup
       @width   = pixels.first.size
       @height  = pixels.size
-      @maxgray = maxgray
+      @maxgray = maxgray || default_maxgray
       @comment = comment
-
-      if @type == :pbm
-        @maxgray = 1
-      else
-        @maxgray ||= 255
-      end
 
       assert_valid_pixel_values
       assert_matching_type_and_data
@@ -205,6 +206,14 @@ module PNM
       end
       unless pixels.flatten.min >= 0
         raise PNM::DataError, "invalid data: value(s) less than zero"
+      end
+    end
+
+    def default_maxgray  # :nodoc:
+      if type == :pbm
+        1
+      else
+        255
       end
     end
 
