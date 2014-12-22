@@ -46,9 +46,7 @@ module PNM
       assert_valid_maxgray(options[:maxgray])
       assert_valid_comment(options[:comment])
 
-      @type = options[:type]
-      @type = @type.to_sym  if @type && String === @type
-      assert_valid_type     if @type
+      @type = sanitize_and_assert_valid_type(options[:type])
       @type ||= detect_type(pixels, options[:maxgray])
 
       @pixels  = pixels.dup
@@ -120,6 +118,19 @@ module PNM
       end
     end
 
+    def sanitize_and_assert_valid_type(type)  # :nodoc:
+      return  unless type
+
+      type = type.to_sym  if type.kind_of?(String)
+
+      unless [:pbm, :pgm, :ppm].include?(type)
+        msg = "invalid image type - #{type.inspect}"
+        raise PNM::ArgumentError, msg
+      end
+
+      type
+    end
+
     def detect_type(pixels, maxgray)  # :nodoc:
       if pixels.first.first.kind_of?(Array)
         :ppm
@@ -170,13 +181,6 @@ module PNM
         msg << "Array of 3 Fixnums expected - #{pixel.inspect}"
 
         raise PNM::DataError, msg
-      end
-    end
-
-    def assert_valid_type  # :nodoc:
-      unless [:pbm, :pgm, :ppm].include?(type)
-        msg = "invalid image type - #{type.inspect}"
-        raise PNM::ArgumentError, msg
       end
     end
 
