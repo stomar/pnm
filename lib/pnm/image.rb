@@ -117,11 +117,7 @@ module PNM
 
     # Returns a string representation for debugging.
     def inspect
-      if type == :pbm
-        inspect_string_without_maxgray
-      else
-        inspect_string_with_maxgray
-      end
+      # implemented by subclasses
     end
 
     private
@@ -224,25 +220,6 @@ module PNM
       end
     end
 
-    def default_maxgray  # :nodoc:
-      if type == :pbm
-        1
-      else
-        255
-      end
-    end
-
-    def type_string  # :nodoc:
-      case type
-      when :pbm
-        'Bilevel'
-      when :pgm
-        'Grayscale'
-      when :ppm
-        'Color'
-      end
-    end
-
     def header_without_maxgray(encoding)  # :nodoc:
       header =  "#{PNM.magic_number[type][encoding]}\n"
       comment_lines.each do |line|
@@ -255,14 +232,6 @@ module PNM
 
     def header_with_maxgray(encoding)  # :nodoc:
       header_without_maxgray(encoding) << "#{maxgray}\n"
-    end
-
-    def header(encoding)  # :nodoc:
-      if type == :pbm
-        header_without_maxgray(encoding)
-      else
-        header_with_maxgray(encoding)
-      end
     end
 
     def comment_lines  # :nodoc:
@@ -313,6 +282,24 @@ module PNM
     def type
       :pbm
     end
+
+    def inspect
+      inspect_string_without_maxgray
+    end
+
+    private
+
+    def default_maxgray  # :nodoc:
+      1
+    end
+
+    def type_string  # :nodoc:
+      "Bilevel"
+    end
+
+    def header(encoding)  # :nodoc:
+      header_without_maxgray(encoding)
+    end
   end
 
 
@@ -322,6 +309,24 @@ module PNM
     def type
       :pgm
     end
+
+    def inspect
+      inspect_string_with_maxgray
+    end
+
+    private
+
+    def default_maxgray  # :nodoc:
+      255
+    end
+
+    def type_string  # :nodoc:
+      "Grayscale"
+    end
+
+    def header(encoding)  # :nodoc:
+      header_with_maxgray(encoding)
+    end
   end
 
 
@@ -330,6 +335,24 @@ module PNM
 
     def type
       :ppm
+    end
+
+    def inspect
+      inspect_string_with_maxgray
+    end
+
+    private
+
+    def default_maxgray  # :nodoc:
+      255
+    end
+
+    def type_string  # :nodoc:
+      "Color"
+    end
+
+    def header(encoding)  # :nodoc:
+      header_with_maxgray(encoding)
     end
   end
 end
