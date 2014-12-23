@@ -65,11 +65,14 @@ module PNM
       @maxgray = maxgray || default_maxgray
       @comment = comment
 
-      assert_valid_pixel_values
-      assert_matching_type_and_data
+      assert_pixel_value_range
+
+      if type == :pbm || type == :pgm
+        assert_grayscale_data
+      end
 
       if type == :ppm && !color_pixels?
-        @pixels.map! {|row| row.map {|pixel| gray_to_rgb(pixel) } }
+        convert_pixels_to_color
       end
     end
 
@@ -193,14 +196,14 @@ module PNM
       end
     end
 
-    def assert_matching_type_and_data  # :nodoc:
-      if (type == :pbm || type == :pgm) && color_pixels?
-        msg = "specified type does not match data - #{type.inspect}"
+    def assert_grayscale_data  # :nodoc:
+      if color_pixels?
+        msg = "specified type does not match RGB data - #{type.inspect}"
         raise PNM::DataError, msg
       end
     end
 
-    def assert_valid_pixel_values  # :nodoc:
+    def assert_pixel_value_range  # :nodoc:
       unless pixels.flatten.max <= maxgray
         raise PNM::DataError, "invalid data: value(s) greater than maxgray"
       end
@@ -261,6 +264,10 @@ module PNM
 
     def color_pixels?  # :nodoc:
       (pixels.first.first).kind_of?(Array)
+    end
+
+    def convert_pixels_to_color  # :nodoc:
+      pixels.map! {|row| row.map {|pixel| gray_to_rgb(pixel) } }
     end
 
     def gray_to_rgb(gray_value)  # :nodoc:
