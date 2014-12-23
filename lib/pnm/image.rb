@@ -79,13 +79,7 @@ module PNM
 
       assert_pixel_value_range
 
-      if type == :pbm || type == :pgm
-        assert_grayscale_data
-      end
-
-      if type == :ppm && !color_pixels?
-        convert_pixels_to_color
-      end
+      post_initialize
     end
 
     # Writes the image to +file+ (a filename or an IO object),
@@ -258,14 +252,6 @@ module PNM
       (pixels.first.first).kind_of?(Array)
     end
 
-    def convert_pixels_to_color  # :nodoc:
-      pixels.map! {|row| row.map {|pixel| gray_to_rgb(pixel) } }
-    end
-
-    def gray_to_rgb(gray_value)  # :nodoc:
-      Array.new(3, gray_value)
-    end
-
     def inspect_string_with_maxgray  # :nodoc:
         "#<%s:0x%x %s, maxgray=%d>" % [self.class.name, object_id, info, maxgray]
     end
@@ -288,6 +274,10 @@ module PNM
     end
 
     private
+
+    def post_initialize  # :nodoc:
+      assert_grayscale_data
+    end
 
     def default_maxgray  # :nodoc:
       1
@@ -316,6 +306,10 @@ module PNM
 
     private
 
+    def post_initialize  # :nodoc:
+      assert_grayscale_data
+    end
+
     def default_maxgray  # :nodoc:
       255
     end
@@ -343,6 +337,10 @@ module PNM
 
     private
 
+    def post_initialize  # :nodoc:
+      convert_pixels_to_color  unless color_pixels?
+    end
+
     def default_maxgray  # :nodoc:
       255
     end
@@ -353,6 +351,14 @@ module PNM
 
     def header(encoding)  # :nodoc:
       header_with_maxgray(encoding)
+    end
+
+    def convert_pixels_to_color  # :nodoc:
+      pixels.map! {|row| row.map {|pixel| gray_to_rgb(pixel) } }
+    end
+
+    def gray_to_rgb(gray_value)  # :nodoc:
+      Array.new(3, gray_value)
     end
   end
 end
