@@ -68,7 +68,7 @@ module PNM
       assert_valid_pixel_values
       assert_matching_type_and_data
 
-      if type == :ppm && !pixels.first.first.kind_of?(Array)
+      if type == :ppm && !color_pixels?
         @pixels.map! {|row| row.map {|pixel| gray_to_rgb(pixel) } }
       end
     end
@@ -194,7 +194,7 @@ module PNM
     end
 
     def assert_matching_type_and_data  # :nodoc:
-      if Array === pixels.first.first && [:pbm, :pgm].include?(type)
+      if (type == :pbm || type == :pgm) && color_pixels?
         msg = "specified type does not match data - #{type.inspect}"
         raise PNM::DataError, msg
       end
@@ -257,6 +257,10 @@ module PNM
       data_string = Converter.array2binary(type, pixels)
 
       header(:binary) << data_string
+    end
+
+    def color_pixels?  # :nodoc:
+      (pixels.first.first).kind_of?(Array)
     end
 
     def gray_to_rgb(gray_value)  # :nodoc:
