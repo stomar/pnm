@@ -106,9 +106,9 @@ module PNM
     # Returns a string representation for debugging.
     def inspect
       if type == :pbm
-        "#<%s:0x%x %s>" % [self.class.name, object_id, info]
+        inspect_string_without_maxgray
       else
-        "#<%s:0x%x %s, maxgray=%d>" % [self.class.name, object_id, info, maxgray]
+        inspect_string_with_maxgray
       end
     end
 
@@ -283,6 +283,14 @@ module PNM
 
     def gray_to_rgb(gray_value)  # :nodoc:
       Array.new(3, gray_value)
+    end
+
+    def inspect_string_with_maxgray  # :nodoc:
+        "#<%s:0x%x %s, maxgray=%d>" % [self.class.name, object_id, info, maxgray]
+    end
+
+    def inspect_string_without_maxgray  # :nodoc:
+      "#<%s:0x%x %s>" % [self.class.name, object_id, info]
     end
   end
 end
