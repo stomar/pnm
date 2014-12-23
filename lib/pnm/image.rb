@@ -1,6 +1,6 @@
 module PNM
 
-  # Class for +PBM+, +PGM+, and +PPM+ images.
+  # Abstract base class for +PBM+, +PGM+, and +PPM+ images.
   #
   # Images can be created from pixel values, see PNM.create,
   # or read from a file or I/O stream, see PNM.read.
@@ -9,7 +9,9 @@ module PNM
   class Image
 
     # The type of the image. See PNM.create for details.
-    attr_reader :type
+    def type
+      # implemented by subclasses
+    end
 
     # The width of the image in pixels.
     attr_reader :width
@@ -49,16 +51,26 @@ module PNM
         maxgray = options[:maxgray]
       end
 
-      new(type, pixels, maxgray, options[:comment])
+      image_class = case type
+                    when :pbm
+                      PBMImage
+                    when :pgm
+                      PGMImage
+                    when :ppm
+                      PPMImage
+                    end
+
+      image_class.new(pixels, maxgray, options[:comment])
     end
 
-    private_class_method :new
+    class << self
+      protected :new
+    end
 
     # @private
     #
     # Invoked by ::create after basic input validations.
-    def initialize(type, pixels, maxgray, comment)  # :nodoc:
-      @type    = type
+    def initialize(pixels, maxgray, comment)  # :nodoc:
       @pixels  = pixels.dup
       @width   = pixels.first.size
       @height  = pixels.size
@@ -291,6 +303,33 @@ module PNM
 
     def inspect_string_without_maxgray  # :nodoc:
       "#<%s:0x%x %s>" % [self.class.name, object_id, info]
+    end
+  end
+
+
+  # Class for +PBM+ images. See the Image class for documentation.
+  class PBMImage < Image
+
+    def type
+      :pbm
+    end
+  end
+
+
+  # Class for +PGM+ images. See the Image class for documentation.
+  class PGMImage < Image
+
+    def type
+      :pgm
+    end
+  end
+
+
+  # Class for +PPM+ images. See the Image class for documentation.
+  class PPMImage < Image
+
+    def type
+      :ppm
     end
   end
 end
