@@ -231,15 +231,26 @@ module PNM
       end
     end
 
-    def header(encoding)  # :nodoc:
+    def header_without_maxgray(encoding)  # :nodoc:
       header =  "#{PNM.magic_number[type][encoding]}\n"
       comment_lines.each do |line|
         header << (line.empty? ? "#\n" : "# #{line}\n")
       end
       header << "#{width} #{height}\n"
-      header << "#{maxgray}\n"  unless type == :pbm
 
       header
+    end
+
+    def header_with_maxgray(encoding)  # :nodoc:
+      header_without_maxgray(encoding) << "#{maxgray}\n"
+    end
+
+    def header(encoding)  # :nodoc:
+      if type == :pbm
+        header_without_maxgray(encoding)
+      else
+        header_with_maxgray(encoding)
+      end
     end
 
     def comment_lines  # :nodoc:
