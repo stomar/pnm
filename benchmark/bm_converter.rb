@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 # bm_converter.rb: Benchmarks for the PNM library.
 #
-# Copyright (C) 2013-2014 Marcus Stollsteimer
+# Copyright (C) 2013-2015 Marcus Stollsteimer
 
 require 'benchmark'
 require_relative '../lib/pnm'
