@@ -1,4 +1,4 @@
 module PNM
-  VERSION  = '0.4.0'
-  DATE     = '2014-12-28'
+  VERSION  = '0.4.1'
+  DATE     = '2015-01-20'
 end
