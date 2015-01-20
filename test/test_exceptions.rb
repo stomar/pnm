@@ -94,6 +94,11 @@ describe 'PNM.create' do
     lambda { PNM.create(data) }.must_raise PNM::DataError
   end
 
+  it 'raises an exception for an empty array' do
+    data = [[]]
+    lambda { PNM.create(data) }.must_raise PNM::DataError
+  end
+
   it 'raises an exception for invalid PBM data (> 1)' do
     data = [[0, 0], [2, 0]]
     lambda { PNM.create(data, :type => :pbm) }.must_raise PNM::DataError

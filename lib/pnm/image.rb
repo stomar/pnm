@@ -129,6 +129,7 @@ module PNM
 
       raise PNM::DataError, msg  unless pixels.map(&:class).uniq == [Array]
       width = pixels.first.size
+      raise PNM::DataError, msg  if width == 0
       raise PNM::DataError, msg  unless pixels.map(&:size).uniq == [width]
     end
 
