@@ -54,6 +54,7 @@ require_relative 'pnm/exceptions'
 # Write an image to a file:
 #
 #     image.write('test.pgm')
+#     image.write_with_extension('test')  # adds the correct file extension
 #
 #     # use ASCII or "plain" format (default is binary)
 #     image.write('test.pgm', :ascii)
@@ -70,8 +71,12 @@ require_relative 'pnm/exceptions'
 #
 # Force an image type:
 #
-#     image = PNM.create([[0, 1],[1, 0]], :type => :ppm)
-#     image.info  # => "PPM 2x2 Color"
+#     color_image = PNM.create([[0, 1],[1, 0]], :type => :ppm)
+#     color_image.info  # => "PPM 2x2 Color"
+#
+# Check equality of two images:
+#
+#     color_image == image  # => false
 #
 # == See also
 #

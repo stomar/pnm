@@ -50,6 +50,7 @@ Write an image to a file:
 
 ``` ruby
 image.write('test.pgm')
+image.write_with_extension('test')  # adds the correct file extension
 
 # use ASCII or "plain" format (default is binary)
 image.write('test.pgm', :ascii)
@@ -70,8 +71,14 @@ image.pixels   # => [[0, 10, 20], [10, 20, 30]]
 Force an image type:
 
 ``` ruby
-image = PNM.create([[0, 1],[1, 0]], :type => :ppm)
-image.info  # => "PPM 2x2 Color"
+color_image = PNM.create([[0, 1],[1, 0]], :type => :ppm)
+color_image.info  # => "PPM 2x2 Color"
+```
+
+Check equality of two images:
+
+``` ruby
+color_image == image  # => false
 ```
 
 Installation
