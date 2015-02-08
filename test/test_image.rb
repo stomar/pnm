@@ -198,4 +198,50 @@ describe PNM::Image do
     File.binread(@temp_path).must_equal "P1\n# An empty line:\n#\n2 1\n0 0\n"
     File.delete(@temp_path)
   end
+
+  it 'can check equality of images (1)' do
+    pixels = [[0,1,0], [1,0,1]]
+    bilevel  = PNM.create(pixels, {:comment => "image"})
+    bilevel2 = PNM.create(pixels, {:comment => "image"})
+
+    (bilevel2 == bilevel).must_equal true
+  end
+
+  it 'can check equality of images (2)' do
+    pixels = [[0,1,0], [1,0,1]]
+    bilevel  = PNM.create(pixels, {:comment => "image"})
+    bilevel2 = PNM.create(pixels, {:comment => "other image"})
+
+    (bilevel2 == bilevel).must_equal false
+  end
+
+  it 'can check equality of images (3)' do
+    pixels = [[0,1,0], [1,0,1]]
+    bilevel  = PNM.create(pixels)
+    bilevel2 = PNM.create(pixels.reverse)
+
+    (bilevel2 == bilevel).must_equal false
+  end
+
+  it 'can check equality of images (4)' do
+    pixels = [[0,1,0], [1,0,1]]
+    bilevel   = PNM.create(pixels, {:type => :pbm})
+    graylevel = PNM.create(pixels, {:type => :pgm})
+
+    (graylevel == bilevel).must_equal false
+  end
+
+  it 'can check equality of images (5)' do
+    pixels = [[0,1,2], [3,4,5]]
+    graylevel  = PNM.create(pixels, {:maxgray => 10})
+    graylevel2 = PNM.create(pixels, {:maxgray => 255})
+
+    (graylevel2 == graylevel).must_equal false
+  end
+
+  it 'can check equality of images (6)' do
+    image = PNM.create([[0,1,2], [3,4,5]])
+
+    (image == "a string").must_equal false
+  end
 end

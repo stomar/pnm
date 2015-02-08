@@ -114,6 +114,15 @@ module PNM
       # implemented by subclasses
     end
 
+    # Equality --- Two images are considered equal if they have
+    # the same pixel values, type, maxgray, and comments.
+    def ==(other)
+      return true  if other.equal?(self)
+      return false  unless other.instance_of?(self.class)
+
+      type == other.type && maxgray == other.maxgray && comment == other.comment && pixels == other.pixels
+    end
+
     private
 
     def self.assert_valid_array(pixels)  # :nodoc:
