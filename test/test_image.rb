@@ -44,6 +44,14 @@ describe PNM::Image do
     @color = PNM.create(pixels, {:maxgray => 6})
   end
 
+  it 'freezes pixel data' do
+    lambda { @bilevel.pixels << [1,1,0,1,1] }.must_raise RuntimeError
+  end
+
+  it 'freezes comment string' do
+    lambda { @bilevel.comment << "string" }.must_raise RuntimeError
+  end
+
   it 'sets maxgray to 1 for bilevel images' do
     image = PNM.create([[0,1,0], [1,0,1]])
     image.type.must_equal :pbm

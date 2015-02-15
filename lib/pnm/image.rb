@@ -80,6 +80,9 @@ module PNM
       assert_pixel_value_range
 
       post_initialize
+
+      @pixels.freeze
+      @comment.freeze
     end
 
     # Writes the image to +file+ (a filename or an IO object),
