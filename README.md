@@ -108,7 +108,8 @@ Requirements
 Documentation
 -------------
 
-Documentation should be available via `ri PNM`.
+Documentation should be available via `ri PNM` or can be found at
+[www.rubydoc.info/gems/pnm/](http://www.rubydoc.info/gems/pnm/).
 
 Reporting bugs
 --------------
