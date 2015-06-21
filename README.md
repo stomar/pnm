@@ -20,14 +20,14 @@ Examples
 Create a PGM grayscale image from a two-dimensional array of gray values:
 
 ``` ruby
-require 'pnm'
+require "pnm"
 
 # pixel data
 pixels = [[ 0, 10, 20],
           [10, 20, 30]]
 
 # optional settings
-options = {:maxgray => 30, :comment => 'Test Image'}
+options = {:maxgray => 30, :comment => "Test Image"}
 
 # create the image object
 image = PNM.create(pixels, options)
@@ -49,20 +49,20 @@ and available options.
 Write an image to a file:
 
 ``` ruby
-image.write('test.pgm')
-image.write_with_extension('test')  # adds the correct file extension
+image.write("test.pgm")
+image.write_with_extension("test")  # adds the correct file extension
 
 # use ASCII or "plain" format (default is binary)
-image.write('test.pgm', :ascii)
+image.write("test.pgm", :ascii)
 
 # write to an I/O stream
-File.open('test.pgm', 'w') {|f| image.write(f) }
+File.open("test.pgm", "w") {|f| image.write(f) }
 ```
 
 Read an image from a file (returns a PNM::Image object):
 
 ``` ruby
-image = PNM.read('test.pgm')
+image = PNM.read("test.pgm")
 image.comment  # => "Test Image"
 image.maxgray  # => 30
 image.pixels   # => [[0, 10, 20], [10, 20, 30]]
