@@ -102,8 +102,8 @@ Requirements
   - Ruby 2.1,
   - Ruby 2.0.0,
   - Ruby 1.9.3,
-  - JRuby 1.7.18,
-  - Rubinius 2.2.10.
+  - JRuby 1.7.19,
+  - Rubinius 2.5.2.
 
 Documentation
 -------------
