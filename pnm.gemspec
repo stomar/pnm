@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.email = 'sto.mar@web.de'
   s.homepage = homepage
 
-  s.license = 'GPL-3'
+  s.license = 'GPL-3.0'
 
   s.required_ruby_version = '>= 1.9.3'
 
