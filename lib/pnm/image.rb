@@ -166,16 +166,16 @@ module PNM
     end
 
     def self.assert_valid_pixel(pixel)  # :nodoc:
-      unless Fixnum === pixel
-        msg = "invalid pixel value: Fixnum expected - #{pixel.inspect}"
+      unless Integer === pixel
+        msg = "invalid pixel value: Integer expected - #{pixel.inspect}"
         raise PNM::DataError, msg
       end
     end
 
     def self.assert_valid_color_pixel(pixel)  # :nodoc:
-      unless Array === pixel && pixel.map(&:class) == [Fixnum, Fixnum, Fixnum]
+      unless Array === pixel && pixel.map {|p| Integer === p } == [true, true, true]
         msg =  "invalid pixel value: "
-        msg << "Array of 3 Fixnums expected - #{pixel.inspect}"
+        msg << "Array of 3 Integers expected - #{pixel.inspect}"
 
         raise PNM::DataError, msg
       end
@@ -184,7 +184,7 @@ module PNM
     def self.assert_valid_maxgray(maxgray)  # :nodoc:
       return  unless maxgray
 
-      unless Fixnum === maxgray && maxgray > 0 && maxgray <= 255
+      unless Integer === maxgray && maxgray > 0 && maxgray <= 255
         raise PNM::ArgumentError, "invalid maxgray value - #{maxgray.inspect}"
       end
     end

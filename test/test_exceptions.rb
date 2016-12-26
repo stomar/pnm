@@ -34,7 +34,7 @@ describe 'PNM.create' do
     lambda { PNM.create(data, :maxgray => 0) }.must_raise PNM::ArgumentError
   end
 
-  it 'raises an exception for invalid comment (Fixnum)' do
+  it 'raises an exception for invalid comment (Integer)' do
     data = [[0, 0], [0, 0]]
     lambda { PNM.create(data, :comment => 1) }.must_raise PNM::ArgumentError
   end
