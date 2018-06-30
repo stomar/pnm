@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PNM
 
   # Base class for all PNM exceptions.

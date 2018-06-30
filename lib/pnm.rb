@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # = pnm.rb - create/read/write PNM image files (PBM, PGM, PPM)
 #
 # See PNM module for documentation.

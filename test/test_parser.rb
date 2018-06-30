@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # test_parser.rb: Unit tests for the PNM library.
 #
 # Copyright (C) 2013-2017 Marcus Stollsteimer
@@ -46,7 +48,7 @@ describe PNM::Parser do
   end
 
   it 'can parse binary encoded data' do
-    content = 'P4 8 2 ' << ['05AF'].pack('H*')
+    content = 'P4 8 2 '.dup << ['05AF'].pack('H*')
     expected = {
       :magic_number => 'P4',
       :width        => 8,

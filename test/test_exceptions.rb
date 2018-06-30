@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # test_exceptions.rb: Unit tests for the PNM library.
 #
 # Copyright (C) 2013-2017 Marcus Stollsteimer

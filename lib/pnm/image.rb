@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PNM
 
   # Abstract base class for +PBM+, +PGM+, and +PPM+ images.
@@ -174,7 +176,7 @@ module PNM
 
     def self.assert_valid_color_pixel(pixel)  # :nodoc:
       unless Array === pixel && pixel.map {|p| Integer === p } == [true, true, true]
-        msg =  "invalid pixel value: "
+        msg =  "invalid pixel value: ".dup
         msg << "Array of 3 Integers expected - #{pixel.inspect}"
 
         raise PNM::DataError, msg
@@ -237,7 +239,7 @@ module PNM
     end
 
     def header_without_maxgray(encoding)  # :nodoc:
-      header =  "#{PNM.magic_number[type][encoding]}\n"
+      header =  "#{PNM.magic_number[type][encoding]}\n".dup
       comment_lines.each do |line|
         header << (line.empty? ? "#\n" : "# #{line}\n")
       end

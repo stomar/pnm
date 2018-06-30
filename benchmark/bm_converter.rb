@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 # bm_converter.rb: Benchmarks for the PNM library.
 #
 # Copyright (C) 2013-2017 Marcus Stollsteimer
@@ -32,7 +34,7 @@ class ConverterBenchmark
     run_benchmark(@pgm_image)
     run_benchmark(@ppm_image)
 
-    puts "\nTotal:               " <<
+    puts "\nTotal:               ".dup <<
          @user.round(2).to_s.ljust(11) <<
          @system.round(2).to_s.ljust(11) <<
          @total.round(2).to_s
