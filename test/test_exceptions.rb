@@ -2,7 +2,7 @@
 
 # test_exceptions.rb: Unit tests for the PNM library.
 #
-# Copyright (C) 2013-2017 Marcus Stollsteimer
+# Copyright (C) 2013-2019 Marcus Stollsteimer
 
 require 'minitest/autorun'
 require 'stringio'
