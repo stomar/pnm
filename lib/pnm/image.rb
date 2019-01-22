@@ -254,7 +254,7 @@ module PNM
 
     def comment_lines  # :nodoc:
       return []    unless comment
-      return ['']  if comment.empty?
+      return [""]  if comment.empty?
 
       keep_trailing_null_fields = -1  # magic value for split limit
       comment.split(/\n/, keep_trailing_null_fields)

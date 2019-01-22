@@ -4,11 +4,11 @@
 #
 # See PNM module for documentation.
 
-require_relative 'pnm/version'
-require_relative 'pnm/image'
-require_relative 'pnm/parser'
-require_relative 'pnm/converter'
-require_relative 'pnm/exceptions'
+require_relative "pnm/version"
+require_relative "pnm/image"
+require_relative "pnm/parser"
+require_relative "pnm/converter"
+require_relative "pnm/exceptions"
 
 
 # PNM is a pure Ruby library for creating, reading,
@@ -93,11 +93,11 @@ require_relative 'pnm/exceptions'
 #
 module PNM
 
-  LIBNAME  = 'pnm'
-  HOMEPAGE = 'https://github.com/stomar/pnm'
-  TAGLINE  = 'create/read/write PNM image files (PBM, PGM, PPM)'
+  LIBNAME  = "pnm"
+  HOMEPAGE = "https://github.com/stomar/pnm"
+  TAGLINE  = "create/read/write PNM image files (PBM, PGM, PPM)"
 
-  COPYRIGHT = <<-copyright.gsub(/^ +/, '')
+  COPYRIGHT = <<-copyright.gsub(/^ +/, "")
     Copyright (C) 2013-2019 Marcus Stollsteimer.
     License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
     This is free software: you are free to change and redistribute it.
@@ -120,22 +120,22 @@ module PNM
     content = Parser.parse(raw_data)
 
     case content[:magic_number]
-    when 'P1'
+    when "P1"
       type = :pbm
       encoding = :ascii
-    when 'P2'
+    when "P2"
       type = :pgm
       encoding = :ascii
-    when 'P3'
+    when "P3"
       type = :ppm
       encoding = :ascii
-    when 'P4'
+    when "P4"
       type = :pbm
       encoding = :binary
-    when 'P5'
+    when "P5"
       type = :pgm
       encoding = :binary
-    when 'P6'
+    when "P6"
       type = :ppm
       encoding = :binary
     end
@@ -193,9 +193,9 @@ module PNM
   # @private
   def self.magic_number  # :nodoc:
     {
-      :pbm => {:ascii => 'P1', :binary => 'P4'},
-      :pgm => {:ascii => 'P2', :binary => 'P5'},
-      :ppm => {:ascii => 'P3', :binary => 'P6'}
+      :pbm => {:ascii => "P1", :binary => "P4"},
+      :pgm => {:ascii => "P2", :binary => "P5"},
+      :ppm => {:ascii => "P3", :binary => "P6"}
     }
   end
 end

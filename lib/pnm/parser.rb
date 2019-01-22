@@ -28,8 +28,8 @@ module PNM
       until magic_number
         token = next_token!(content)
 
-        if token.start_with?('#')
-          comments << token.gsub(/# */, '')
+        if token.start_with?("#")
+          comments << token.gsub(/# */, "")
         else
           magic_number = token
         end
@@ -38,11 +38,11 @@ module PNM
       assert_valid_magic_number(magic_number)
 
       while tokens.size < token_number[magic_number]
-        content.gsub!(/\A[ \t\r\n]+/, '')
+        content.gsub!(/\A[ \t\r\n]+/, "")
         token = next_token!(content)
 
-        if token.start_with?('#')
-          comments << token.gsub(/# */, '')
+        if token.start_with?("#")
+          comments << token.gsub(/# */, "")
         else
           tokens << token
         end
@@ -76,24 +76,24 @@ module PNM
 
     def self.token_number
       {
-        'P1' => 2,
-        'P2' => 3,
-        'P3' => 3,
-        'P4' => 2,
-        'P5' => 3,
-        'P6' => 3
+        "P1" => 2,
+        "P2" => 3,
+        "P3" => 3,
+        "P4" => 2,
+        "P5" => 3,
+        "P6" => 3
       }
     end
 
     def self.next_token!(content)
-      delimiter = if content.start_with?('#')
+      delimiter = if content.start_with?("#")
                     "\n"
                   else
                     %r{[ \t\r\n]|(?=#)}
                   end
 
       token, rest = content.split(delimiter, 2)
-      raise PNM::ParserError, 'not enough tokens in file'  unless rest
+      raise PNM::ParserError, "not enough tokens in file"  unless rest
 
       content.replace(rest)
 

@@ -5,8 +5,8 @@
 #
 # Copyright (C) 2013-2019 Marcus Stollsteimer
 
-require 'benchmark'
-require_relative '../lib/pnm'
+require "benchmark"
+require_relative "../lib/pnm"
 
 class ConverterBenchmark
 
@@ -16,7 +16,7 @@ class ConverterBenchmark
 
     @srcpath = File.dirname(__FILE__)
 
-    print 'Initializing test data...'
+    print "Initializing test data..."
     @pbm_image = PNM.read(File.expand_path("#{@srcpath}/random_image.pbm"))
     @pgm_image = PNM.read(File.expand_path("#{@srcpath}/random_image.pgm"))
     @ppm_image = PNM.read(File.expand_path("#{@srcpath}/random_image.ppm"))

@@ -4,8 +4,8 @@
 #
 # Copyright (C) 2013-2019 Marcus Stollsteimer
 
-require 'minitest/autorun'
-require 'pnm'
+require "minitest/autorun"
+require "pnm"
 
 
 describe PNM do
@@ -14,13 +14,13 @@ describe PNM do
     @srcpath = File.dirname(__FILE__)
   end
 
-  it 'can read an ASCII encoded PBM file' do
+  it "can read an ASCII encoded PBM file" do
     file = File.expand_path("#{@srcpath}/bilevel_ascii.pbm")
     image = PNM.read(file)
 
     image.info.must_match %r{^PBM 5x6 Bilevel}
     image.maxgray.must_equal 1
-    image.comment.must_equal 'Bilevel'
+    image.comment.must_equal "Bilevel"
     image.pixels.must_equal [[0,0,0,0,0],
                              [0,1,1,1,0],
                              [0,0,1,0,0],
@@ -29,7 +29,7 @@ describe PNM do
                              [0,0,0,0,0,]]
   end
 
-  it 'can read an ASCII encoded PGM file' do
+  it "can read an ASCII encoded PGM file" do
     file = File.expand_path("#{@srcpath}/grayscale_ascii.pgm")
     image = PNM.read(file)
 
@@ -41,7 +41,7 @@ describe PNM do
                              [100,150,200,250]]
   end
 
-  it 'can read an ASCII encoded PPM file' do
+  it "can read an ASCII encoded PPM file" do
     file = File.expand_path("#{@srcpath}/color_ascii.ppm")
     image = PNM.read(file)
 
@@ -52,13 +52,13 @@ describe PNM do
                              [[2,4,6], [3,3,4], [4,2,2], [5,1,1], [6,0,0]]]
   end
 
-  it 'can read a binary encoded PBM file' do
+  it "can read a binary encoded PBM file" do
     file = File.expand_path("#{@srcpath}/bilevel_binary.pbm")
     image = PNM.read(file)
 
     image.info.must_match %r{^PBM 5x6 Bilevel}
     image.maxgray.must_equal 1
-    image.comment.must_equal 'Bilevel'
+    image.comment.must_equal "Bilevel"
     image.pixels.must_equal [[0,0,0,0,0],
                              [0,1,1,1,0],
                              [0,0,1,0,0],
@@ -67,7 +67,7 @@ describe PNM do
                              [0,0,0,0,0,]]
   end
 
-  it 'can read a binary encoded PGM file' do
+  it "can read a binary encoded PGM file" do
     file = File.expand_path("#{@srcpath}/grayscale_binary.pgm")
     image = PNM.read(file)
 
@@ -79,7 +79,7 @@ describe PNM do
                              [100,150,200,250]]
   end
 
-  it 'can read a binary encoded PPM file' do
+  it "can read a binary encoded PPM file" do
     file = File.expand_path("#{@srcpath}/color_binary.ppm")
     image = PNM.read(file)
 
@@ -90,17 +90,17 @@ describe PNM do
                              [[2,4,6], [3,3,4], [4,2,2], [5,1,1], [6,0,0]]]
   end
 
-  it 'can read binary data containing CRLF' do
+  it "can read binary data containing CRLF" do
     file = File.expand_path("#{@srcpath}/grayscale_binary_crlf.pgm")
 
     image = PNM.read(file)
     image.pixels.must_equal [[65,66], [13,10], [65,66]]
   end
 
-  it 'can read binary data containing CRLF from an I/O stream' do
+  it "can read binary data containing CRLF from an I/O stream" do
     file = File.expand_path("#{@srcpath}/grayscale_binary_crlf.pgm")
 
-    image = File.open(file, 'r') {|f| PNM.read(f) }
+    image = File.open(file, "r") {|f| PNM.read(f) }
     image.pixels.must_equal [[65,66], [13,10], [65,66]]
   end
 end

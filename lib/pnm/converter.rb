@@ -61,7 +61,7 @@ module PNM
       case type
       when :pbm
         rows = data.scan(/.{#{bytes_per_row}}/m)
-        pixel_matrix = rows.map {|row| row.unpack('B*').first[0, width].each_char.map {|char| char.to_i } }
+        pixel_matrix = rows.map {|row| row.unpack("B*").first[0, width].each_char.map {|char| char.to_i } }
       when :pgm
         pixel_matrix = data.each_byte.each_slice(bytes_per_row).to_a
       when :ppm
@@ -79,9 +79,9 @@ module PNM
     def self.array2ascii(data)
       case data.first.first
       when Array
-        data_string = data.map {|row| row.flatten.join(' ') }.join("\n")
+        data_string = data.map {|row| row.flatten.join(" ") }.join("\n")
       else
-        data_string = data.map {|row| row.join(' ') }.join("\n")
+        data_string = data.map {|row| row.join(" ") }.join("\n")
       end
 
       data_string << "\n"
@@ -98,9 +98,9 @@ module PNM
 
       if type == :pbm
         binary_rows = data.map {|row| row.join }
-        data_string = binary_rows.pack('B*' * height)
+        data_string = binary_rows.pack("B*" * height)
       else
-        data_string = data.flatten.pack('C*')
+        data_string = data.flatten.pack("C*")
       end
 
       data_string
@@ -108,16 +108,16 @@ module PNM
 
     def self.convert_to_integers(data, type)
       if type == :pbm
-        values_as_string = data.gsub(/[ \t\r\n]+/, '').split('')
+        values_as_string = data.gsub(/[ \t\r\n]+/, "").split("")
       else
-        values_as_string = data.gsub(/\A[ \t\r\n]+/, '').split(/[ \t\r\n]+/)
+        values_as_string = data.gsub(/\A[ \t\r\n]+/, "").split(/[ \t\r\n]+/)
       end
 
       values_as_string.map do |value|
         Integer(value)
       end
     rescue ::ArgumentError => e
-      if e.message.start_with?('invalid value for Integer')
+      if e.message.start_with?("invalid value for Integer")
         raise PNM::DataError, "invalid pixel value: Integer expected"
       else
         raise
@@ -126,7 +126,7 @@ module PNM
 
     def self.assert_data_size(actual, expected)
       unless actual == expected
-        raise PNM::DataSizeError, 'data size does not match expected size'
+        raise PNM::DataSizeError, "data size does not match expected size"
       end
     end
   end
