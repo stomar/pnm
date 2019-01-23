@@ -42,12 +42,12 @@ describe "PNM.create" do
   end
 
   it "raises an exception for image type and data mismatch (PBM)" do
-    data = [[[0,0,0], [0,0,0]], [[0,0,0], [0,0,0]]]
+    data = [[[0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0]]]
     lambda { PNM.create(data, :type => :pbm) }.must_raise PNM::DataError
   end
 
   it "raises an exception for image type and data mismatch (PGM)" do
-    data = [[[0,0,0], [0,0,0]], [[0,0,0], [0,0,0]]]
+    data = [[[0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0]]]
     lambda { PNM.create(data, :type => :pgm) }.must_raise PNM::DataError
   end
 
@@ -82,17 +82,17 @@ describe "PNM.create" do
   end
 
   it "raises an exception for invalid array dimensions (#4)" do
-    data = [[[0,0], [0,0]], [[0,0], [0,0]]]
+    data = [[[0, 0], [0, 0]], [[0, 0], [0, 0]]]
     lambda { PNM.create(data) }.must_raise PNM::DataError
   end
 
   it "raises an exception for invalid array dimensions (#5)" do
-    data = [[[0,0,0], [0,0,0]], [0 ,0]]
+    data = [[[0, 0, 0], [0, 0, 0]], [0, 0]]
     lambda { PNM.create(data) }.must_raise PNM::DataError
   end
 
   it "raises an exception for invalid array dimensions (#6)" do
-    data = [[[0,0,0], 0], [0 ,0]]
+    data = [[[0, 0, 0], 0], [0, 0]]
     lambda { PNM.create(data) }.must_raise PNM::DataError
   end
 
