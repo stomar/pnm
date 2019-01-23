@@ -21,7 +21,7 @@ describe PNM::Image do
               [0, 0, 1, 0, 0],
               [0, 0, 0, 0, 0]]
     comment = "Bilevel"
-    @bilevel = PNM.create(pixels, {:comment => comment})
+    @bilevel = PNM.create(pixels, :comment => comment)
 
     pixels = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
               [0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0],
@@ -35,7 +35,7 @@ describe PNM::Image do
               [ 50, 100, 150, 200],
               [100, 150, 200, 250]]
     comment = "Grayscale\n(with multiline comment)"
-    @grayscale = PNM.create(pixels, {:maxgray => 250, :comment => comment})
+    @grayscale = PNM.create(pixels, :maxgray => 250, :comment => comment)
 
     pixels = [[65, 66], [13, 10], [65, 66]]
     @grayscale_crlf = PNM.create(pixels)
@@ -43,7 +43,7 @@ describe PNM::Image do
     pixels = [[[0, 6, 0], [1, 5, 1], [2, 4, 2], [3, 3, 4], [4, 2, 6]],
               [[1, 5, 2], [2, 4, 2], [3, 3, 2], [4, 2, 2], [5, 1, 2]],
               [[2, 4, 6], [3, 3, 4], [4, 2, 2], [5, 1, 1], [6, 0, 0]]]
-    @color = PNM.create(pixels, {:maxgray => 6})
+    @color = PNM.create(pixels, :maxgray => 6)
   end
 
   it "freezes pixel data" do
@@ -73,59 +73,59 @@ describe PNM::Image do
   end
 
   it "accepts setting of maxgray to 1 for bilevel images" do
-    image = PNM.create([[0, 1, 0], [1, 0, 1]], {:maxgray => 1})
+    image = PNM.create([[0, 1, 0], [1, 0, 1]], :maxgray => 1)
     image.type.must_equal :pbm
     image.maxgray.must_equal 1
   end
 
   it "ignores invalid maxgray for bilevel images and sets it to 1" do
-    image = PNM.create([[0, 1, 0], [1, 0, 1]], {:type => :pbm, :maxgray => 255})
+    image = PNM.create([[0, 1, 0], [1, 0, 1]], :type => :pbm, :maxgray => 255)
     image.type.must_equal :pbm
     image.maxgray.must_equal 1
   end
 
   it "can create a grayscale image from bilevel values (using type)" do
-    image = PNM.create([[0, 1, 0], [1, 0, 1]], {:type => :pgm})
+    image = PNM.create([[0, 1, 0], [1, 0, 1]], :type => :pgm)
     image.type.must_equal :pgm
     image.pixels.must_equal [[0, 1, 0], [1, 0, 1]]
     image.maxgray.must_equal 255
   end
 
   it "also accepts types given as string instead of symbol" do
-    image = PNM.create([[0, 1, 0], [1, 0, 1]], {:type => "pgm"})
+    image = PNM.create([[0, 1, 0], [1, 0, 1]], :type => "pgm")
     image.type.must_equal :pgm
   end
 
   it "can create a grayscale image from bilevel values (using maxgray)" do
-    image = PNM.create([[0, 1, 0], [1, 0, 1]], {:maxgray => 2})
+    image = PNM.create([[0, 1, 0], [1, 0, 1]], :maxgray => 2)
     image.type.must_equal :pgm
     image.pixels.must_equal [[0, 1, 0], [1, 0, 1]]
     image.maxgray.must_equal 2
   end
 
   it "can create a color image from bilevel values" do
-    image = PNM.create([[0, 1, 0], [1, 0, 1]], {:type => :ppm})
+    image = PNM.create([[0, 1, 0], [1, 0, 1]], :type => :ppm)
     image.info.must_match %r{^PPM 3x2 Color}
     image.pixels.must_equal [[[0, 0, 0], [1, 1, 1], [0, 0, 0]], [[1, 1, 1], [0, 0, 0], [1, 1, 1]]]
     image.maxgray.must_equal 255
   end
 
   it "can create a color image from bilevel values with a given maxgray" do
-    image = PNM.create([[0, 1, 0], [1, 0, 1]], {:type => :ppm, :maxgray => 2})
+    image = PNM.create([[0, 1, 0], [1, 0, 1]], :type => :ppm, :maxgray => 2)
     image.info.must_match %r{^PPM 3x2 Color}
     image.pixels.must_equal [[[0, 0, 0], [1, 1, 1], [0, 0, 0]], [[1, 1, 1], [0, 0, 0], [1, 1, 1]]]
     image.maxgray.must_equal 2
   end
 
   it "can create a color image from gray values" do
-    image = PNM.create([[0, 3, 6], [3, 6, 9]], {:type => :ppm})
+    image = PNM.create([[0, 3, 6], [3, 6, 9]], :type => :ppm)
     image.info.must_match %r{^PPM 3x2 Color}
     image.pixels.must_equal [[[0, 0, 0], [3, 3, 3], [6, 6, 6]], [[3, 3, 3], [6, 6, 6], [9, 9, 9]]]
   end
 
   it "does not modify the input data for color images created from gray values" do
     data = [[0, 3, 6], [3, 6, 9]]
-    PNM.create(data, {:type => :ppm})
+    PNM.create(data, :type => :ppm)
     data.must_equal [[0, 3, 6], [3, 6, 9]]
   end
 
@@ -229,16 +229,16 @@ describe PNM::Image do
 
   it "can check equality of images (1)" do
     pixels = [[0, 1, 0], [1, 0, 1]]
-    bilevel  = PNM.create(pixels, {:comment => "image"})
-    bilevel2 = PNM.create(pixels, {:comment => "image"})
+    bilevel  = PNM.create(pixels, :comment => "image")
+    bilevel2 = PNM.create(pixels, :comment => "image")
 
     (bilevel2 == bilevel).must_equal true
   end
 
   it "can check equality of images (2)" do
     pixels = [[0, 1, 0], [1, 0, 1]]
-    bilevel  = PNM.create(pixels, {:comment => "image"})
-    bilevel2 = PNM.create(pixels, {:comment => "other image"})
+    bilevel  = PNM.create(pixels, :comment => "image")
+    bilevel2 = PNM.create(pixels, :comment => "other image")
 
     (bilevel2 == bilevel).must_equal false
   end
@@ -253,16 +253,16 @@ describe PNM::Image do
 
   it "can check equality of images (4)" do
     pixels = [[0, 1, 0], [1, 0, 1]]
-    bilevel   = PNM.create(pixels, {:type => :pbm})
-    graylevel = PNM.create(pixels, {:type => :pgm})
+    bilevel   = PNM.create(pixels, :type => :pbm)
+    graylevel = PNM.create(pixels, :type => :pgm)
 
     (graylevel == bilevel).must_equal false
   end
 
   it "can check equality of images (5)" do
     pixels = [[0, 1, 2], [3, 4, 5]]
-    graylevel  = PNM.create(pixels, {:maxgray => 10})
-    graylevel2 = PNM.create(pixels, {:maxgray => 255})
+    graylevel  = PNM.create(pixels, :maxgray => 10)
+    graylevel2 = PNM.create(pixels, :maxgray => 255)
 
     (graylevel2 == graylevel).must_equal false
   end
