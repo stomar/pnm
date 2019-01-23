@@ -42,12 +42,12 @@ class ConverterBenchmark
 
   def run_benchmark(image)
     type   = image.type
-    type_string = type.upcase
     width  = image.width
     height = image.height
     array  = image.pixels
     ascii  = PNM::Converter.array2ascii(array)
     binary = PNM::Converter.array2binary(type, array)
+    type_string = type.upcase
 
     puts
 

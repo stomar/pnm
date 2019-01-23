@@ -239,7 +239,7 @@ module PNM
     end
 
     def header_without_maxgray(encoding)  # :nodoc:
-      header =  "#{PNM.magic_number[type][encoding]}\n".dup
+      header = "#{PNM.magic_number[type][encoding]}\n".dup
       comment_lines.each do |line|
         header << (line.empty? ? "#\n" : "# #{line}\n")
       end
