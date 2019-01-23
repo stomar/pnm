@@ -277,7 +277,7 @@ module PNM
     end
 
     def inspect_string_with_maxgray  # :nodoc:
-        "#<%s:0x%x %s, maxgray=%d>" % [self.class.name, object_id, info, maxgray]
+      "#<%s:0x%x %s, maxgray=%d>" % [self.class.name, object_id, info, maxgray]
     end
 
     def inspect_string_without_maxgray  # :nodoc:
