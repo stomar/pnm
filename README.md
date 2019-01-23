@@ -27,7 +27,7 @@ pixels = [[ 0, 10, 20],
           [10, 20, 30]]
 
 # optional settings
-options = {:maxgray => 30, :comment => "Test Image"}
+options = { :maxgray => 30, :comment => "Test Image" }
 
 # create the image object
 image = PNM.create(pixels, options)

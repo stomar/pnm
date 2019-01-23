@@ -35,7 +35,7 @@ require_relative "pnm/exceptions"
 #               [10, 20, 30]]
 #
 #     # optional settings
-#     options = {:maxgray => 30, :comment => "Test Image"}
+#     options = { :maxgray => 30, :comment => "Test Image" }
 #
 #     # create the image object
 #     image = PNM.create(pixels, options)
@@ -149,7 +149,7 @@ module PNM
                Converter.binary2array(type, width, height, content[:data])
              end
 
-    options = {:type => type, :maxgray => maxgray}
+    options = { :type => type, :maxgray => maxgray }
     options[:comment] = content[:comments].join("\n")  if content[:comments]
 
     create(pixels, options)
@@ -193,9 +193,9 @@ module PNM
   # @private
   def self.magic_number  # :nodoc:
     {
-      :pbm => {:ascii => "P1", :binary => "P4"},
-      :pgm => {:ascii => "P2", :binary => "P5"},
-      :ppm => {:ascii => "P3", :binary => "P6"}
+      :pbm => { :ascii => "P1", :binary => "P4" },
+      :pgm => { :ascii => "P2", :binary => "P5" },
+      :ppm => { :ascii => "P3", :binary => "P6" }
     }
   end
 end
