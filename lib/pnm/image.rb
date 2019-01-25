@@ -146,7 +146,7 @@ module PNM
 
     def self.assert_array_dimensions(pixels)  # :nodoc:
       msg = "invalid pixel data: Array expected"
-      raise PNM::ArgumentError, msg  unless Array === pixels
+      raise PNM::ArgumentError, msg  unless pixels.is_a?(Array)
 
       msg = "invalid pixel array"
       raise PNM::DataError, msg  unless pixels.map(&:class).uniq == [Array]
@@ -158,7 +158,7 @@ module PNM
 
     def self.assert_pixel_types(pixels)  # :nodoc:
       pixel_values = pixels.flatten(1)
-      is_color = (Array === pixel_values.first)
+      is_color = pixel_values.first.is_a?(Array)
 
       if is_color
         pixel_values.each {|pixel| assert_valid_color_pixel(pixel) }
@@ -168,14 +168,14 @@ module PNM
     end
 
     def self.assert_valid_pixel(pixel)  # :nodoc:
-      unless Integer === pixel
+      unless pixel.is_a?(Integer)
         msg = "invalid pixel value: Integer expected - #{pixel.inspect}"
         raise PNM::DataError, msg
       end
     end
 
     def self.assert_valid_color_pixel(pixel)  # :nodoc:
-      unless Array === pixel && pixel.map {|p| Integer === p } == [true, true, true]
+      unless pixel.is_a?(Array) && pixel.map {|p| p.is_a?(Integer) } == [true, true, true]
         msg =  "invalid pixel value: ".dup
         msg << "Array of 3 Integers expected - #{pixel.inspect}"
 
@@ -186,7 +186,7 @@ module PNM
     def self.assert_valid_maxgray(maxgray)  # :nodoc:
       return  unless maxgray
 
-      unless Integer === maxgray && maxgray > 0 && maxgray <= 255
+      unless maxgray.is_a?(Integer) && maxgray > 0 && maxgray <= 255
         raise PNM::ArgumentError, "invalid maxgray value - #{maxgray.inspect}"
       end
     end
@@ -194,7 +194,7 @@ module PNM
     def self.assert_valid_comment(comment)  # :nodoc:
       return  unless comment
 
-      unless String === comment
+      unless comment.is_a?(String)
         raise PNM::ArgumentError, "invalid comment value - #{comment.inspect}"
       end
     end
