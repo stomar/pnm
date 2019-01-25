@@ -108,7 +108,7 @@ module PNM
   #
   # Returns a PNM::Image object.
   def self.read(file)
-    if file.kind_of?(String)
+    if file.is_a?(String)
       raw_data = File.binread(file)
     elsif file.respond_to?(:binmode)
       file.binmode

@@ -99,7 +99,7 @@ module PNM
                   to_binary
                 end
 
-      if file.kind_of?(String)
+      if file.is_a?(String)
         File.binwrite(file, content)
       else
         file.binmode
@@ -202,7 +202,7 @@ module PNM
     def self.sanitize_and_assert_valid_type(type)  # :nodoc:
       return  unless type
 
-      type = type.to_sym  if type.kind_of?(String)
+      type = type.to_sym  if type.is_a?(String)
 
       unless [:pbm, :pgm, :ppm].include?(type)
         msg = "invalid image type - #{type.inspect}"
@@ -213,7 +213,7 @@ module PNM
     end
 
     def self.detect_type(pixels, maxgray)  # :nodoc:
-      if pixels.first.first.kind_of?(Array)
+      if pixels.first.first.is_a?(Array)
         :ppm
       elsif (maxgray && maxgray > 1) || pixels.flatten.max > 1
         :pgm
@@ -273,7 +273,7 @@ module PNM
     end
 
     def color_pixels?  # :nodoc:
-      pixels.first.first.kind_of?(Array)
+      pixels.first.first.is_a?(Array)
     end
 
     def inspect_string_with_maxgray  # :nodoc:
