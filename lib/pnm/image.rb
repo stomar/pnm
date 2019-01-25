@@ -273,7 +273,7 @@ module PNM
     end
 
     def color_pixels?  # :nodoc:
-      (pixels.first.first).kind_of?(Array)
+      pixels.first.first.kind_of?(Array)
     end
 
     def inspect_string_with_maxgray  # :nodoc:
