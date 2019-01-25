@@ -101,7 +101,7 @@ module PNM
     end
 
     def self.assert_valid_magic_number(magic_number)
-      unless %w{P1 P2 P3 P4 P5 P6}.include?(magic_number)
+      unless %w[P1 P2 P3 P4 P5 P6].include?(magic_number)
         msg = "unknown magic number - `#{magic_number}'"
         raise PNM::ParserError, msg
       end
