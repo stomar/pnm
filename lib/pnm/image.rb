@@ -121,7 +121,7 @@ module PNM
       "#{type.to_s.upcase} #{width}x#{height} #{type_string}"
     end
 
-    alias :to_s :info
+    alias to_s info
 
     # Returns a string representation for debugging.
     def inspect
