@@ -27,7 +27,7 @@ pixels = [[ 0, 10, 20],
           [10, 20, 30]]
 
 # optional settings
-options = { :maxgray => 30, :comment => "Test Image" }
+options = { maxgray: 30, comment: "Test Image" }
 
 # create the image object
 image = PNM.create(pixels, options)
@@ -71,7 +71,7 @@ image.pixels   # => [[0, 10, 20], [10, 20, 30]]
 Force an image type:
 
 ``` ruby
-color_image = PNM.create([[0, 1],[1, 0]], :type => :ppm)
+color_image = PNM.create([[0, 1],[1, 0]], type: :ppm)
 color_image.info  # => "PPM 2x2 Color"
 ```
 

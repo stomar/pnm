@@ -18,37 +18,37 @@ describe "PNM.create" do
 
   it "raises an exception for invalid type" do
     data = [[0, 0], [0, 0]]
-    proc { PNM.create(data, :type => :abc) }.must_raise PNM::ArgumentError
+    proc { PNM.create(data, type: :abc) }.must_raise PNM::ArgumentError
   end
 
   it "raises an exception for invalid maxgray (String)" do
     data = [[0, 0], [0, 0]]
-    proc { PNM.create(data, :maxgray => "255") }.must_raise PNM::ArgumentError
+    proc { PNM.create(data, maxgray: "255") }.must_raise PNM::ArgumentError
   end
 
   it "raises an exception for invalid maxgray (> 255)" do
     data = [[0, 0], [0, 0]]
-    proc { PNM.create(data, :maxgray => 256) }.must_raise PNM::ArgumentError
+    proc { PNM.create(data, maxgray: 256) }.must_raise PNM::ArgumentError
   end
 
   it "raises an exception for invalid maxgray (0)" do
     data = [[0, 0], [0, 0]]
-    proc { PNM.create(data, :maxgray => 0) }.must_raise PNM::ArgumentError
+    proc { PNM.create(data, maxgray: 0) }.must_raise PNM::ArgumentError
   end
 
   it "raises an exception for invalid comment (Integer)" do
     data = [[0, 0], [0, 0]]
-    proc { PNM.create(data, :comment => 1) }.must_raise PNM::ArgumentError
+    proc { PNM.create(data, comment: 1) }.must_raise PNM::ArgumentError
   end
 
   it "raises an exception for image type and data mismatch (PBM)" do
     data = [[[0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0]]]
-    proc { PNM.create(data, :type => :pbm) }.must_raise PNM::DataError
+    proc { PNM.create(data, type: :pbm) }.must_raise PNM::DataError
   end
 
   it "raises an exception for image type and data mismatch (PGM)" do
     data = [[[0, 0, 0], [0, 0, 0]], [[0, 0, 0], [0, 0, 0]]]
-    proc { PNM.create(data, :type => :pgm) }.must_raise PNM::DataError
+    proc { PNM.create(data, type: :pgm) }.must_raise PNM::DataError
   end
 
   it "raises an exception for non-integer pixel value (String)" do
@@ -103,22 +103,22 @@ describe "PNM.create" do
 
   it "raises an exception for invalid PBM data (> 1)" do
     data = [[0, 0], [2, 0]]
-    proc { PNM.create(data, :type => :pbm) }.must_raise PNM::DataError
+    proc { PNM.create(data, type: :pbm) }.must_raise PNM::DataError
   end
 
   it "raises an exception for invalid PBM data (< 0)" do
     data = [[0, 0], [-1, 0]]
-    proc { PNM.create(data, :type => :pbm) }.must_raise PNM::DataError
+    proc { PNM.create(data, type: :pbm) }.must_raise PNM::DataError
   end
 
   it "raises an exception for invalid PGM data (> 255)" do
     data = [[0, 0], [1, 500]]
-    proc { PNM.create(data, :type => :pgm) }.must_raise PNM::DataError
+    proc { PNM.create(data, type: :pgm) }.must_raise PNM::DataError
   end
 
   it "raises an exception for invalid PGM data (> maxgray)" do
     data = [[0, 0], [1, 200]]
-    proc { PNM.create(data, :maxgray => 100) }.must_raise PNM::DataError
+    proc { PNM.create(data, maxgray: 100) }.must_raise PNM::DataError
   end
 end
 

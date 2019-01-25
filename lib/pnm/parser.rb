@@ -63,10 +63,10 @@ module PNM
       assert_value(maxgray, "maxgray") {|x| x > 0 && x <= 255 }  if maxgray
 
       result = {
-        :magic_number => magic_number,
-        :width        => width,
-        :height       => height,
-        :data         => content
+        magic_number: magic_number,
+        width:        width,
+        height:       height,
+        data:         content
       }
       result[:maxgray]  = maxgray   if maxgray
       result[:comments] = comments  unless comments.empty?
