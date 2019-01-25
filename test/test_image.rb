@@ -47,11 +47,11 @@ describe PNM::Image do
   end
 
   it "freezes pixel data" do
-    lambda { @bilevel.pixels << [1, 1, 0, 1, 1] }.must_raise RuntimeError
+    proc { @bilevel.pixels << [1, 1, 0, 1, 1] }.must_raise RuntimeError
   end
 
   it "freezes comment string" do
-    lambda { @bilevel.comment << "string" }.must_raise RuntimeError
+    proc { @bilevel.comment << "string" }.must_raise RuntimeError
   end
 
   it "sets maxgray to 1 for bilevel images" do
