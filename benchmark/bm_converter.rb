@@ -8,6 +8,7 @@
 require "benchmark"
 require_relative "../lib/pnm"
 
+# Benchmarks for PNM::Converter.
 class ConverterBenchmark
 
   def initialize
