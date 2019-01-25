@@ -53,29 +53,30 @@ class ConverterBenchmark
     puts
 
     Benchmark.bm(18) do |bm|
-      bm.report("#{type_string} / ascii2array") {
+
+      bm.report("#{type_string} / ascii2array") do
         @repetitions.times do
           PNM::Converter.ascii2array(type, width, height, ascii)
         end
-      }
+      end
 
-      bm.report("#{type_string} / array2ascii") {
+      bm.report("#{type_string} / array2ascii") do
         @repetitions.times do
           PNM::Converter.array2ascii(array)
         end
-      }
+      end
 
-      bm.report("#{type_string} / binary2array") {
+      bm.report("#{type_string} / binary2array") do
         @repetitions.times do
           PNM::Converter.binary2array(type, width, height, binary)
         end
-      }
+      end
 
-      bm.report("#{type_string} / array2binary") {
+      bm.report("#{type_string} / array2binary") do
         @repetitions.times do
           PNM::Converter.array2binary(type, array)
         end
-      }
+      end
 
       @user   += bm.list.map {|tms| tms.utime }.reduce(:+)
       @system += bm.list.map {|tms| tms.stime }.reduce(:+)
