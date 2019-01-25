@@ -29,7 +29,7 @@ describe PNM::Image do
               [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0],
               [0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0],
               [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
-    @bilevel_2 = PNM.create(pixels)
+    @bilevel2 = PNM.create(pixels)
 
     pixels = [[  0,  50, 100, 150],
               [ 50, 100, 150, 200],
@@ -142,7 +142,7 @@ describe PNM::Image do
   end
 
   it "can write a bilevel image (width 16) to a binary encoded file" do
-    @bilevel_2.write(@temp_path, :binary)
+    @bilevel2.write(@temp_path, :binary)
     File.binread(@temp_path).must_equal File.binread("#{@srcpath}/bilevel_2_binary.pbm")
     File.delete(@temp_path)
   end
