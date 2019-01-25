@@ -78,9 +78,9 @@ class ConverterBenchmark
         end
       end
 
-      @user   += bm.list.map {|tms| tms.utime }.reduce(:+)
-      @system += bm.list.map {|tms| tms.stime }.reduce(:+)
-      @total  += bm.list.map {|tms| tms.total }.reduce(:+)
+      @user   += bm.list.map(&:utime).reduce(:+)
+      @system += bm.list.map(&:stime).reduce(:+)
+      @total  += bm.list.map(&:total).reduce(:+)
     end
   end
 end

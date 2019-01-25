@@ -61,7 +61,7 @@ module PNM
       case type
       when :pbm
         rows = data.scan(/.{#{bytes_per_row}}/m)
-        pixel_matrix = rows.map {|row| row.unpack("B*").first[0, width].each_char.map {|char| char.to_i } }
+        pixel_matrix = rows.map {|row| row.unpack("B*").first[0, width].each_char.map(&:to_i) }
       when :pgm
         pixel_matrix = data.each_byte.each_slice(bytes_per_row).to_a
       when :ppm
@@ -97,7 +97,7 @@ module PNM
       height = data.size
 
       if type == :pbm
-        binary_rows = data.map {|row| row.join }
+        binary_rows = data.map(&:join)
         data_string = binary_rows.pack("B*" * height)
       else
         data_string = data.flatten.pack("C*")
