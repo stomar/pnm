@@ -89,7 +89,7 @@ module PNM
       delimiter = if content.start_with?("#")
                     "\n"
                   else
-                    %r{[ \t\r\n]|(?=#)}
+                    /[ \t\r\n]|(?=#)/
                   end
 
       token, rest = content.split(delimiter, 2)
