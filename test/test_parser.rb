@@ -15,11 +15,11 @@ describe PNM::Parser do
   end
 
   it "can parse ASCII encoded PBM data" do
-    content = <<-EOF.chomp.gsub(/^ */, "")
+    content = <<-PBM.chomp.gsub(/^ */, "")
       P1 6 2
       0 1 0 0 1 1
       0 0 0 1 1 1
-    EOF
+    PBM
     expected = {
       :magic_number => "P1",
       :width        => 6,
@@ -31,11 +31,11 @@ describe PNM::Parser do
   end
 
   it "can parse ASCII encoded PGM data" do
-    content = <<-EOF.chomp.gsub(/^ */, "")
+    content = <<-PGM.chomp.gsub(/^ */, "")
       P2 4 2 100
       10 20 30 40
       50 60 70 80
-    EOF
+    PGM
     expected = {
       :magic_number => "P2",
       :width        => 4,
@@ -96,7 +96,7 @@ describe PNM::Parser do
   end
 
   it "can parse comments" do
-    content = <<-EOF.chomp.gsub(/^ */, "")
+    content = <<-PBM.chomp.gsub(/^ */, "")
       # Comment 1
       P1  # Comment 2
       6# Comment 3
@@ -106,7 +106,7 @@ describe PNM::Parser do
       2
       0 1 0 0 1 1
       0 0 0 1 1 1
-    EOF
+    PBM
     expected = {
       :magic_number => "P1",
       :width        => 6,
