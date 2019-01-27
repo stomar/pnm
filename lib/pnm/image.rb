@@ -168,35 +168,34 @@ module PNM
     end
 
     def self.assert_valid_pixel(pixel)  # :nodoc:
-      unless pixel.is_a?(Integer)
-        msg = "invalid pixel value: Integer expected - #{pixel.inspect}"
-        raise PNM::DataError, msg
-      end
+      return  if pixel.is_a?(Integer)
+
+      msg = "invalid pixel value: Integer expected - #{pixel.inspect}"
+      raise PNM::DataError, msg
     end
 
     def self.assert_valid_color_pixel(pixel)  # :nodoc:
-      unless pixel.is_a?(Array) && pixel.map {|p| p.is_a?(Integer) } == [true, true, true]
-        msg =  "invalid pixel value: ".dup
-        msg << "Array of 3 Integers expected - #{pixel.inspect}"
+      return  if pixel.is_a?(Array) && pixel.map {|p| p.is_a?(Integer) } == [true, true, true]
 
-        raise PNM::DataError, msg
-      end
+      msg =  "invalid pixel value: ".dup
+      msg << "Array of 3 Integers expected - #{pixel.inspect}"
+      raise PNM::DataError, msg
     end
 
     def self.assert_valid_maxgray(maxgray)  # :nodoc:
       return  unless maxgray
+      return  if maxgray.is_a?(Integer) && maxgray > 0 && maxgray <= 255
 
-      unless maxgray.is_a?(Integer) && maxgray > 0 && maxgray <= 255
-        raise PNM::ArgumentError, "invalid maxgray value - #{maxgray.inspect}"
-      end
+      msg = "invalid maxgray value - #{maxgray.inspect}"
+      raise PNM::ArgumentError, msg
     end
 
     def self.assert_valid_comment(comment)  # :nodoc:
       return  unless comment
+      return  if comment.is_a?(String)
 
-      unless comment.is_a?(String)
-        raise PNM::ArgumentError, "invalid comment value - #{comment.inspect}"
-      end
+      msg = "invalid comment value - #{comment.inspect}"
+      raise PNM::ArgumentError, msg
     end
 
     def self.sanitize_and_assert_valid_type(type)  # :nodoc:
@@ -223,19 +222,18 @@ module PNM
     end
 
     def assert_grayscale_data  # :nodoc:
-      if color_pixels?
-        msg = "specified type does not match RGB data - #{type.inspect}"
-        raise PNM::DataError, msg
-      end
+      return  unless color_pixels?
+
+      msg = "specified type does not match RGB data - #{type.inspect}"
+      raise PNM::DataError, msg
     end
 
     def assert_pixel_value_range  # :nodoc:
-      unless pixels.flatten.max <= maxgray
-        raise PNM::DataError, "invalid data: value(s) greater than maxgray"
-      end
-      unless pixels.flatten.min >= 0
-        raise PNM::DataError, "invalid data: value(s) less than zero"
-      end
+      msg = "invalid data: value(s) greater than maxgray"
+      raise PNM::DataError, msg  unless pixels.flatten.max <= maxgray
+
+      msg = "invalid data: value(s) less than zero"
+      raise PNM::DataError, msg  unless pixels.flatten.min >= 0
     end
 
     def header_without_maxgray(encoding)  # :nodoc:

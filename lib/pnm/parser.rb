@@ -101,24 +101,24 @@ module PNM
     end
 
     def self.assert_valid_magic_number(magic_number)
-      unless %w[P1 P2 P3 P4 P5 P6].include?(magic_number)
-        msg = "unknown magic number - `#{magic_number}'"
-        raise PNM::ParserError, msg
-      end
+      return  if %w[P1 P2 P3 P4 P5 P6].include?(magic_number)
+
+      msg = "unknown magic number - `#{magic_number}'"
+      raise PNM::ParserError, msg
     end
 
     def self.assert_integer(value_string, value_name)
-      unless value_string =~ /\A[0-9]+\Z/
-        msg = "#{value_name} must be an integer - `#{value_string}'"
-        raise PNM::ParserError, msg
-      end
+      return  if value_string =~ /\A[0-9]+\Z/
+
+      msg = "#{value_name} must be an integer - `#{value_string}'"
+      raise PNM::ParserError, msg
     end
 
     def self.assert_value(value, name)
-      unless yield(value)
-        msg = "invalid #{name} value - `#{value}'"
-        raise PNM::ParserError, msg
-      end
+      return  if yield(value)
+
+      msg = "invalid #{name} value - `#{value}'"
+      raise PNM::ParserError, msg
     end
   end
 end

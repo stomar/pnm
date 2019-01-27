@@ -113,18 +113,16 @@ module PNM
                          end
 
       values_as_string.map {|value| Integer(value) }
-    rescue ::ArgumentError => e
-      if e.message.start_with?("invalid value for Integer")
-        raise PNM::DataError, "invalid pixel value: Integer expected"
-      else
-        raise
-      end
+    rescue ::ArgumentError => error
+      raise  unless error.message.start_with?("invalid value for Integer")
+
+      raise PNM::DataError, "invalid pixel value: Integer expected"
     end
 
     def self.assert_data_size(actual, expected)
-      unless actual == expected
-        raise PNM::DataSizeError, "data size does not match expected size"
-      end
+      return  if actual == expected
+
+      raise PNM::DataSizeError, "data size does not match expected size"
     end
   end
 end
