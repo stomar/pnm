@@ -137,12 +137,11 @@ module PNM
       type == other.type && maxgray == other.maxgray && comment == other.comment && pixels == other.pixels
     end
 
-    private
-
     def self.assert_valid_array(pixels)  # :nodoc:
       assert_array_dimensions(pixels)
       assert_pixel_types(pixels)
     end
+    private_class_method :assert_valid_array
 
     def self.assert_array_dimensions(pixels)  # :nodoc:
       msg = "invalid pixel data: Array expected"
@@ -155,6 +154,7 @@ module PNM
       raise PNM::DataError, msg  if width.zero?
       raise PNM::DataError, msg  unless pixels.map(&:size).uniq == [width]
     end
+    private_class_method :assert_array_dimensions
 
     def self.assert_pixel_types(pixels)  # :nodoc:
       pixel_values = pixels.flatten(1)
@@ -166,6 +166,7 @@ module PNM
         pixel_values.each {|pixel| assert_valid_pixel(pixel) }
       end
     end
+    private_class_method :assert_pixel_types
 
     def self.assert_valid_pixel(pixel)  # :nodoc:
       return  if pixel.is_a?(Integer)
@@ -173,6 +174,7 @@ module PNM
       msg = "invalid pixel value: Integer expected - #{pixel.inspect}"
       raise PNM::DataError, msg
     end
+    private_class_method :assert_valid_pixel
 
     def self.assert_valid_color_pixel(pixel)  # :nodoc:
       return  if pixel.is_a?(Array) && pixel.map {|p| p.is_a?(Integer) } == [true, true, true]
@@ -181,6 +183,7 @@ module PNM
       msg << "Array of 3 Integers expected - #{pixel.inspect}"
       raise PNM::DataError, msg
     end
+    private_class_method :assert_valid_color_pixel
 
     def self.assert_valid_maxgray(maxgray)  # :nodoc:
       return  unless maxgray
@@ -189,6 +192,7 @@ module PNM
       msg = "invalid maxgray value - #{maxgray.inspect}"
       raise PNM::ArgumentError, msg
     end
+    private_class_method :assert_valid_maxgray
 
     def self.assert_valid_comment(comment)  # :nodoc:
       return  unless comment
@@ -197,6 +201,7 @@ module PNM
       msg = "invalid comment value - #{comment.inspect}"
       raise PNM::ArgumentError, msg
     end
+    private_class_method :assert_valid_comment
 
     def self.sanitize_and_assert_valid_type(type)  # :nodoc:
       return  unless type
@@ -210,6 +215,7 @@ module PNM
 
       type
     end
+    private_class_method :sanitize_and_assert_valid_type
 
     def self.detect_type(pixels, maxgray)  # :nodoc:
       if pixels.first.first.is_a?(Array)
@@ -220,6 +226,9 @@ module PNM
         :pbm
       end
     end
+    private_class_method :detect_type
+
+    private
 
     def assert_grayscale_data  # :nodoc:
       return  unless color_pixels?
