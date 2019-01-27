@@ -177,7 +177,7 @@ module PNM
     private_class_method :assert_valid_pixel
 
     def self.assert_valid_color_pixel(pixel)  # :nodoc:
-      return  if pixel.is_a?(Array) && pixel.map {|p| p.is_a?(Integer) } == [true, true, true]
+      return  if pixel.is_a?(Array) && pixel.size == 3 && pixel.all? {|p| p.is_a?(Integer) }
 
       msg =  "invalid pixel value: ".dup
       msg << "Array of 3 Integers expected - #{pixel.inspect}"
