@@ -113,9 +113,7 @@ module PNM
                            data.gsub(/\A[ \t\r\n]+/, "").split(/[ \t\r\n]+/)
                          end
 
-      values_as_string.map do |value|
-        Integer(value)
-      end
+      values_as_string.map {|value| Integer(value) }
     rescue ::ArgumentError => e
       if e.message.start_with?("invalid value for Integer")
         raise PNM::DataError, "invalid pixel value: Integer expected"
