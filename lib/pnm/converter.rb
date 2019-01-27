@@ -51,12 +51,11 @@ module PNM
     # Returns a two-dimensional array of bilevel, gray, or RGB values.
     def self.binary2array(type, width, height, data)
       bytes_per_row = byte_width(type, width)
+      expected_size = bytes_per_row * height
 
-      if data.size == bytes_per_row * height + 1 && data[-1] =~ /[ \t\r\n]/
-        data.slice!(-1)
-      end
+      data.slice!(-1)  if data.size == expected_size + 1 && data[-1] =~ /[ \t\r\n]/
 
-      assert_data_size(data.size, bytes_per_row * height)
+      assert_data_size(data.size, expected_size)
 
       pixel_matrix = case type
                      when :pbm
