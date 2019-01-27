@@ -119,26 +119,20 @@ module PNM
 
     content = Parser.parse(raw_data)
 
-    case content[:magic_number]
-    when "P1"
-      type = :pbm
-      encoding = :ascii
-    when "P2"
-      type = :pgm
-      encoding = :ascii
-    when "P3"
-      type = :ppm
-      encoding = :ascii
-    when "P4"
-      type = :pbm
-      encoding = :binary
-    when "P5"
-      type = :pgm
-      encoding = :binary
-    when "P6"
-      type = :ppm
-      encoding = :binary
-    end
+    type, encoding = case content[:magic_number]
+                     when "P1"
+                       [:pbm, :ascii]
+                     when "P2"
+                       [:pgm, :ascii]
+                     when "P3"
+                       [:ppm, :ascii]
+                     when "P4"
+                       [:pbm, :binary]
+                     when "P5"
+                       [:pgm, :binary]
+                     when "P6"
+                       [:ppm, :binary]
+                     end
 
     width   = content[:width]
     height  = content[:height]
