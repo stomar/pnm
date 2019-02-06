@@ -1,0 +1,73 @@
+# Disable for Ruby < 2.2.
+Gemspec/RequiredRubyVersion:
+  Enabled: false
+
+# Align keys, separators, and values of multi-line hashes.
+Layout/AlignHash:
+  EnforcedColonStyle: table
+  EnforcedHashRocketStyle: table
+
+# Allow extra blank lines.
+Layout/EmptyLines:
+  Enabled: false
+
+# Allow extra empty line at block body beginning.
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+# Allow extra empty line at class body beginning.
+Layout/EmptyLinesAroundClassBody:
+  EnforcedStyle: beginning_only
+  Exclude:
+    - "lib/pnm/image.rb"
+
+# Allow extra empty line at module body beginning.
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+# Allow extra spacing.
+Layout/ExtraSpacing:
+  Enabled: false
+
+# No space before block parameters.
+Layout/SpaceInsideBlockBraces:
+  SpaceBeforeBlockParameters: false
+
+# Allow extra spacing in array literals in test files.
+Layout/SpaceInsideArrayLiteralBrackets:
+  Exclude:
+    - "test/test_*.rb"
+
+# Disable metrics.
+Metrics:
+  Enabled: false
+
+# Do not enforce a specific string formatting method.
+Style/FormatString:
+  Enabled: false
+
+# Allow unnamed format string tokens.
+Style/FormatStringToken:
+  Enabled: false
+
+# Use Ruby 1.9 hash syntax.
+Style/HashSyntax:
+  EnforcedStyle: ruby19_no_mixed_keys
+
+# Disable for Ruby < 2.3 (no frozen string literal).
+# Allow non frozen objects assigned to constants.
+Style/MutableConstant:
+  Enabled: false
+
+# Allow %r{} for regular expressions in test files.
+Style/RegexpLiteral:
+  Exclude:
+    - "test/test_*.rb"
+
+# Use double quotes for string literals.
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+# Disable for Ruby < 2.0.
+Style/SymbolArray:
+  Enabled: false
