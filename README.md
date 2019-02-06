@@ -98,10 +98,7 @@ Requirements
 
 - PNM has been tested with
 
-  - Ruby 2.4,
-  - Ruby 2.3,
-  - Ruby 2.2,
-  - Ruby 2.1,
+  - Ruby 2.6, 2.5, 2.4, 2.3, 2.2, 2.1,
   - Ruby 2.0.0,
   - Ruby 1.9.3,
   - JRuby 1.7.19,
