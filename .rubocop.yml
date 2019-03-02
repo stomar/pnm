@@ -59,6 +59,10 @@ Style/HashSyntax:
 Style/MutableConstant:
   Enabled: false
 
+# Allow parallel assignment.
+Style/ParallelAssignment:
+  Enabled: false
+
 # Allow %r{} for regular expressions in test files.
 Style/RegexpLiteral:
   Exclude:
