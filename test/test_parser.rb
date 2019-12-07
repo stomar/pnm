@@ -27,7 +27,7 @@ describe PNM::Parser do
       data:         "0 1 0 0 1 1\n0 0 0 1 1 1"
     }
 
-    @parser.parse(content).must_equal expected
+    _(@parser.parse(content)).must_equal expected
   end
 
   it "can parse ASCII encoded PGM data" do
@@ -44,7 +44,7 @@ describe PNM::Parser do
       data:         "10 20 30 40\n50 60 70 80"
     }
 
-    @parser.parse(content).must_equal expected
+    _(@parser.parse(content)).must_equal expected
   end
 
   it "can parse binary encoded data" do
@@ -56,7 +56,7 @@ describe PNM::Parser do
       data:         ["05AF"].pack("H*")
     }
 
-    @parser.parse(content).must_equal expected
+    _(@parser.parse(content)).must_equal expected
   end
 
   it "does not change the passed data" do
@@ -64,7 +64,7 @@ describe PNM::Parser do
     original_content = content.dup
     @parser.parse(content)
 
-    content.must_equal original_content
+    _(content).must_equal original_content
   end
 
   it "does accept multiple whitespace as delimiter" do
@@ -76,23 +76,23 @@ describe PNM::Parser do
       data:         "0 1 0 0 1 1"
     }
 
-    @parser.parse(content).must_equal expected
+    _(@parser.parse(content)).must_equal expected
   end
 
   it "can parse binary encoded data including whitespace" do
-    @parser.parse("P4 16 4 A\nB\rC D\t")[:data].must_equal "A\nB\rC D\t"
+    _(@parser.parse("P4 16 4 A\nB\rC D\t")[:data]).must_equal "A\nB\rC D\t"
   end
 
   it "can parse binary encoded data starting with whitespace" do
-    @parser.parse("P4 8 2 \nA")[:data].must_equal "\nA"
+    _(@parser.parse("P4 8 2 \nA")[:data]).must_equal "\nA"
   end
 
   it "can parse binary encoded data starting with comment character" do
-    @parser.parse("P4 8 2 #A")[:data].must_equal "#A"
+    _(@parser.parse("P4 8 2 #A")[:data]).must_equal "#A"
   end
 
   it "does not chomp newlines from parsed binary encoded data" do
-    @parser.parse("P4 8 2 AB\n")[:data].must_equal "AB\n"
+    _(@parser.parse("P4 8 2 AB\n")[:data]).must_equal "AB\n"
   end
 
   it "can parse comments" do
@@ -115,6 +115,6 @@ describe PNM::Parser do
       data:         "0 1 0 0 1 1\n0 0 0 1 1 1"
     }
 
-    @parser.parse(content).must_equal expected
+    _(@parser.parse(content)).must_equal expected
   end
 end

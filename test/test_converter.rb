@@ -56,7 +56,7 @@ describe PNM::Converter do
     data     = @pbm[:ascii]
     expected = @pbm[:array]
 
-    @converter.ascii2array(:pbm, width, height, data).must_equal expected
+    _(@converter.ascii2array(:pbm, width, height, data)).must_equal expected
   end
 
   it "can convert from ASCII encoded PGM data" do
@@ -65,7 +65,7 @@ describe PNM::Converter do
     data     = @pgm[:ascii]
     expected = @pgm[:array]
 
-    @converter.ascii2array(:pgm, width, height, data).must_equal expected
+    _(@converter.ascii2array(:pgm, width, height, data)).must_equal expected
   end
 
   it "can convert from ASCII encoded PPM data" do
@@ -74,7 +74,7 @@ describe PNM::Converter do
     data     = @ppm[:ascii]
     expected = @ppm[:array]
 
-    @converter.ascii2array(:ppm, width, height, data).must_equal expected
+    _(@converter.ascii2array(:ppm, width, height, data)).must_equal expected
   end
 
   it "accepts ASCII encoded PBM data with omitted whitespace" do
@@ -83,7 +83,7 @@ describe PNM::Converter do
     data     = "  010100\n000110"
     expected = [[0, 1, 0, 1], [0, 0, 0, 0], [0, 1, 1, 0]]
 
-    @converter.ascii2array(:pbm, width, height, data).must_equal expected
+    _(@converter.ascii2array(:pbm, width, height, data)).must_equal expected
   end
 
   it "accepts ASCII encoded PGM data with arbitrary whitespace" do
@@ -92,7 +92,7 @@ describe PNM::Converter do
     data     = "  \n 10 90\t170\r250\n90 \t170   250 \t\r\n\t 10\n\n\n170\n250\n10\n90\n"
     expected = [[10, 90, 170, 250], [90, 170, 250, 10], [170, 250, 10, 90]]
 
-    @converter.ascii2array(:pgm, width, height, data).must_equal expected
+    _(@converter.ascii2array(:pgm, width, height, data)).must_equal expected
   end
 
   it "can convert from binary encoded PBM data (width 6)" do
@@ -101,7 +101,7 @@ describe PNM::Converter do
     data     = @pbm6[:binary]
     expected = @pbm6[:array]
 
-    @converter.binary2array(:pbm, width, height, data).must_equal expected
+    _(@converter.binary2array(:pbm, width, height, data)).must_equal expected
   end
 
   it "can convert from binary encoded PBM data (width 14)" do
@@ -110,7 +110,7 @@ describe PNM::Converter do
     data     = @pbm14[:binary]
     expected = @pbm14[:array]
 
-    @converter.binary2array(:pbm, width, height, data).must_equal expected
+    _(@converter.binary2array(:pbm, width, height, data)).must_equal expected
   end
 
   it "can convert from binary encoded PGM data" do
@@ -119,7 +119,7 @@ describe PNM::Converter do
     data     = @pgm[:binary]
     expected = @pgm[:array]
 
-    @converter.binary2array(:pgm, width, height, data).must_equal expected
+    _(@converter.binary2array(:pgm, width, height, data)).must_equal expected
   end
 
   it "can convert from binary encoded PPM data" do
@@ -128,7 +128,7 @@ describe PNM::Converter do
     data     = @ppm[:binary]
     expected = @ppm[:array]
 
-    @converter.binary2array(:ppm, width, height, data).must_equal expected
+    _(@converter.binary2array(:ppm, width, height, data)).must_equal expected
   end
 
   it "accepts an additional whitespace character for binary encoded data" do
@@ -137,73 +137,73 @@ describe PNM::Converter do
     data     = @pbm14[:binary] + "\t"
     expected = @pbm14[:array]
 
-    @converter.binary2array(:pbm, width, height, data).must_equal expected
+    _(@converter.binary2array(:pbm, width, height, data)).must_equal expected
   end
 
   it "can convert to ASCII encoded PBM data" do
     data     = @pbm[:array]
     expected = @pbm[:ascii]
 
-    @converter.array2ascii(data).must_equal expected
+    _(@converter.array2ascii(data)).must_equal expected
   end
 
   it "can convert to ASCII encoded PGM data" do
     data     = @pgm[:array]
     expected = @pgm[:ascii]
 
-    @converter.array2ascii(data).must_equal expected
+    _(@converter.array2ascii(data)).must_equal expected
   end
 
   it "can convert to ASCII encoded PPM data" do
     data     = @ppm[:array]
     expected = @ppm[:ascii]
 
-    @converter.array2ascii(data).must_equal expected
+    _(@converter.array2ascii(data)).must_equal expected
   end
 
   it "can convert to binary encoded PBM data (width 6)" do
     data     = @pbm6[:array]
     expected = @pbm6[:binary]
 
-    @converter.array2binary(:pbm, data).must_equal expected
+    _(@converter.array2binary(:pbm, data)).must_equal expected
   end
 
   it "can convert to binary encoded PBM data (width 14)" do
     data     = @pbm14[:array]
     expected = @pbm14[:binary]
 
-    @converter.array2binary(:pbm, data).must_equal expected
+    _(@converter.array2binary(:pbm, data)).must_equal expected
   end
 
   it "can convert to binary encoded PGM data" do
     data     = @pgm[:array]
     expected = @pgm[:binary]
 
-    @converter.array2binary(:pgm, data).must_equal expected
+    _(@converter.array2binary(:pgm, data)).must_equal expected
   end
 
   it "can convert to binary encoded PPM data" do
     data     = @ppm[:array]
     expected = @ppm[:binary]
 
-    @converter.array2binary(:ppm, data).must_equal expected
+    _(@converter.array2binary(:ppm, data)).must_equal expected
   end
 
   it "can calculate correct byte widths for a PBM image" do
-    @converter.byte_width(:pbm,  0).must_equal 0
-    @converter.byte_width(:pbm,  1).must_equal 1
-    @converter.byte_width(:pbm,  7).must_equal 1
-    @converter.byte_width(:pbm,  8).must_equal 1
-    @converter.byte_width(:pbm,  9).must_equal 2
-    @converter.byte_width(:pbm, 64).must_equal 8
-    @converter.byte_width(:pbm, 65).must_equal 9
+    _(@converter.byte_width(:pbm,  0)).must_equal 0
+    _(@converter.byte_width(:pbm,  1)).must_equal 1
+    _(@converter.byte_width(:pbm,  7)).must_equal 1
+    _(@converter.byte_width(:pbm,  8)).must_equal 1
+    _(@converter.byte_width(:pbm,  9)).must_equal 2
+    _(@converter.byte_width(:pbm, 64)).must_equal 8
+    _(@converter.byte_width(:pbm, 65)).must_equal 9
   end
 
   it "can calculate correct byte widths for a PGM image" do
-    @converter.byte_width(:pgm, 13).must_equal 13
+    _(@converter.byte_width(:pgm, 13)).must_equal 13
   end
 
   it "can calculate correct byte widths for a PPM image" do
-    @converter.byte_width(:ppm, 13).must_equal 39
+    _(@converter.byte_width(:ppm, 13)).must_equal 39
   end
 end
