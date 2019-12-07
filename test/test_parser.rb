@@ -7,6 +7,8 @@
 require "minitest/autorun"
 require "pnm/parser"
 
+require_relative "backports"
+
 
 describe PNM::Parser do
 
