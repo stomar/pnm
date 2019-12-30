@@ -107,21 +107,21 @@ describe PNM::Image do
 
   it "can create a color image from bilevel values" do
     image = PNM.create([[0, 1, 0], [1, 0, 1]], type: :ppm)
-    _(image.info).must_match %r{^PPM 3x2 Color}
+    _(image.info).must_equal "PPM 3x2 Color"
     _(image.pixels).must_equal [[[0, 0, 0], [1, 1, 1], [0, 0, 0]], [[1, 1, 1], [0, 0, 0], [1, 1, 1]]]
     _(image.maxgray).must_equal 255
   end
 
   it "can create a color image from bilevel values with a given maxgray" do
     image = PNM.create([[0, 1, 0], [1, 0, 1]], type: :ppm, maxgray: 2)
-    _(image.info).must_match %r{^PPM 3x2 Color}
+    _(image.info).must_equal "PPM 3x2 Color"
     _(image.pixels).must_equal [[[0, 0, 0], [1, 1, 1], [0, 0, 0]], [[1, 1, 1], [0, 0, 0], [1, 1, 1]]]
     _(image.maxgray).must_equal 2
   end
 
   it "can create a color image from gray values" do
     image = PNM.create([[0, 3, 6], [3, 6, 9]], type: :ppm)
-    _(image.info).must_match %r{^PPM 3x2 Color}
+    _(image.info).must_equal "PPM 3x2 Color"
     _(image.pixels).must_equal [[[0, 0, 0], [3, 3, 3], [6, 6, 6]], [[3, 3, 3], [6, 6, 6], [9, 9, 9]]]
   end
 

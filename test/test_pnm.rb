@@ -20,7 +20,7 @@ describe PNM do
     file = File.expand_path("#{@srcpath}/bilevel_ascii.pbm")
     image = PNM.read(file)
 
-    _(image.info).must_match %r{^PBM 5x6 Bilevel}
+    _(image.info).must_equal "PBM 5x6 Bilevel"
     _(image.maxgray).must_equal 1
     _(image.comment).must_equal "Bilevel"
     _(image.pixels).must_equal [[0, 0, 0, 0, 0],
@@ -35,7 +35,7 @@ describe PNM do
     file = File.expand_path("#{@srcpath}/grayscale_ascii.pgm")
     image = PNM.read(file)
 
-    _(image.info).must_match %r{^PGM 4x3 Grayscale}
+    _(image.info).must_equal "PGM 4x3 Grayscale"
     _(image.maxgray).must_equal 250
     _(image.comment).must_equal "Grayscale\n(with multiline comment)"
     _(image.pixels).must_equal [[  0,  50, 100, 150],
@@ -47,7 +47,7 @@ describe PNM do
     file = File.expand_path("#{@srcpath}/color_ascii.ppm")
     image = PNM.read(file)
 
-    _(image.info).must_match %r{^PPM 5x3 Color}
+    _(image.info).must_equal "PPM 5x3 Color"
     _(image.maxgray).must_equal 6
     _(image.pixels).must_equal [[[0, 6, 0], [1, 5, 1], [2, 4, 2], [3, 3, 4], [4, 2, 6]],
                                 [[1, 5, 2], [2, 4, 2], [3, 3, 2], [4, 2, 2], [5, 1, 2]],
@@ -58,7 +58,7 @@ describe PNM do
     file = File.expand_path("#{@srcpath}/bilevel_binary.pbm")
     image = PNM.read(file)
 
-    _(image.info).must_match %r{^PBM 5x6 Bilevel}
+    _(image.info).must_equal "PBM 5x6 Bilevel"
     _(image.maxgray).must_equal 1
     _(image.comment).must_equal "Bilevel"
     _(image.pixels).must_equal [[0, 0, 0, 0, 0],
@@ -73,7 +73,7 @@ describe PNM do
     file = File.expand_path("#{@srcpath}/grayscale_binary.pgm")
     image = PNM.read(file)
 
-    _(image.info).must_match %r{^PGM 4x3 Grayscale}
+    _(image.info).must_equal "PGM 4x3 Grayscale"
     _(image.maxgray).must_equal 250
     _(image.comment).must_equal "Grayscale\n(with multiline comment)"
     _(image.pixels).must_equal [[  0,  50, 100, 150],
@@ -85,7 +85,7 @@ describe PNM do
     file = File.expand_path("#{@srcpath}/color_binary.ppm")
     image = PNM.read(file)
 
-    _(image.info).must_match %r{^PPM 5x3 Color}
+    _(image.info).must_equal "PPM 5x3 Color"
     _(image.maxgray).must_equal 6
     _(image.pixels).must_equal [[[0, 6, 0], [1, 5, 1], [2, 4, 2], [3, 3, 4], [4, 2, 6]],
                                 [[1, 5, 2], [2, 4, 2], [3, 3, 2], [4, 2, 2], [5, 1, 2]],
