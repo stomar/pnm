@@ -1,9 +1,5 @@
-# Disable for Ruby < 2.2.
-Gemspec/RequiredRubyVersion:
-  Enabled: false
-
 # Align keys, separators, and values of multi-line hashes.
-Layout/AlignHash:
+Layout/HashAlignment:
   EnforcedColonStyle: table
   EnforcedHashRocketStyle: table
 
@@ -54,16 +50,12 @@ Style/FormatStringToken:
 Style/HashSyntax:
   EnforcedStyle: ruby19_no_mixed_keys
 
-# Disable for Ruby < 2.3 (no frozen string literal).
-# Allow non frozen objects assigned to constants.
-Style/MutableConstant:
-  Enabled: false
-
 # Allow parallel assignment.
 Style/ParallelAssignment:
   Enabled: false
 
 # Allow %r{} for regular expressions in test files.
+# (To avoid ambiguous regexp literal warnings.)
 Style/RegexpLiteral:
   Exclude:
     - "test/test_*.rb"
@@ -72,6 +64,19 @@ Style/RegexpLiteral:
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
-# Disable for Ruby < 2.0.
+
+##### Settings for older Ruby versions #####
+
+# Uncomment for Ruby < 2.3 (no frozen string literal).
+# Allow non frozen objects assigned to constants.
+Style/MutableConstant:
+  Enabled: false
+
+# Uncomment for Ruby < 2.2.
+Gemspec/RequiredRubyVersion:
+  Enabled: false
+
+# Uncomment for Ruby < 2.0 (no symbol arrays with %i, %I).
+# Do not enforce symbol arrays with %i, %I.
 Style/SymbolArray:
   Enabled: false
