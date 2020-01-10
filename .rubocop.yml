@@ -72,6 +72,11 @@ Style/StringLiterals:
 Style/MutableConstant:
   Enabled: false
 
+# Uncomment for Ruby < 2.3 (no Numeric#{positive?,negative?} methods).
+# Do not enforce use of numeric predicates.
+Style/NumericPredicate:
+  Enabled: false
+
 # Uncomment for Ruby < 2.2.
 Gemspec/RequiredRubyVersion:
   Enabled: false
