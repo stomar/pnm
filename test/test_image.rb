@@ -231,31 +231,31 @@ describe PNM::Image do
 
   it "can check equality of images (1)" do
     pixels = [[0, 1, 0], [1, 0, 1]]
-    bilevel  = PNM.create(pixels, comment: "image")
+    bilevel1 = PNM.create(pixels, comment: "image")
     bilevel2 = PNM.create(pixels, comment: "image")
 
-    _(bilevel2 == bilevel).must_equal true
+    _(bilevel2 == bilevel1).must_equal true
   end
 
   it "can check equality of images (2)" do
     pixels = [[0, 1, 0], [1, 0, 1]]
-    bilevel  = PNM.create(pixels, comment: "image")
+    bilevel1 = PNM.create(pixels, comment: "image")
     bilevel2 = PNM.create(pixels, comment: "other image")
 
-    _(bilevel2 == bilevel).must_equal false
+    _(bilevel2 == bilevel1).must_equal false
   end
 
   it "can check equality of images (3)" do
     pixels = [[0, 1, 0], [1, 0, 1]]
-    bilevel  = PNM.create(pixels)
+    bilevel1 = PNM.create(pixels)
     bilevel2 = PNM.create(pixels.reverse)
 
-    _(bilevel2 == bilevel).must_equal false
+    _(bilevel2 == bilevel1).must_equal false
   end
 
   it "can check equality of images (4)" do
     pixels = [[0, 1, 0], [1, 0, 1]]
-    bilevel   = PNM.create(pixels, type: :pbm)
+    bilevel = PNM.create(pixels, type: :pbm)
     graylevel = PNM.create(pixels, type: :pgm)
 
     _(graylevel == bilevel).must_equal false
@@ -263,10 +263,10 @@ describe PNM::Image do
 
   it "can check equality of images (5)" do
     pixels = [[0, 1, 2], [3, 4, 5]]
-    graylevel  = PNM.create(pixels, maxgray: 10)
+    graylevel1 = PNM.create(pixels, maxgray: 10)
     graylevel2 = PNM.create(pixels, maxgray: 255)
 
-    _(graylevel2 == graylevel).must_equal false
+    _(graylevel2 == graylevel1).must_equal false
   end
 
   it "can check equality of images (6)" do

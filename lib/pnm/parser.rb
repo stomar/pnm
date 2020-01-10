@@ -22,7 +22,7 @@ module PNM
       content = content.dup
 
       magic_number = nil
-      tokens   = []
+      tokens = []
       comments = []
 
       until magic_number
@@ -50,16 +50,16 @@ module PNM
 
       width, height, maxgray = tokens
 
-      assert_integer(width,   "width")
-      assert_integer(height,  "height")
+      assert_integer(width, "width")
+      assert_integer(height, "height")
       assert_integer(maxgray, "maxgray")  if maxgray
 
-      width   = width.to_i
-      height  = height.to_i
+      width = width.to_i
+      height = height.to_i
       maxgray = maxgray.to_i  if maxgray
 
-      assert_value(width,   "width")   {|x| x > 0 }
-      assert_value(height,  "height")  {|x| x > 0 }
+      assert_value(width, "width") {|x| x > 0 }
+      assert_value(height, "height") {|x| x > 0 }
       assert_value(maxgray, "maxgray") {|x| x > 0 && x <= 255 }  if maxgray
 
       result = {
