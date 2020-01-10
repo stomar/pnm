@@ -113,8 +113,8 @@ module PNM
                          end
 
       values_as_string.map {|value| Integer(value) }
-    rescue ::ArgumentError => error
-      raise  unless error.message.start_with?("invalid value for Integer")
+    rescue ::ArgumentError => e
+      raise  unless e.message.start_with?("invalid value for Integer")
 
       raise PNM::DataError, "invalid pixel value: Integer expected"
     end
