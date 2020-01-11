@@ -58,9 +58,9 @@ module PNM
       height = height.to_i
       maxgray = maxgray.to_i  if maxgray
 
-      assert_value(width, "width") {|x| x > 0 }
-      assert_value(height, "height") {|x| x > 0 }
-      assert_value(maxgray, "maxgray") {|x| x > 0 && x <= 255 }  if maxgray
+      assert_positive(width, "width")
+      assert_positive(height, "height")
+      assert_in_maxgray_range(maxgray)  if maxgray
 
       result = {
         magic_number: magic_number,
@@ -114,10 +114,17 @@ module PNM
       raise PNM::ParserError, msg
     end
 
-    def self.assert_value(value, name)
-      return  if yield(value)
+    def self.assert_positive(value, name)
+      return  if value > 0
 
-      msg = "invalid #{name} value - `#{value}'"
+      msg = "#{name} must be greater than 0 - `#{value}'"
+      raise PNM::ParserError, msg
+    end
+
+    def self.assert_in_maxgray_range(value)
+      return  if value > 0 && value <= 255
+
+      msg = "invalid maxgray value - `#{value}'"
       raise PNM::ParserError, msg
     end
   end
