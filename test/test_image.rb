@@ -198,9 +198,9 @@ describe PNM::Image do
   end
 
   it "can return meaningful debugging information" do
-    _(@bilevel.inspect).must_match   %r{\A#<PNM::\w+Image:0x\h+ PBM 5x6 Bilevel>\z}
-    _(@grayscale.inspect).must_match %r{\A#<PNM::\w+Image:0x\h+ PGM 4x3 Grayscale, maxgray=250>\z}
-    _(@color.inspect).must_match     %r{\A#<PNM::\w+Image:0x\h+ PPM 5x3 Color, maxgray=6>\z}
+    _(@bilevel.inspect).must_match   %r{\A#<PNM::PBMImage:0x\h+ PBM 5x6 Bilevel>\z}
+    _(@grayscale.inspect).must_match %r{\A#<PNM::PGMImage:0x\h+ PGM 4x3 Grayscale, maxgray=250>\z}
+    _(@color.inspect).must_match     %r{\A#<PNM::PPMImage:0x\h+ PPM 5x3 Color, maxgray=6>\z}
   end
 
   it "can write binary data containing CRLF" do
