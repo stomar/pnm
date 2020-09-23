@@ -100,8 +100,7 @@ Requirements
 
   - Ruby 2.7
   - Ruby 2.6, 2.5, 2.4, 2.3, 2.2, 2.1, 2.0.0,
-  - JRuby 9.2.9.0,
-  - Rubinius 2.5.2.
+  - JRuby 9.2.13.0.
 
 Documentation
 -------------
