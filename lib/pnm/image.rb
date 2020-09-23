@@ -38,19 +38,19 @@ module PNM
     # This method should be called as PNM.create.
     # See there for a description of pixel data formats
     # and available options.
-    def self.create(pixels, options = {})
+    def self.create(pixels, type: nil, maxgray: nil, comment: nil)
       assert_valid_array(pixels)
-      assert_valid_maxgray(options[:maxgray])
-      assert_valid_comment(options[:comment])
+      assert_valid_maxgray(maxgray)
+      assert_valid_comment(comment)
 
-      type = sanitize_and_assert_valid_type(options[:type])
-      type ||= detect_type(pixels, options[:maxgray])
+      type = sanitize_and_assert_valid_type(type)
+      type ||= detect_type(pixels, maxgray)
 
       # except for type detection, the maxgray option must be ignored for PBM
       maxgray = if type == :pbm
                   nil
                 else
-                  options[:maxgray]
+                  maxgray
                 end
 
       image_class = case type
@@ -62,7 +62,7 @@ module PNM
                       PPMImage
                     end
 
-      image_class.new(pixels, maxgray, options[:comment])
+      image_class.new(pixels, maxgray, comment)
     end
 
     class << self

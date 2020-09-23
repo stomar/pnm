@@ -26,11 +26,11 @@ require "pnm"
 pixels = [[ 0, 10, 20],
           [10, 20, 30]]
 
-# optional settings
-options = { maxgray: 30, comment: "Test Image" }
-
 # create the image object
-image = PNM.create(pixels, options)
+image = PNM.create(pixels)
+
+# create the image with additional optional settings
+image = PNM.create(pixels, maxgray: 30, comment: "Test Image")
 
 # retrieve some image properties
 image.info    # => "PGM 3x2 Grayscale"

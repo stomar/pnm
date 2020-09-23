@@ -34,11 +34,11 @@ require_relative "pnm/exceptions"
 #     pixels = [[ 0, 10, 20],
 #               [10, 20, 30]]
 #
-#     # optional settings
-#     options = { maxgray: 30, comment: "Test Image" }
-#
 #     # create the image object
-#     image = PNM.create(pixels, options)
+#     image = PNM.create(pixels)
+#
+#     # create the image with additional optional settings
+#     image = PNM.create(pixels, maxgray: 30, comment: "Test Image")
 #
 #     # retrieve some image properties
 #     image.info    # => "PGM 3x2 Grayscale"
@@ -143,10 +143,9 @@ module PNM
                Converter.binary2array(type, width, height, content[:data])
              end
 
-    options = { type: type, maxgray: maxgray }
-    options[:comment] = content[:comments].join("\n")  if content[:comments]
+    comment = content[:comments].join("\n")  if content[:comments]
 
-    create(pixels, options)
+    create(pixels, type: type, maxgray: maxgray, comment: comment)
   end
 
   # Creates an image from a two-dimensional array of bilevel,
@@ -162,7 +161,7 @@ module PNM
   #               corresponding to red, green, and blue (RGB);
   #               a value of 0 means that the color is turned off.
   #
-  # Optional settings that can be specified in the +options+ hash:
+  # Optional settings:
   #
   # +type+::    The type of the image (+:pbm+, +:pgm+, or +:ppm+).
   #             By explicitly setting +type+, PGM images can be
@@ -180,8 +179,8 @@ module PNM
   # +comment+:: A multiline comment string.
   #
   # Returns a PNM::Image object.
-  def self.create(pixels, options = {})
-    Image.create(pixels, options)
+  def self.create(pixels, type: nil, maxgray: nil, comment: nil)
+    Image.create(pixels, type: type, maxgray: maxgray, comment: comment)
   end
 
   # @private
