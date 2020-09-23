@@ -174,19 +174,19 @@ describe PNM::Image do
   end
 
   it "can write a bilevel image to a file, adding the extension" do
-    @bilevel.write_with_extension(@temp_path)
+    @bilevel.write(@temp_path, add_extension: true)
     _(File.binread("#{@temp_path}.pbm")).must_equal File.binread("#{@srcpath}/bilevel_binary.pbm")
     File.delete("#{@temp_path}.pbm")
   end
 
   it "can write a grayscale image to a file, adding the extension" do
-    @grayscale.write_with_extension(@temp_path, encoding: :ascii)
+    @grayscale.write(@temp_path, add_extension: true, encoding: :ascii)
     _(File.binread("#{@temp_path}.pgm")).must_equal File.binread("#{@srcpath}/grayscale_ascii.pgm")
     File.delete("#{@temp_path}.pgm")
   end
 
   it "can write a color image to a file, adding the extension" do
-    @color.write_with_extension(@temp_path, encoding: :binary)
+    @color.write(@temp_path, add_extension: true, encoding: :binary)
     _(File.binread("#{@temp_path}.ppm")).must_equal File.binread("#{@srcpath}/color_binary.ppm")
     File.delete("#{@temp_path}.ppm")
   end

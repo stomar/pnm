@@ -56,7 +56,7 @@ require_relative "pnm/exceptions"
 # Write an image to a file:
 #
 #     image.write("test.pgm")
-#     image.write_with_extension("test")  # adds the correct file extension
+#     image.write("test", add_extension: true)  # adds the appropriate file extension
 #
 #     # use ASCII or "plain" format (default is :binary)
 #     image.write("test.pgm", encoding: :ascii)

@@ -89,11 +89,15 @@ module PNM
 
     # Writes the image to +file+ (a filename or an IO object).
     #
+    # When +add_extension+ is set to +true+ (default: +false+)
+    # the appropriate file extension is added to the provided filename
+    # (+.pbm+, +.pgm+, or +.ppm+).
+    #
     # The encoding can be set using the +encoding+ keyword argument,
     # valid options are +:binary+ (default) and +:ascii+.
     #
     # Returns the number of bytes written.
-    def write(file, encoding: :binary)
+    def write(file, add_extension: false, encoding: :binary)
       content = if encoding == :ascii
                   to_ascii
                 elsif encoding == :binary
@@ -101,7 +105,8 @@ module PNM
                 end
 
       if file.is_a?(String)
-        File.binwrite(file, content)
+        filename = add_extension ? "#{file}.#{type}" : file
+        File.binwrite(filename, content)
       else
         file.binmode
         file.write content
@@ -114,7 +119,7 @@ module PNM
     #
     # See #write for available options.
     def write_with_extension(basename, encoding: :binary)
-      write("#{basename}.#{type}", encoding: encoding)
+      write(basename, add_extension: true, encoding: encoding)
     end
 
     # Returns a string with a short image format description.
