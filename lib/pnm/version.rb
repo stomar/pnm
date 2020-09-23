@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 module PNM
-  VERSION = "0.5.3"
-  DATE    = "2020-01-19"
+  VERSION = "0.6.0"
+  DATE    = "2020-09-23"
 end
