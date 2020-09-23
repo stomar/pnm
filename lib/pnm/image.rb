@@ -113,15 +113,6 @@ module PNM
       end
     end
 
-    # Adds the appropriate file extension to +basename+
-    # (+.pbm+, +.pgm+, or +.ppm+)
-    # and writes the image to the resulting filename.
-    #
-    # See #write for available options.
-    def write_with_extension(basename, encoding: :binary)
-      write(basename, add_extension: true, encoding: encoding)
-    end
-
     # Returns a string with a short image format description.
     def info
       "#{type.to_s.upcase} #{width}x#{height} #{type_string}"
