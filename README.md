@@ -52,8 +52,8 @@ Write an image to a file:
 image.write("test.pgm")
 image.write_with_extension("test")  # adds the correct file extension
 
-# use ASCII or "plain" format (default is binary)
-image.write("test.pgm", :ascii)
+# use ASCII or "plain" format (default is :binary)
+image.write("test.pgm", encoding: :ascii)
 
 # write to an I/O stream
 File.open("test.pgm", "w") {|f| image.write(f) }

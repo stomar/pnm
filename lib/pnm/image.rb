@@ -87,12 +87,13 @@ module PNM
       @comment.freeze
     end
 
-    # Writes the image to +file+ (a filename or an IO object),
-    # using the specified encoding.
-    # Valid encodings are +:binary+ (default) and +:ascii+.
+    # Writes the image to +file+ (a filename or an IO object).
+    #
+    # The encoding can be set using the +encoding+ keyword argument,
+    # valid options are +:binary+ (default) and +:ascii+.
     #
     # Returns the number of bytes written.
-    def write(file, encoding = :binary)
+    def write(file, encoding: :binary)
       content = if encoding == :ascii
                   to_ascii
                 elsif encoding == :binary
@@ -111,9 +112,9 @@ module PNM
     # (+.pbm+, +.pgm+, or +.ppm+)
     # and writes the image to the resulting filename.
     #
-    # Any options are passed on to #write, which is used internally.
-    def write_with_extension(basename, *args)
-      write("#{basename}.#{type}", *args)
+    # See #write for available options.
+    def write_with_extension(basename, encoding: :binary)
+      write("#{basename}.#{type}", encoding: encoding)
     end
 
     # Returns a string with a short image format description.

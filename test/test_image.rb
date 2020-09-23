@@ -132,43 +132,43 @@ describe PNM::Image do
   end
 
   it "can write a bilevel image to an ASCII encoded file" do
-    @bilevel.write(@temp_path, :ascii)
+    @bilevel.write(@temp_path, encoding: :ascii)
     _(File.binread(@temp_path)).must_equal File.binread("#{@srcpath}/bilevel_ascii.pbm")
     File.delete(@temp_path)
   end
 
   it "can write a bilevel image (width 5) to a binary encoded file" do
-    @bilevel.write(@temp_path, :binary)
+    @bilevel.write(@temp_path, encoding: :binary)
     _(File.binread(@temp_path)).must_equal File.binread("#{@srcpath}/bilevel_binary.pbm")
     File.delete(@temp_path)
   end
 
   it "can write a bilevel image (width 16) to a binary encoded file" do
-    @bilevel2.write(@temp_path, :binary)
+    @bilevel2.write(@temp_path, encoding: :binary)
     _(File.binread(@temp_path)).must_equal File.binread("#{@srcpath}/bilevel_2_binary.pbm")
     File.delete(@temp_path)
   end
 
   it "can write a grayscale image to an ASCII encoded file" do
-    @grayscale.write(@temp_path, :ascii)
+    @grayscale.write(@temp_path, encoding: :ascii)
     _(File.binread(@temp_path)).must_equal File.binread("#{@srcpath}/grayscale_ascii.pgm")
     File.delete(@temp_path)
   end
 
   it "can write a grayscale image to a binary encoded file" do
-    @grayscale.write(@temp_path, :binary)
+    @grayscale.write(@temp_path, encoding: :binary)
     _(File.binread(@temp_path)).must_equal File.binread("#{@srcpath}/grayscale_binary.pgm")
     File.delete(@temp_path)
   end
 
   it "can write a color image to an ASCII encoded file" do
-    @color.write(@temp_path, :ascii)
+    @color.write(@temp_path, encoding: :ascii)
     _(File.binread(@temp_path)).must_equal File.binread("#{@srcpath}/color_ascii.ppm")
     File.delete(@temp_path)
   end
 
   it "can write a color image to a binary encoded file" do
-    @color.write(@temp_path, :binary)
+    @color.write(@temp_path, encoding: :binary)
     _(File.binread(@temp_path)).must_equal File.binread("#{@srcpath}/color_binary.ppm")
     File.delete(@temp_path)
   end
@@ -180,13 +180,13 @@ describe PNM::Image do
   end
 
   it "can write a grayscale image to a file, adding the extension" do
-    @grayscale.write_with_extension(@temp_path, :ascii)
+    @grayscale.write_with_extension(@temp_path, encoding: :ascii)
     _(File.binread("#{@temp_path}.pgm")).must_equal File.binread("#{@srcpath}/grayscale_ascii.pgm")
     File.delete("#{@temp_path}.pgm")
   end
 
   it "can write a color image to a file, adding the extension" do
-    @color.write_with_extension(@temp_path, :binary)
+    @color.write_with_extension(@temp_path, encoding: :binary)
     _(File.binread("#{@temp_path}.ppm")).must_equal File.binread("#{@srcpath}/color_binary.ppm")
     File.delete("#{@temp_path}.ppm")
   end
@@ -204,27 +204,27 @@ describe PNM::Image do
   end
 
   it "can write binary data containing CRLF" do
-    @grayscale_crlf.write(@temp_path, :binary)
+    @grayscale_crlf.write(@temp_path, encoding: :binary)
     _(File.binread(@temp_path)).must_equal File.binread("#{@srcpath}/grayscale_binary_crlf.pgm")
     File.delete(@temp_path)
   end
 
   it "can write binary data containing CRLF to an I/O stream" do
-    File.open(@temp_path, "w") {|f| @grayscale_crlf.write(f, :binary) }
+    File.open(@temp_path, "w") {|f| @grayscale_crlf.write(f, encoding: :binary) }
     _(File.binread(@temp_path)).must_equal File.binread("#{@srcpath}/grayscale_binary_crlf.pgm")
     File.delete(@temp_path)
   end
 
   it "can write zero-length comments" do
     comment = ""
-    PNM.create([[0, 0]], comment: comment).write(@temp_path, :ascii)
+    PNM.create([[0, 0]], comment: comment).write(@temp_path, encoding: :ascii)
     _(File.binread(@temp_path)).must_equal "P1\n#\n2 1\n0 0\n"
     File.delete(@temp_path)
   end
 
   it "can write comments with trailing zero-length line" do
     comment = "An empty line:\n"
-    PNM.create([[0, 0]], comment: comment).write(@temp_path, :ascii)
+    PNM.create([[0, 0]], comment: comment).write(@temp_path, encoding: :ascii)
     _(File.binread(@temp_path)).must_equal "P1\n# An empty line:\n#\n2 1\n0 0\n"
     File.delete(@temp_path)
   end
