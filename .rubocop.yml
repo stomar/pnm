@@ -80,8 +80,3 @@ Style/NumericPredicate:
 # Uncomment for Ruby < 2.2.
 Gemspec/RequiredRubyVersion:
   Enabled: false
-
-# Uncomment for Ruby < 2.0 (no symbol arrays with %i, %I).
-# Do not enforce symbol arrays with %i, %I.
-Style/SymbolArray:
-  Enabled: false
