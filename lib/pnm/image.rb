@@ -205,7 +205,7 @@ module PNM
 
       type = type.to_sym  if type.is_a?(String)
 
-      unless [:pbm, :pgm, :ppm].include?(type)
+      unless %i[pbm pgm ppm].include?(type)
         msg = "invalid image type - #{type.inspect}"
         raise PNM::ArgumentError, msg
       end

@@ -121,17 +121,17 @@ module PNM
 
     type, encoding = case content[:magic_number]
                      when "P1"
-                       [:pbm, :ascii]
+                       %i[pbm ascii]
                      when "P2"
-                       [:pgm, :ascii]
+                       %i[pgm ascii]
                      when "P3"
-                       [:ppm, :ascii]
+                       %i[ppm ascii]
                      when "P4"
-                       [:pbm, :binary]
+                       %i[pbm binary]
                      when "P5"
-                       [:pgm, :binary]
+                       %i[pgm binary]
                      when "P6"
-                       [:ppm, :binary]
+                       %i[ppm binary]
                      end
 
     width   = content[:width]
