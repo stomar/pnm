@@ -42,6 +42,10 @@ Layout/SpaceInsideArrayLiteralBrackets:
 Metrics:
   Enabled: false
 
+# Use %Q() instead of %() for string percent literals.
+Style/BarePercentLiterals:
+  EnforcedStyle: percent_q
+
 # Do not enforce a specific string formatting method.
 Style/FormatString:
   Enabled: false
