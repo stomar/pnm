@@ -55,8 +55,10 @@ Style/FormatStringToken:
   Enabled: false
 
 # Use Ruby 1.9 hash syntax.
+# Do not allow the hash value shorthand syntax of Ruby 3.1.
 Style/HashSyntax:
   EnforcedStyle: ruby19_no_mixed_keys
+  EnforcedShorthandSyntax: never
 
 # Allow parallel assignment.
 Style/ParallelAssignment:
