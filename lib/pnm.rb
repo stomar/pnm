@@ -119,20 +119,7 @@ module PNM
 
     content = Parser.parse(raw_data)
 
-    type, encoding = case content[:magic_number]
-                     when "P1"
-                       %i[pbm ascii]
-                     when "P2"
-                       %i[pgm ascii]
-                     when "P3"
-                       %i[ppm ascii]
-                     when "P4"
-                       %i[pbm binary]
-                     when "P5"
-                       %i[pgm binary]
-                     when "P6"
-                       %i[ppm binary]
-                     end
+    type, encoding = type_and_encoding[content[:magic_number]]
 
     width   = content[:width]
     height  = content[:height]
@@ -189,6 +176,18 @@ module PNM
       pbm: { ascii: "P1", binary: "P4" },
       pgm: { ascii: "P2", binary: "P5" },
       ppm: { ascii: "P3", binary: "P6" }
+    }
+  end
+
+  # @private
+  def self.type_and_encoding  # :nodoc:
+    {
+      "P1" => %i[pbm ascii],
+      "P2" => %i[pgm ascii],
+      "P3" => %i[ppm ascii],
+      "P4" => %i[pbm binary],
+      "P5" => %i[pgm binary],
+      "P6" => %i[ppm binary]
     }
   end
 end
