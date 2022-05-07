@@ -290,7 +290,6 @@ module PNM
     end
   end
 
-
   # Class for +PBM+ images. See the Image class for documentation.
   class PBMImage < Image
 
@@ -321,7 +320,6 @@ module PNM
     end
   end
 
-
   # Class for +PGM+ images. See the Image class for documentation.
   class PGMImage < Image
 
@@ -351,7 +349,6 @@ module PNM
       header_with_maxgray(encoding)
     end
   end
-
 
   # Class for +PPM+ images. See the Image class for documentation.
   class PPMImage < Image
