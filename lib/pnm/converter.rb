@@ -11,7 +11,7 @@ module PNM
     def self.byte_width(type, width)
       case type
       when :pbm
-        (width - 1) / 8 + 1
+        ((width - 1) / 8) + 1
       when :pgm
         width
       when :ppm
