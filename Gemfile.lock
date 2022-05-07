@@ -1,0 +1,22 @@
+PATH
+  remote: .
+  specs:
+    pnm (0.6.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    minitest (5.15.0)
+    rake (13.0.6)
+
+PLATFORMS
+  ruby
+  x86_64-linux
+
+DEPENDENCIES
+  minitest (>= 5.0)
+  pnm!
+  rake (>= 10.0)
+
+BUNDLED WITH
+   2.3.7
