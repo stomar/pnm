@@ -73,6 +73,11 @@ Style/StringLiterals:
 
 ##### Settings for older Ruby versions #####
 
+# Uncomment for Ruby < 2.4 (no String#unpack1).
+# Allow use of unpack(...).first instead of unpack1.
+Style/UnpackFirst:
+  Enabled: false
+
 # Uncomment for Ruby < 2.3 (no frozen string literal).
 # Allow non frozen objects assigned to constants.
 Style/MutableConstant:
