@@ -1,3 +1,7 @@
+# Enable all new cops.
+AllCops:
+  NewCops: enable
+
 # Align keys, separators, and values of multi-line hashes.
 Layout/HashAlignment:
   EnforcedColonStyle: table
