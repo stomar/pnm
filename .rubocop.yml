@@ -54,6 +54,12 @@ Style/HashSyntax:
 Style/ParallelAssignment:
   Enabled: false
 
+# Allow redundant assignment before returning.
+# (Used here for intention revealing variables.)
+Style/RedundantAssignment:
+  Exclude:
+    - lib/pnm/converter.rb
+
 # Allow %r{} for regular expressions in test files.
 # (To avoid ambiguous regexp literal warnings.)
 Style/RegexpLiteral:
