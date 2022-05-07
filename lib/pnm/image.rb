@@ -47,11 +47,7 @@ module PNM
       type ||= detect_type(pixels, maxgray)
 
       # except for type detection, the maxgray option must be ignored for PBM
-      maxgray = if type == :pbm
-                  nil
-                else
-                  maxgray
-                end
+      maxgray = nil  if type == :pbm
 
       image_class = case type
                     when :pbm
