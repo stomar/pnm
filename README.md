@@ -116,7 +116,7 @@ Report bugs on the PNM home page: <https://github.com/stomar/pnm/>
 License
 -------
 
-Copyright &copy; 2013-2020 Marcus Stollsteimer
+Copyright &copy; 2013-2022 Marcus Stollsteimer
 
 `PNM` is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License version 3 or later (GPLv3+),

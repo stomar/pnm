@@ -3,7 +3,7 @@
 
 # bm_converter.rb: Benchmarks for the PNM library.
 #
-# Copyright (C) 2013-2020 Marcus Stollsteimer
+# Copyright (C) 2013-2022 Marcus Stollsteimer
 
 require "benchmark"
 require_relative "../lib/pnm"
