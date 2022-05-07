@@ -107,7 +107,7 @@ module PNM
 
     def self.convert_to_integers(data, type)
       values_as_string = if type == :pbm
-                           data.gsub(/[ \t\r\n]+/, "").split("")
+                           data.gsub(/[ \t\r\n]+/, "").chars
                          else
                            data.gsub(/\A[ \t\r\n]+/, "").split(/[ \t\r\n]+/)
                          end
