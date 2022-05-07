@@ -98,9 +98,10 @@ module PNM
     #
     # Returns the number of bytes written.
     def write(file, add_extension: false, encoding: :binary)
-      content = if encoding == :ascii
+      content = case encoding
+                when :ascii
                   to_ascii
-                elsif encoding == :binary
+                when :binary
                   to_binary
                 end
 
