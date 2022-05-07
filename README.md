@@ -1,6 +1,8 @@
 PNM - A Ruby library for PNM image files (PBM, PGM, PPM)
 ========================================================
 
+![CI](https://github.com/stomar/pnm/actions/workflows/ci.yml/badge.svg)
+
 PNM is a pure [Ruby][Ruby] library for creating, reading,
 and writing of `PNM` image files (Portable Anymap):
 
