@@ -26,6 +26,9 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
+    env:
+      BUNDLE_WITHOUT: linter
+
     steps:
       - name: Dump environment
         run: env | sort
