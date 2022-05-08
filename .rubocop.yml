@@ -2,6 +2,14 @@
 AllCops:
   NewCops: enable
 
+# Allow setting of date in gemspec.
+Gemspec/DateAssignment:
+  Enabled: false
+
+# Do not require multi-factor authentication for RubyGems.
+Gemspec/RequireMFA:
+  Enabled: false
+
 # Align keys, separators, and values of multi-line hashes.
 Layout/HashAlignment:
   EnforcedColonStyle: table
@@ -53,6 +61,11 @@ Style/FormatString:
 # Allow unnamed format string tokens.
 Style/FormatStringToken:
   Enabled: false
+
+# Allow missing frozen string literal comment in Gemfile.
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - Gemfile
 
 # Use Ruby 1.9 hash syntax.
 # Do not allow the hash value shorthand syntax of Ruby 3.1.
