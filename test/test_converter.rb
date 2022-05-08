@@ -136,9 +136,10 @@ describe PNM::Converter do
   it "accepts an additional whitespace character for binary encoded data" do
     width    = @pbm14[:width]
     height   = @pbm14[:height]
-    data     = @pbm14[:binary] + "\t"
+    data     = @pbm14[:binary].dup << "\t"
     expected = @pbm14[:array]
 
+    refute_equal data, @pbm14[:binary]
     _(@converter.binary2array(:pbm, width, height, data)).must_equal expected
   end
 
