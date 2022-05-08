@@ -114,3 +114,8 @@ Style/NumericPredicate:
 # For Ruby <= 2.1.
 Gemspec/RequiredRubyVersion:
   Enabled: false
+
+# For Ruby <= 2.0 (include is a private method).
+# Allow use of send(:include, ...).
+Lint/SendWithMixinArgument:
+  Enabled: false
