@@ -1,0 +1,4 @@
+# Disable conversion of line endings for all files,
+# similar to the core.autocrlf=false configuration setting.
+# Prevents test failures on Windows due to converted test image files.
+* -text
