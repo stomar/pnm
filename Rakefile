@@ -2,7 +2,7 @@
 
 # rakefile for the PNM library.
 #
-# Copyright (C) 2013-2022 Marcus Stollsteimer
+# Copyright (C) 2013-2023 Marcus Stollsteimer
 
 require "rake/testtask"
 

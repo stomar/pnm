@@ -87,7 +87,7 @@ require_relative "pnm/exceptions"
 #
 # == Author
 #
-# Copyright (C) 2013-2022 Marcus Stollsteimer
+# Copyright (C) 2013-2023 Marcus Stollsteimer
 #
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 #
@@ -98,7 +98,7 @@ module PNM
   TAGLINE  = "create/read/write PNM image files (PBM, PGM, PPM)"
 
   COPYRIGHT = <<-TEXT.gsub(/^ +/, "")
-    Copyright (C) 2013-2022 Marcus Stollsteimer.
+    Copyright (C) 2013-2023 Marcus Stollsteimer.
     License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
     This is free software: you are free to change and redistribute it.
     There is NO WARRANTY, to the extent permitted by law.
