@@ -93,6 +93,10 @@ Style/RegexpLiteral:
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
+# Allow expressions like '2 * x'.
+Style/YodaExpression:
+  Enabled: false
+
 
 ##### Settings for older Ruby versions #####
 
