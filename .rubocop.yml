@@ -3,7 +3,7 @@ AllCops:
   NewCops: enable
 
 # Allow setting of date in gemspec.
-Gemspec/DateAssignment:
+Gemspec/DeprecatedAttributeAssignment:
   Enabled: false
 
 # Do not require multi-factor authentication for RubyGems.
