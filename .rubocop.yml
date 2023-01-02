@@ -96,6 +96,10 @@ Style/StringLiterals:
 
 ##### Settings for older Ruby versions #####
 
+# For Ruby <= 2.5.
+Gemspec/RequiredRubyVersion:
+  Enabled: false
+
 # For Ruby <= 2.3 (no String#unpack1).
 # Allow use of unpack(...).first instead of unpack1.
 Style/UnpackFirst:
@@ -109,10 +113,6 @@ Style/MutableConstant:
 # For Ruby <= 2.2 (no Numeric#{positive?,negative?} methods).
 # Do not enforce use of numeric predicates.
 Style/NumericPredicate:
-  Enabled: false
-
-# For Ruby <= 2.1.
-Gemspec/RequiredRubyVersion:
   Enabled: false
 
 # For Ruby <= 2.0 (include is a private method).
