@@ -15,5 +15,5 @@ end
 
 if Gem.loaded_specs["minitest"].version < Gem::Version.new("5.6.0")
   warn "Using workaround for missing value wrappers in minitest < 5.6.0."
-  MiniTest::Spec.send(:include, PNM::Backports::Minitest)
+  Minitest::Spec.send(:include, PNM::Backports::Minitest)
 end
