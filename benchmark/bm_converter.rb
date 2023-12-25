@@ -1,10 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-# bm_converter.rb: Benchmarks for the PNM library.
-#
-# Copyright (C) 2013-2023 Marcus Stollsteimer
-
 require "benchmark"
 require_relative "../lib/pnm"
 

@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-# test_exceptions.rb: Unit tests for the PNM library.
-#
-# Copyright (C) 2013-2023 Marcus Stollsteimer
-
 require "minitest/autorun"
 require "stringio"
 require "pnm"

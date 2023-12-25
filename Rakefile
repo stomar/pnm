@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-# rakefile for the PNM library.
-#
-# Copyright (C) 2013-2023 Marcus Stollsteimer
-
 require "rake/testtask"
 
 require_relative "lib/pnm"
