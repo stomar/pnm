@@ -258,7 +258,7 @@ module PNM
       return [""]  if comment.empty?
 
       keep_trailing_null_fields = -1  # magic value for split limit
-      comment.split(/\n/, keep_trailing_null_fields)
+      comment.split("\n", keep_trailing_null_fields)
     end
 
     def to_ascii  # :nodoc:
