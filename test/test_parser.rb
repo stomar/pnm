@@ -13,7 +13,7 @@ describe PNM::Parser do
   end
 
   it "can parse ASCII encoded PBM data" do
-    content = <<-PBM.chomp.gsub(/^ */, "")
+    content = <<~PBM.chomp
       P1 6 2
       0 1 0 0 1 1
       0 0 0 1 1 1
@@ -29,7 +29,7 @@ describe PNM::Parser do
   end
 
   it "can parse ASCII encoded PGM data" do
-    content = <<-PGM.chomp.gsub(/^ */, "")
+    content = <<~PGM.chomp
       P2 4 2 100
       10 20 30 40
       50 60 70 80
@@ -94,7 +94,7 @@ describe PNM::Parser do
   end
 
   it "can parse comments" do
-    content = <<-PBM.chomp.gsub(/^ */, "")
+    content = <<~PBM.chomp
       # Comment 1
       P1  # Comment 2
       6# Comment 3

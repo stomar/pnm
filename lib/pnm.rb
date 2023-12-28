@@ -97,7 +97,7 @@ module PNM
   HOMEPAGE = "https://github.com/stomar/pnm"
   TAGLINE  = "create/read/write PNM image files (PBM, PGM, PPM)"
 
-  COPYRIGHT = <<-TEXT.gsub(/^ +/, "")
+  COPYRIGHT = <<~TEXT
     Copyright (C) 2013-2023 Marcus Stollsteimer.
     License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>.
     This is free software: you are free to change and redistribute it.
