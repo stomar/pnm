@@ -98,11 +98,11 @@ Requirements
 
 - No additional Ruby gems or native libraries are needed.
 
-- PNM has been tested with
+- PNM's current version has been tested with
 
-  - Ruby 3.1, 3.0,
-  - Ruby 2.7, 2.6, 2.5, 2.4, 2.3, 2.2, 2.1, 2.0.0,
-  - JRuby 9.3.4.0.
+  - Ruby 3.3, 3.2, 3.1, 3.0,
+  - Ruby 2.7, 2.6,
+  - JRuby 9.4.5.0.
 
 Documentation
 -------------
