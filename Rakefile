@@ -21,7 +21,7 @@ end
 
 desc "Run benchmarks"
 task :benchmark do
-  Dir["benchmark/**/bm_*.rb"].each {|f| require_relative f }
+  Dir["benchmark/**/bm_*.rb"].sort.each {|f| require_relative f }
 end
 
 
