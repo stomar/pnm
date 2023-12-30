@@ -115,14 +115,14 @@ module PNM
     end
 
     def self.assert_positive(value, name)
-      return  if value > 0
+      return  if value.positive?
 
       msg = "#{name} must be greater than 0 - `#{value}'"
       raise PNM::ParserError, msg
     end
 
     def self.assert_in_maxgray_range(value)
-      return  if value > 0 && value <= 255
+      return  if value.positive? && value <= 255
 
       msg = "invalid maxgray value - `#{value}'"
       raise PNM::ParserError, msg

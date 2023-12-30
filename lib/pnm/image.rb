@@ -181,7 +181,7 @@ module PNM
 
     def self.assert_valid_maxgray(maxgray)  # :nodoc:
       return  unless maxgray
-      return  if maxgray.is_a?(Integer) && maxgray > 0 && maxgray <= 255
+      return  if maxgray.is_a?(Integer) && maxgray.positive? && maxgray <= 255
 
       msg = "invalid maxgray value - #{maxgray.inspect}"
       raise PNM::ArgumentError, msg
