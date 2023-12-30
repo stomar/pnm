@@ -60,7 +60,7 @@ module PNM
       pixel_matrix = case type
                      when :pbm
                        rows = data.scan(/.{#{bytes_per_row}}/m)
-                       rows.map {|row| row.unpack("B*").first[0, width].each_char.map(&:to_i) }
+                       rows.map {|row| row.unpack1("B*")[0, width].each_char.map(&:to_i) }
                      when :pgm
                        data.each_byte.each_slice(bytes_per_row).to_a
                      when :ppm
