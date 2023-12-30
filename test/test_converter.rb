@@ -3,8 +3,6 @@
 require "minitest/autorun"
 require "pnm/converter"
 
-require_relative "backports"
-
 
 describe PNM::Converter do
 

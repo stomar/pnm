@@ -3,8 +3,6 @@
 require "minitest/autorun"
 require "pnm"
 
-require_relative "backports"
-
 
 describe PNM::Image do
 

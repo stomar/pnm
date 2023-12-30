@@ -4,8 +4,6 @@ require "minitest/autorun"
 require "stringio"
 require "pnm"
 
-require_relative "backports"
-
 
 describe "PNM.create" do
 
