@@ -8,8 +8,8 @@ require_relative "../lib/pnm"
 class ConverterBenchmark
 
   def initialize
-    @repetitions = ARGV[0].to_i  if ARGV[0] =~ /[0-9]+/
-    @repetitions ||= 10
+    @repetitions = ENV.fetch("BM_RUNS", nil)
+    @repetitions = @repetitions =~ /\A[0-9]+\z/ ? @repetitions.to_i : 10
 
     @srcpath = File.dirname(__FILE__)
 
