@@ -29,7 +29,7 @@ module PNM
         token = next_token!(content)
 
         if token.start_with?("#")
-          comments << token.sub(/# */, "")
+          comments << strip_comment_prefix(token)
         else
           magic_number = token
         end
@@ -42,7 +42,7 @@ module PNM
         token = next_token!(content)
 
         if token.start_with?("#")
-          comments << token.sub(/# */, "")
+          comments << strip_comment_prefix(token)
         else
           tokens << token
         end
@@ -98,6 +98,10 @@ module PNM
       content.replace(rest)
 
       token
+    end
+
+    def self.strip_comment_prefix(comment)
+      comment.sub(/\A# */, "")
     end
 
     def self.assert_valid_magic_number(magic_number)
