@@ -112,7 +112,7 @@ module PNM
     end
 
     def self.assert_integer(value_string, value_name)
-      return  if value_string =~ /\A[0-9]+\z/
+      return  if value_string.match?(/\A[0-9]+\z/)
 
       msg = "#{value_name} must be an integer - `#{value_string}'"
       raise PNM::ParserError, msg

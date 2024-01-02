@@ -8,8 +8,8 @@ require_relative "../lib/pnm"
 class ConverterBenchmark
 
   def initialize
-    @repetitions = ENV.fetch("BM_RUNS", nil)
-    @repetitions = @repetitions =~ /\A[0-9]+\z/ ? @repetitions.to_i : 10
+    @repetitions = ENV.fetch("BM_RUNS", "")
+    @repetitions = @repetitions.match?(/\A[0-9]+\z/) ? @repetitions.to_i : 10
 
     @srcpath = File.dirname(__FILE__)
 

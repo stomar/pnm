@@ -53,7 +53,7 @@ module PNM
       bytes_per_row = byte_width(type, width)
       expected_size = bytes_per_row * height
 
-      data.slice!(-1)  if data.size == expected_size + 1 && data[-1] =~ /[ \t\r\n]/
+      data.slice!(-1)  if data.size == expected_size + 1 && data[-1].match?(/[ \t\r\n]/)
 
       assert_data_size(data.size, expected_size)
 
