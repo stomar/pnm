@@ -29,7 +29,7 @@ module PNM
         token = next_token!(content)
 
         if token.start_with?("#")
-          comments << token.gsub(/# */, "")
+          comments << token.sub(/# */, "")
         else
           magic_number = token
         end
@@ -38,11 +38,11 @@ module PNM
       assert_valid_magic_number(magic_number)
 
       while tokens.size < token_number[magic_number]
-        content.gsub!(/\A[ \t\r\n]+/, "")
+        content.sub!(/\A[ \t\r\n]+/, "")
         token = next_token!(content)
 
         if token.start_with?("#")
-          comments << token.gsub(/# */, "")
+          comments << token.sub(/# */, "")
         else
           tokens << token
         end

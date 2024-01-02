@@ -109,7 +109,7 @@ module PNM
       values_as_string = if type == :pbm
                            data.gsub(/[ \t\r\n]+/, "").chars
                          else
-                           data.gsub(/\A[ \t\r\n]+/, "").split(/[ \t\r\n]+/)
+                           data.sub(/\A[ \t\r\n]+/, "").split(/[ \t\r\n]+/)
                          end
 
       values_as_string.map {|value| Integer(value) }

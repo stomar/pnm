@@ -113,4 +113,25 @@ describe PNM::Parser do
 
     _(@parser.parse(content)).must_equal expected
   end
+
+  it "can parse a comment containing a # character" do
+    content = <<~PBM.chomp
+      # Comment 1 with # character
+      P1
+      # Comment 2: '#   foo' is a comment
+      3
+      2
+      0 1 0
+      1 0 1
+    PBM
+    expected = {
+      magic_number: "P1",
+      width:        3,
+      height:       2,
+      comments:     ["Comment 1 with # character", "Comment 2: '#   foo' is a comment"],
+      data:         "0 1 0\n1 0 1"
+    }
+
+    _(@parser.parse(content)).must_equal expected
+  end
 end
