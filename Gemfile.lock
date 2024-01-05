@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    pnm (0.6.1)
+    pnm (0.7.0)
 
 GEM
   remote: https://rubygems.org/
